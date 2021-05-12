@@ -1,0 +1,4 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow:
+{% comment %} prevents bots to access the website {% endcomment %}

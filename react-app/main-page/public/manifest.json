@@ -1,0 +1,9 @@
+{
+  "short_name": "ICS Online Library",
+  "name": "CMSC 128 C-4L - ICS Online Library",
+  "icons": [ ], 
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
