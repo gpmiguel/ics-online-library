@@ -1,12 +1,12 @@
 import './css/main.css';
+import Webpages from './webpages';
 
 //COMPONENTS
-import MainPage from './components/main-page/main-page';
 
 function App() {
   return (
     <div className="App">
-      <MainPage />
+      <Webpages />
     </div>
   );
 }

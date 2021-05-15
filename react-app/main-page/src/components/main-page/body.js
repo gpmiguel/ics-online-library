@@ -1,4 +1,5 @@
 import React, { Component } from "react"; 
+import backgroundImage from '../../img/main-bg.png';
 import '../../css/main.css';
 
 
@@ -7,11 +8,11 @@ class Body extends Component {
         return (
         <div>
 			<main style={{
-				backgroundImage: "url(../img/main-bg.png'})",
+				backgroundImage: `url(${backgroundImage})`,
 				height: '600px'}}>
 				<div className = "input-group col-md-10 main-search">
 					<div className="dropdown">
-						<h2 className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="http://localhost:3000/"> Filter &nbsp </h2>
+						<h2 className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" href="http://localhost:3000/"> Filter </h2>
 						<ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<li><a className="dropdown-item" href="https://www.google.com/">Keyword</a></li>
 							<li><a className="dropdown-item" href="https://www.google.com/">Title</a></li>

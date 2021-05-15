@@ -6,8 +6,7 @@ import Nav from './nav';
 import Body from './body';
 import Footer from './footer';
 
-class MainPage extends Component {
-  render() {
+const MainPage = () => {
     return (
      <div>
        <Nav/>
@@ -15,7 +14,6 @@ class MainPage extends Component {
        <Footer />
      </div>
     );
-  }
 }
 
 export default MainPage;
