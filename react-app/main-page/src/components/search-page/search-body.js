@@ -1,10 +1,22 @@
 import React, { useEffect } from 'react';
 import '../../css/main.css';
+import JSONDATA from './MOCK_DATA.json';
+import {useState, useRef} from 'react';
 
 const SearchPageBody = () => {
     useEffect(() => {
         document.title = 'Search Page';
     });
+
+    {/*by using the 'setTerm' fxn, 'term' will be assigned the string in the search bar, obtained through 'searchForm'*/}
+	const [term, setTerm] = useState("");
+	const searchForm = useRef(null);
+
+	{/*when the 'search button' is clicked, the string in the search bar (searchTerm) will be assigned to 'term'*/}
+    const handleClickEvent = () => {
+		const form = searchForm.current;
+		setTerm(`${form['searchTerm'].value}`)
+	};
 
     return (
         <div className="container">
@@ -35,8 +47,22 @@ const SearchPageBody = () => {
 						<li><a className="dropdown-item" href="#">Subject</a></li>
 					  </ul>
 					</div>
-					<input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-					<button type="button" className="btn btn-primary btn-md col-md-2">search</button>
+					<form ref={searchForm}>
+						<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
+					</form> 
+					<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
+					{JSONDATA.filter((val)=>{
+					if(term==""){
+						return val;
+					}
+					/*only checks the first_name of the mock data as of now*/
+					else if(val.first_name.toLowerCase().includes(term.toLowerCase())){
+						return val;
+					}
+					{/*displays the first name and last name of the mock data as of now*/}
+					}).map((val, key)=>{
+						return <div><p>{val.first_name} {val.last_name}</p></div>
+					})};
 				</div>
 			  </div>
 			</div>
