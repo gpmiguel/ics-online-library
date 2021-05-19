@@ -23,6 +23,14 @@ footer{
 	background-color: #e7d00c !important;
 	border-color: #e7d00c !important;
 }
+/*blue button*/
+.btn-blue{ 
+	font-family: Helvetica;
+	font-weight: bold;
+	color: #393e46 !important; /*!important overrides bootstrap style*/
+	background-color: #28cecb !important;
+	border-color: #28cecb !important;
+}
 
 .filter{
 	font-family: Helvetica;
@@ -35,3 +43,4 @@ footer{
 	top:  50%;
 	width: 65%;
 }
+

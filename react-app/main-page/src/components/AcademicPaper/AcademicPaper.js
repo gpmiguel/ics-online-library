@@ -23,7 +23,7 @@ export default function AcademicPaper() {
                 <div className="row mx-5">
                     <div className="col-1">
                     </div>
-                    <div className="col-4">
+                    <div className="col-md-5">
                         <h1 className="text-left text-warning mt-3 mb-1" style={{ fontSize: "36px" }}>Resource Title</h1>
                         <label className="text-left text-primary mt-1 mb-1" style={{ fontSize: "25px" }}>Author 1,</label>
                         <label className="text-left text-primary mt-1 mb-1" style={{ fontSize: "25px" }}>Author 2,</label>
@@ -45,6 +45,9 @@ export default function AcademicPaper() {
                             <button type="button" className="btn btn-primary btn-md mr-3" >Poster</button>
                             <button type="button" className="btn btn-primary btn-md">Source Code</button>
                         </div>
+                    </div>
+                    <div className="col-md-2">
+                        <button type="button" className="btn btn-blue btn-md col-md-14">Edit Resource</button>
                     </div>
                 </div>
             </div>
