@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../css/main.css';
+import bookpic from "../../img/photo_holder.png";
 
 import Nav from '../main-page/nav';
 import Footer from '../main-page/footer';
@@ -36,8 +37,12 @@ export default function AcademicPaper() {
                         <p>Other info: {book_details.other_info}</p>
                         <p>Abstract: {book_details.abstract}</p>
                     </div>
-                    <div className="col-4">
-                        <img src={require('../../img/photo_holder.png')} alt="Book" />
+                    <div className="col-md-4">
+                        <img src={bookpic} height="500px" width="400px" alt="Book" />
+                        <p></p>
+                        <button type="button" className="btn btn-primary btn-md ml-5 mr-1">Manuscript</button>
+                        <button type="button" className="btn btn-primary btn-md ml-1 mr-1" >Poster</button>
+                        <button type="button" className="btn btn-primary btn-md ml-1">Source Code</button>
                     </div>
                 </div>
             </div>
