@@ -1,0 +1,22 @@
+.admin-btn{
+	color: pink;
+	width: 70%;
+	margin: 10px;
+}
+
+.head-text{
+	font-family: Gotham;
+	font-weight: bold;
+	color: #e7d00c;
+}
+
+.subhead-text{
+	margin: 0 auto;
+	font-family: Helvetica;
+	font-weight: bold;
+	color: #00adb5;
+}
+
+.center{
+	text-align: center;
+}
