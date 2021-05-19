@@ -36,6 +36,9 @@ export default function AcademicPaper() {
                         <p>Other info: {book_details.other_info}</p>
                         <p>Abstract: {book_details.abstract}</p>
                     </div>
+                    <div className="col-4">
+                        <img src={require('../../img/photo_holder.png')} alt="Book" />
+                    </div>
                 </div>
             </div>
             <Footer />
