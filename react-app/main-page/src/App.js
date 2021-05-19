@@ -1,12 +1,12 @@
 import './css/main.css';
 
 //COMPONENTS
-import MainPage from './components/main-page/main-page';
+import AcademicPaper from './components/AcademicPaper/AcademicPaper';
 
 function App() {
   return (
     <div className="App">
-      <MainPage />
+      <AcademicPaper />
     </div>
   );
 }
