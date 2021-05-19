@@ -38,11 +38,13 @@ export default function AcademicPaper() {
                         <p>Abstract: {book_details.abstract}</p>
                     </div>
                     <div className="col-md-4">
-                        <img src={bookpic} height="500px" width="400px" alt="Book" />
+                        <img src={bookpic} height="500px" width="380x" alt="Book" />
                         <p></p>
-                        <button type="button" className="btn btn-primary btn-md ml-5 mr-1">Manuscript</button>
-                        <button type="button" className="btn btn-primary btn-md ml-1 mr-1" >Poster</button>
-                        <button type="button" className="btn btn-primary btn-md ml-1">Source Code</button>
+                        <div className="text-center">
+                            <button type="button" className="btn btn-primary btn-md mr-3">Manuscript</button>
+                            <button type="button" className="btn btn-primary btn-md mr-3" >Poster</button>
+                            <button type="button" className="btn btn-primary btn-md">Source Code</button>
+                        </div>
                     </div>
                 </div>
             </div>
