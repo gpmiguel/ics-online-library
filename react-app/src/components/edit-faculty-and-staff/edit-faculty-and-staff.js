@@ -53,7 +53,6 @@ const EditFacultyAndStaff = () =>{
                                       <th> #</th>
                                       <th>Last name</th>
                                       <th> First name</th>
-                                      <th>Designation</th>
                                       <th>Email</th>
                                       <th>Action
                                         {/*<button id="addNewRow" className="btn btn-primary btn-sm">Add New Row</button>*/}
@@ -65,12 +64,13 @@ const EditFacultyAndStaff = () =>{
                                     {JSONDATA.map((val, key)=>{
                                         return( 
                                             <tr key={val.id}>
-                                            <td>{val.id}</td>
+                                            <td>1</td>
                                             <td>{val.last_name}</td>
                                             <td>{val.first_name}</td>
                                             <td>{val.email}</td>
-                                            <td>{val.email}</td>
-                                            <td><button className="btn btn-primary btn-sm" onClick={ () => {openEdit(val.id);}}>Edit</button></td>
+                                            <td><button className="btn btn-primary btn-sm" onClick={ () => {openEdit(val.id);}}>Edit</button>
+                                            <button className="btn btn-secondary btn-sm">Del</button>
+                                            </td>
                                             </tr>);
                                     })
                                     };
