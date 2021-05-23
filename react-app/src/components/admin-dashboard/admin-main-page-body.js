@@ -22,12 +22,12 @@ class AdminMainPageBody extends Component{
                 <div className = "col-sm-3 center">
                     <h4 className = "subhead-text">Manage Faculty and Staff</h4><br/>
                     <button type="button" className="btn btn-primary btn-md admin-btn">Add Faculty and Staff</button> 
-                    <button type="button" className="btn btn-primary btn-md admin-btn" >Edit Faculty and Staff</button>
+                    <Link to ="/edit-faculty-and-staff"> <button type="button" className="btn btn-primary btn-md admin-btn" >Edit Faculty and Staff</button></Link>
                 </div>
                 <div className = "col-sm-3 center">
                     <h4 className = "subhead-text">Generate Reports</h4><br/>
-                    <button type="button" className="btn btn-primary btn-md admin-btn" onclick="">Summary report</button> 
-                    <button type="button" className="btn btn-primary btn-md admin-btn" onclick="">Activity report</button>
+                    <button type="button" className="btn btn-primary btn-md admin-btn" onClick="">Summary report</button> 
+                    <button type="button" className="btn btn-primary btn-md admin-btn" onClick="">Activity report</button>
                 </div>
                 <div className = "col-sm-1"></div>
             </div>

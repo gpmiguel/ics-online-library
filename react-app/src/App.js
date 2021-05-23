@@ -6,6 +6,7 @@ import MainPage from './components/main-page/main-page';
 import AdminMainPage from './components/admin-dashboard/admin-main-page';
 import AddAcademicPaper from './components/add-academic-paper/add-academic-paper';
 import AddBook from './components/add-book/add-book';
+import EditFacultyAndStaff from './components/edit-faculty-and-staff/edit-faculty-and-staff';
 import SearchPage from './components/search-page/search';
 
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/admin-dashboard" exact component={() => <AdminMainPage />} />
           <Route path="/add-academic-paper" exact component={() => <AddAcademicPaper />} />
           <Route path="/add-book" exact component={() => <AddBook />} />
+          <Route path="/edit-faculty-and-staff" exact component={() => <EditFacultyAndStaff />} />
           <Route path="/search-results" exact component={() => <SearchPage />} />
         </Switch>
       </BrowserRouter>
