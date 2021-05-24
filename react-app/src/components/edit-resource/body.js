@@ -9,7 +9,7 @@ import TagsInput from '../tagsinput/tagsinput';
 class EditBody extends Component{
     render(){
         //placeholder for resource type to be gathered from the database
-        let x = 2;
+        let x = 1;
 
         const renderEdit = () => {
             if (x == 1) {
@@ -130,7 +130,7 @@ class EditBody extends Component{
 
         return(
             <div className ="container-fluid">
-                    <Link to="/admin-dashboard"><button type="button" className ="btn btn-primary my-2">Back</button></Link>
+                    <Link to="/admin-dashboard"><button type="button" className ="btn btn-primary my-2 back-button">Back</button></Link>
                     
                     <div className ="row mx-5">
                         <div className ="col-2">
@@ -140,7 +140,10 @@ class EditBody extends Component{
                         {/* render fields */}
                         <div className="col-10">
                             {renderEdit()}
-                            <button type="button" className ="btn btn-primary mb-5">Save</button>
+                            <div className ="">
+                                <button type="button" className ="btn btn-primary btn-block save-button">Save</button>
+                                <button type="button" className ="btn btn-secondary mb-5 btn-block delete-button">Delete</button>
+                            </div>
                         </div>
                     </div>
             </div>
