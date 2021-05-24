@@ -7,6 +7,7 @@ import AdminMainPage from './components/admin-dashboard/admin-main-page';
 import AddAcademicPaper from './components/add-academic-paper/add-academic-paper';
 import AddBook from './components/add-book/add-book';
 import SearchPage from './components/search-page/search';
+import EditResourcePage from './components/edit-resource/edit-resource';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/add-academic-paper" exact component={() => <AddAcademicPaper />} />
           <Route path="/add-book" exact component={() => <AddBook />} />
           <Route path="/search-results" exact component={() => <SearchPage />} />
+          <Route path="/edit-resource" exact component={() => <EditResourcePage />} />
         </Switch>
       </BrowserRouter>
     </div>
