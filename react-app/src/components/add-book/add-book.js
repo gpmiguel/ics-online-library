@@ -37,14 +37,17 @@ const AddBook = () =>{
             alert('Please add a Title.');
             return;
         }
-        if(!bookData.author){
-            alert('Please add the Author.');
-            return;
-        }
-        if(!bookData.subject){
-            alert('Please add the Subject.');
-            return;
-        }
+
+        //uncomment if author and subject fields' TagsInput issue is resolved
+
+        // if(!bookData.author){
+        //     alert('Please add the Author.');
+        //     return;
+        // }
+        // if(!bookData.subject){
+        //     alert('Please add the Subject.');
+        //     return;
+        // }
         if(!bookData.yearPublished){
             alert('Please add the Year Published.');
             return;
@@ -114,11 +117,16 @@ const AddBook = () =>{
                                 <input type="text" name="title" onChange={onChange} className="form-control" id="bookTitleFormInput"/>
                                 {/* ask about why tagsinput */}
                                 <label className="form-label mt-3">Author</label>
+                                <TagsInput/>
+
+                                <label className="form-label mt-3">Subject</label>
+                                <TagsInput/>                                
+{/*                                <label className="form-label mt-3">Author</label>
                                 <input type="text" name="author" onChange={onChange} className="form-control" id="bookTitleFormInput"/>
 
                                 <label className="form-label mt-3">Subject</label>
                                 <input type="text" name="subject" onChange={onChange} className="form-control" id="bookTitleFormInput"/>
-
+*/}
                                 <label for="yearpublishedFormInput" className="form-label mt-3">Year Published</label>
                                 <input type="text" name="yearPublished" onChange={onChange} className="form-control" id="yearpublishedFormInput"/>
                                 
