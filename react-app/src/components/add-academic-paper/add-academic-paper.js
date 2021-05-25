@@ -9,6 +9,51 @@ import AdminSidebar from '../adminsidebar/adminsidebar.js';
 import TagsInput from '../tagsinput/tagsinput';
 
 class AddAcademicPaper extends Component{
+ 
+    /*constructor for this class */
+    constructor(props){
+        super(props);
+
+        this.state = {
+            _id: '',
+            title: '',
+            author:[],
+            subject:[],
+            year: 0,
+            pagecount: 0,
+            resourcetype: '',
+            degreetype: '',
+            institution: '',
+            adviser:[],
+            keyword:'',
+            manuscript: '',
+            abstract: '',
+            journal: '',
+            poster: '',
+            sourcecode: '',
+            displayimage: ''
+        }
+
+        /*bind to avoid errors */
+        this.onValueChange = this.onValueChange.bind(this);
+        this.onSave = this.onSave.bind(this);
+    }
+
+    /*Note: only accepts input on basic input fields */
+
+    /* method in accepting inputs in input fields*/
+    onValueChange(e){
+        this.setState({
+            [e.target.dataset.name]: e.target.value
+        })
+    }
+
+    /* method on save button */
+    onSave(e){
+        e.preventDefault(); 
+        console.log(this.state);
+    }
+
     render(){
         return(
              <div>
@@ -22,38 +67,40 @@ class AddAcademicPaper extends Component{
                         </div>
                     
                         {/* acad paper fields */}
-                        <div className="col-10">
+                        
+                        <div className="col-10" >
+                        <form onSubmit={this.onSave}>
                             <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Academic Paper</p>
                             
                             <label for="academicPaperTitleFormInput" className="form-label">Title</label>
-                            <input type="text" className="form-control" id="academicPaperTitleFormInput"/>
+                            <input type="text" className="form-control" id="academicPaperTitleFormInput" data-name="title" required onChange={this.onValueChange}/>
 
                             <label className="form-label mt-3">Author</label>
-                            <TagsInput/>
-
+                            <TagsInput  data-name="author" required onChange={this.onValueChange}/>
+                            
                             <label className="form-label mt-3">Subject</label>
                             <TagsInput/>
 
                             <label for="yearpublishedFormInput" className="form-label mt-3">Year Published</label>
-                            <input type="text" className="form-control" id="yearpublishedFormInput"/>
+                            <input type="number" className="form-control" id="yearpublishedFormInput" data-name="year" required onChange={this.onValueChange}/>
                             
                             <label for="pagecountFormInput" className="form-label mt-3">Page Count</label>
-                            <input type="text" className="form-control" id="pagecountFormInput"/>
+                            <input type="number" className="form-control" id="pagecountFormInput" data-name="pagecount" required onChange={this.onValueChange}/>
                             
                             <label for="papertypeFormInput" className="form-label mt-3">Paper Type</label>
-                            <input type="text" className="form-control" id="papertypeFormInput"/>
+                            <input type="text" className="form-control" id="papertypeFormInput" data-name="resourcetype" required onChange={this.onValueChange}/>
 
                             <label for="degreetypeFormInput" className="form-label mt-3">Degree Type</label>
-                            <input type="text" className="form-control" id="degreetypeFormInput"/>
+                            <input type="text" className="form-control" id="degreetypeFormInput" data-name="degreetype" required onChange={this.onValueChange}/>
 
                             <label for="institutionFormInput" className="form-label mt-3">Institution</label>
-                            <input type="text" className="form-control" id="institutionFormInput"/>
+                            <input type="text" className="form-control" id="institutionFormInput" data-name="institution" required onChange={this.onValueChange}/>
                             
                             <label className="form-label mt-3">Adviser</label>
                             <TagsInput/>
 
                             <label for="academicPaperAbstract" className="form-label mt-3">Abstract</label>
-                            <textarea className="form-control" id="academicPaperAbstract" rows="6"></textarea>
+                            <textarea className="form-control" id="academicPaperAbstract" rows="6" data-name="abstract" required onChange={this.onValueChange}></textarea>
 
                             {/* file uploads */}
                             <div className="row mt-3">
@@ -85,8 +132,10 @@ class AddAcademicPaper extends Component{
                                 </div>
                             </div>
 
-                            <button type="button" className ="btn btn-primary mb-5">Save</button>
+                            <button type="submit" className ="btn btn-primary mb-5">Save</button>
+                            </form>
                         </div>
+                        
                     </div>
                 </div>
                 <Footer/>
