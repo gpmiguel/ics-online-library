@@ -21,7 +21,7 @@ class AdminMainPageBody extends Component{
                 </div>
                 <div className = "col-sm-3 center">
                     <h4 className = "subhead-text">Manage Faculty and Staff</h4><br/>
-                    <button type="button" className="btn btn-primary btn-md admin-btn">Add Faculty and Staff</button> 
+                    <Link to="/add-faculty-and-staff"><button type="button" className="btn btn-primary btn-md admin-btn">Add Faculty and Staff</button></Link> 
                     <button type="button" className="btn btn-primary btn-md admin-btn" >Edit Faculty and Staff</button>
                 </div>
                 <div className = "col-sm-3 center">
