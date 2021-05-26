@@ -76,7 +76,6 @@ const EditFacultyAndStaff = () =>{
                                     };
                                   </tbody>
                                 </table>
-                            <button type="button" className ="btn btn-primary mb-5">Save</button>
                         </div>
                     </div>
                 </div>
