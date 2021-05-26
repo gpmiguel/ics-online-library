@@ -5,7 +5,16 @@ import '../../css/main.css';
 
 import ICSLogo from '../../img/ics-logo.png';
 
+const guest = {
+    name:"Anonymous Panda",
+}
+
 class Navigation extends Component {
+
+    state = {
+        current_user : {guest},
+        resources : this.props.resources
+    }
 
     responseGoogle=(res)=>{
         console.log(res);
