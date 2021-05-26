@@ -109,8 +109,8 @@ const AddBook = () =>{
                         </div>
                     
                         {/* book fields */}
+                        <div className="col-10">
                         <form onSubmit={saveBook}>
-                            <div className="col-10">
                                 <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Book</p>
                                 
                                 <label for="bookTitleFormInput" className="form-label">Title</label>
@@ -161,8 +161,8 @@ const AddBook = () =>{
                                 </div>
                                 {/*<h1>{JSON.stringify(bookData)}</h1>*/}
                                 <input type="submit" value="Save" className ="btn btn-primary mb-5" />
-                            </div>
                         </form>
+                        </div>
                     </div>
                 </div>
                 <Footer/>
