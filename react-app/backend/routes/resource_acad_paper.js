@@ -5,6 +5,8 @@ router.route('/').get((req, res)=>{
     AcademicPaper.find()
         .then(resource_acad_paper => res.json(resource_acad_paper))
         .catch(err => res.status(400).json('Error: '+err)); 
+
+    console.log(res)
 });
 
 router.route('/add').post((req, res) => {
