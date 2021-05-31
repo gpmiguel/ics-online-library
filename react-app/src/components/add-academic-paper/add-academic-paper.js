@@ -1,6 +1,8 @@
-import React, { Component } from "react"; 
+import React, { Component, useState} from "react"; 
 import { Link, withRouter } from "react-router-dom";
 import '../../css/main.css';
+import ReactTagInput from "@pathofdev/react-tag-input";
+import "@pathofdev/react-tag-input/build/index.css";
 
 //COMPONENTS
 import Nav from '../main-page/nav';
@@ -31,15 +33,14 @@ class AddAcademicPaper extends Component{
             journal: '',
             poster: '',
             sourcecode: '',
-            displayimage: ''
+            displayimage: '',
         }
 
         /*bind to avoid errors */
         this.onValueChange = this.onValueChange.bind(this);
         this.onSave = this.onSave.bind(this);
-    }
 
-    /*Note: only accepts input on basic input fields */
+    }
 
     /* method in accepting inputs in input fields*/
     onValueChange(e){
@@ -76,10 +77,10 @@ class AddAcademicPaper extends Component{
                             <input type="text" className="form-control" id="academicPaperTitleFormInput" data-name="title" required onChange={this.onValueChange}/>
 
                             <label className="form-label mt-3">Author</label>
-                            <TagsInput  data-name="author" required onChange={this.onValueChange}/>
+                            <ReactTagInput tags={this.state.author} onChange={(newTags) => this.setState({ author: newTags })}/>
                             
                             <label className="form-label mt-3">Subject</label>
-                            <TagsInput/>
+                            <ReactTagInput tags={this.state.subject} onChange={(newTags) => this.setState({ subject: newTags })}/>
 
                             <label for="yearpublishedFormInput" className="form-label mt-3">Year Published</label>
                             <input type="number" className="form-control" id="yearpublishedFormInput" data-name="year" required onChange={this.onValueChange}/>
@@ -97,7 +98,7 @@ class AddAcademicPaper extends Component{
                             <input type="text" className="form-control" id="institutionFormInput" data-name="institution" required onChange={this.onValueChange}/>
                             
                             <label className="form-label mt-3">Adviser</label>
-                            <TagsInput/>
+                            <ReactTagInput tags={this.state.adviser} onChange={(newTags) => this.setState({ adviser: newTags })}/>
 
                             <label for="academicPaperAbstract" className="form-label mt-3">Abstract</label>
                             <textarea className="form-control" id="academicPaperAbstract" rows="6" data-name="abstract" required onChange={this.onValueChange}></textarea>
