@@ -13,12 +13,17 @@ class Navigation extends Component {
 
     state = {
         current_user : {guest},
-        resources : this.props.resources
+        resources : this.props.resources,
+        loggedin: false
     }
 
     responseGoogle=(res)=>{
-        console.log(res);
-        console.log(res.profileObj);
+        // console.log(res);
+        // console.log(res.profileObj);
+        this.setState({
+            current_user: res.profileObj,
+            loggedin: true})
+        console.log(this.state)
     }
 
     render() {

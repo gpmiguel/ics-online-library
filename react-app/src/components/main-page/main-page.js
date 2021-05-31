@@ -14,12 +14,14 @@ class MainPage extends Component {
 
   componentDidMount(){
     console.log("MAIN PAGE LANDED\n");
-    // axios.get('http://localhost:3000/resources')
-    //   .then (res => {
-    //     this.setState({
-    //       resource_array : {res}
-    //     })
-    //   })
+    fetch("/").then(res=>{
+      if(res.ok){
+        this.setState({
+          resource_array: res
+        })
+      }
+    });
+    console.log(this.state);
   }
 
   render() {

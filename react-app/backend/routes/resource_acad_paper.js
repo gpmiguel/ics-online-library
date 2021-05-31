@@ -9,10 +9,9 @@ router.route('/').get((req, res)=>{
         })
         .catch(err => res.status(400).json('Error: '+err)); 
 
-    
 });
 
-router.route('/add').post((req, res) => {
+router.route('/add-academic-paper').post((req, res) => {
     const _id =  req.body._id;
     const title = req.body.title;
     const author = req.body.author;
