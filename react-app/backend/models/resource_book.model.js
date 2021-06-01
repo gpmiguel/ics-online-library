@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const academicPaperSchema = new Schema({
+const bookSchema = new Schema({
     title: {type: String},
     author:[{type: String}],
     subject:[{type: String}],
@@ -16,10 +16,10 @@ const academicPaperSchema = new Schema({
     publisher: {type: String},
     edition: {type: String},
     maincopy: {type: Object},
-    introduction: {type: String}
-    
+    introduction: {type: String},
+    displayimage: {type: Object}
 });
 
-const AcademicPaper = mongoose.model('Book', academicPaperSchema);
+const Book = mongoose.model('Book', bookSchema);
 
-module.exports = AcademicPaper;
+module.exports = Book;

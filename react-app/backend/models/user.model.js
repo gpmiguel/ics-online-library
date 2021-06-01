@@ -8,6 +8,7 @@ const userSchema =new Schema({
     lastname: {type: String},
     firstname: {type: String},
     email: {type: String},
+    usertype: {type: String},
     activityid: [{type: String}]
 })
 
