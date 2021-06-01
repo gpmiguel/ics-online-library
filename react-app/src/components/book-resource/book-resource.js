@@ -59,7 +59,10 @@ export default function BookResource() {
                     <button type="button" className="btn" style={{backgroundColor:"#00B1E1", fontFamily: "Helvetica",fontWeight: "bold", color:"#393e46"}}>Edit Resource</button>
                 </div>
             </div>
-            <Footer/>            
+            <div className="fixed-bottom">
+                <Footer />  
+            </div>
+                      
         </div>
     )
 }
