@@ -48,8 +48,67 @@ const SearchPageBody = () => {
 					}} href="#">Date Published</button></li>
 				</ul>
 
-				<span className="side-search-title"> Filter By:  </span>
-				<ul className="left-bar-container">
+				<span className="side-search-title"> Filter By: </span>
+				<div className="dropdown">
+					<a className="btn btn-secondary dropdown-toggle filter filter-arrange" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="true"> Title </a>
+					<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
+						<li><a className="dropdown-item" href="#">A</a></li>
+						<li><a className="dropdown-item" href="#">B</a></li>
+						<li><a className="dropdown-item" href="#">C</a></li>
+						<li><a className="dropdown-item" href="#">D</a></li>
+						<li><a className="dropdown-item" href="#">E</a></li>
+						<li><a className="dropdown-item" href="#">F</a></li>
+						<li><a className="dropdown-item" href="#">G</a></li>
+						<li><a className="dropdown-item" href="#">H</a></li>
+						<li><a className="dropdown-item" href="#">I</a></li>
+						<li><a className="dropdown-item" href="#">J</a></li>
+						<li><a className="dropdown-item" href="#">K</a></li>
+						<li><a className="dropdown-item" href="#">L</a></li>
+						<li><a className="dropdown-item" href="#">M</a></li>
+						<li><a className="dropdown-item" href="#">N</a></li>
+						<li><a className="dropdown-item" href="#">O</a></li>
+						<li><a className="dropdown-item" href="#">P</a></li>
+						<li><a className="dropdown-item" href="#">Q</a></li>
+						<li><a className="dropdown-item" href="#">R</a></li>
+						<li><a className="dropdown-item" href="#">S</a></li>
+						<li><a className="dropdown-item" href="#">T</a></li>
+						<li><a className="dropdown-item" href="#">U</a></li>
+						<li><a className="dropdown-item" href="#">V</a></li>
+						<li><a className="dropdown-item" href="#">W</a></li>
+						<li><a className="dropdown-item" href="#">X</a></li>
+						<li><a className="dropdown-item" href="#">Y</a></li>
+						<li><a className="dropdown-item" href="#">Z</a></li>
+					</ul>
+					<a className="btn btn-secondary dropdown-toggle filter filter-arrange" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="true"> Year </a>
+					<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
+						<li><a className="dropdown-item" href="#">2021</a></li>
+						<li><a className="dropdown-item" href="#">2020</a></li>
+						<li><a className="dropdown-item" href="#">2019</a></li>
+						<li><a className="dropdown-item" href="#">2018</a></li>
+						<li><a className="dropdown-item" href="#">2017</a></li>
+						<li><a className="dropdown-item" href="#">2016</a></li>
+						<li><a className="dropdown-item" href="#">2015</a></li>
+						<li><a className="dropdown-item" href="#">2014</a></li>
+						<li><a className="dropdown-item" href="#">2013</a></li>
+						<li><a className="dropdown-item" href="#">2012</a></li>
+						<li><a className="dropdown-item" href="#">2011</a></li>
+						<li><a className="dropdown-item" href="#">2010</a></li>
+						<li><a className="dropdown-item" href="#">2009</a></li>
+						<li><a className="dropdown-item" href="#">2008</a></li>
+						<li><a className="dropdown-item" href="#">2007</a></li>
+						<li><a className="dropdown-item" href="#">2006</a></li>
+						<li><a className="dropdown-item" href="#">2005</a></li>
+						<li><a className="dropdown-item" href="#">2004</a></li>
+						<li><a className="dropdown-item" href="#">2003</a></li>
+						<li><a className="dropdown-item" href="#">2002</a></li>
+						<li><a className="dropdown-item" href="#">2001</a></li>
+						<li><a className="dropdown-item" href="#">2000</a></li>
+					</ul>
+				</div>
+
+				{/* former filter buttons */}
+				
+				{/* <ul className="left-bar-container">
 					<li><button className = "left-bar" name="title" onClick={(e) =>{
 						setFilter(e.target.name);
 					}} href="search.html">Title</button> </li>
@@ -61,11 +120,11 @@ const SearchPageBody = () => {
 					<li><button className = "left-bar" name="date" onClick={(e) =>{
 						setFilter(e.target.name)
 					}} href="#">Date Published</button></li>
+				</ul> */}
 
-				</ul>
 			  </div>
 
-			  <div className="col-10" id="search-div">
+			<div className="col-10" id="search-div">
 				<div className = "input-group col-md-10 search-page-search">
 					<div className="dropdown">
 					  <a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
@@ -79,8 +138,9 @@ const SearchPageBody = () => {
 					<form ref={searchForm}>
 						<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
 					</form> 
-					<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
-					{data.filter((val)=>{
+					<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}> Search </button>
+				</div>
+				{data.filter((val)=>{
 					if(term==""){
 						return val;
 					}
@@ -92,7 +152,6 @@ const SearchPageBody = () => {
 					}).map((val, key)=>{
 						return <div><p>{val.first_name} {val.last_name}</p></div>
 					})};
-				</div>
 			  </div>
 			</div>
 		</div>
