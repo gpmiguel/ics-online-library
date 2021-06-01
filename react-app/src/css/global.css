@@ -10,9 +10,9 @@ ul{
 }
 
 footer{
-	position:  relative;
+	position:  absolute;
 	left: 0;
-	bottom:  0;
+	bottom: 0;
 	width: 100%;
 	font-family: Helvetica;
 	color: #e7d00c;
@@ -38,4 +38,11 @@ footer{
 	left:  17%;
 	top:  50%;
 	width: 65%;
+}
+
+/* Fixes layout for users whose windows 10 scale and layout settings is set to 125%*/
+@media (-webkit-device-pixel-ratio: 1.25) {
+	* {
+	  zoom: 0.978;
+	}
 }

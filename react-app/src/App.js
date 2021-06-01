@@ -11,6 +11,7 @@ import EditFacultyAndStaff from './components/edit-faculty-and-staff/edit-facult
 import AddFacultyAndStaff from './components/add-faculty-and-staff/add-faculty-and-staff';
 import SearchPage from './components/search-page/search';
 import AcademicPaper from './components/academic-paper-resource/academic-paper-resource';
+import BookResource from './components/book-resource/book-resource';
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={() => <MainPage />} />
           <Route path="/admin-dashboard" exact component={() => <AdminMainPage />} />
-          <Route path="/add-academic-paper" exact component={() => <AddAcademicPaper />} />
+          <Route path="/add-academic-paper" exact component={() => <BookResource />} />
           <Route path="/add-book" exact component={() => <AddBook />} />
           <Route path="/edit-faculty-and-staff" exact component={() => <EditFacultyAndStaff />} />
           <Route path="/search-results" exact component={() => <SearchPage />} />
