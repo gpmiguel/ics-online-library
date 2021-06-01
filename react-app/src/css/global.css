@@ -1,0 +1,41 @@
+/*likely to be reused throughout the whole website*/
+
+body{
+ 	margin:0;
+	background-color: #eeeeee;/*off white*/
+}
+
+ul{
+	list-style-type: none;
+}
+
+footer{
+	position:  relative;
+	left: 0;
+	bottom:  0;
+	width: 100%;
+	font-family: Helvetica;
+	color: #e7d00c;
+	background-color: #393e46;
+}
+
+/*yellow button*/
+.btn-primary{ 
+	font-family: Helvetica;
+	font-weight: bold;
+	color: #393e46 !important; /*!important overrides bootstrap style*/
+	background-color: #e7d00c !important;
+	border-color: #e7d00c !important;
+}
+
+.filter{
+	font-family: Helvetica;
+	font-weight: bold;
+}
+
+.main-search{
+	position:  absolute;
+	left:  17%;
+	top:  50%;
+	width: 65%;
+}
