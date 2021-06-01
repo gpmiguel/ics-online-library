@@ -1,7 +1,3 @@
-.row {
-    padding-top: 5%;
-}
-
 .side-search-title {
     font-family: Gotham;
     font-weight: bolder;
@@ -17,6 +13,10 @@
     text-align: center;
 }
 
+.search-row {
+    padding-top: 5%;
+}
+
 .left-bar {
     display: inline-block; /* Make the buttons appear below each other */
     background:none;
@@ -30,13 +30,28 @@
 	color: #393e46;
 }
 
-#search-div {
-    
+.filter-arrange {
+    display: inline-block;
+    margin: 2%;
+    transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    top: 50%;
 }
 
 .search-page-search{
     height: auto;
-    margin: 0 auto;
+    margin: 0;
     position: relative;
+    display: flex;
+    justify-content: center;
+    border-width: 1px;
+    border-color: aqua;
+    border-style: dashed;
 	width: 100%;
 }
+
+.dropdown-menu {
+    height: 200px;
+    width: 100px;
+    overflow-y: scroll;
+  }

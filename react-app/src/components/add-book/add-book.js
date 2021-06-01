@@ -118,6 +118,7 @@ const AddBook = () =>{
                                 {/* ask about why tagsinput */}
 {/*                                <label className="form-label mt-3">Author</label>
                                 <TagsInput/>
+
                                 <label className="form-label mt-3">Subject</label>
                                 <TagsInput/>*/}                                
                                 <label className="form-label mt-3">Author</label>

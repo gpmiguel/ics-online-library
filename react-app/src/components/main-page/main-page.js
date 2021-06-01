@@ -8,19 +8,20 @@ import Body from './body';
 import Footer from './footer';
 
 class MainPage extends Component {
-
   state = {
     resource_array : [],
   }
 
   componentDidMount(){
     console.log("MAIN PAGE LANDED\n");
-    axios.get('http://localhost:3000/resources')
-      .then (res => {
+    fetch("/").then(res=>{
+      if(res.ok){
         this.setState({
-          resource_array : {res}
+          resource_array: res
         })
-      })
+      }
+    });
+    console.log(this.state);
   }
 
   render() {

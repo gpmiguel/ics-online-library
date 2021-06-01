@@ -1,5 +1,9 @@
-const router =  require('express').Router();
-let AcademicPaper =  require('../models/resource_acad_paper.model');
+const express = require("express");
+const router = express.Router();
+const Book = require("../models/resource_book.model");
+const AcademicPaper =  require('../models/resource_acad_paper.model');
+//TODO: import all models to be used
+
 
 router.route('/').get((req, res)=>{
     AcademicPaper.find()
@@ -9,6 +13,7 @@ router.route('/').get((req, res)=>{
         })
         .catch(err => res.status(400).json('Error: '+err)); 
 
+    
 });
 
 router.route('/add-academic-paper').post((req, res) => {
@@ -39,5 +44,16 @@ router.route('/add-academic-paper').post((req, res) => {
         .then(resource_acad_paper => res.json('New Academic Paper Added!'))
         .catch(err => res.status(400).json('Error: '+err)); 
 });
+
+router.route('/').get((req, res)=>{
+    Book.find()
+        .then((book_array) => {
+            res.json(book_array)
+            console.log(book_array)
+        })
+})
+
+//TODO: provide other routers for objects
+
 
 module.exports = router;

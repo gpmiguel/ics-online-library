@@ -26,8 +26,8 @@ class AdminMainPageBody extends Component{
                 </div>
                 <div className = "col-sm-3 center">
                     <h4 className = "subhead-text">Generate Reports</h4><br/> {/*Links for viewing purposes only- may remove when generate reports will be used*/}
-                    <Link to ="/edit-resource"><button type="button" className="btn btn-primary btn-md admin-btn" onClick="">Summary report</button> </Link>
-                    <Link to ="/academic-paper"><button type="button" className="btn btn-primary btn-md admin-btn" onClick="">Activity report</button> </Link>
+                    <button type="button" className="btn btn-primary btn-md admin-btn" onClick="">Summary report</button> 
+                    <button type="button" className="btn btn-primary btn-md admin-btn" onClick="">Activity report</button>
                 </div> 
                 <div className = "col-sm-1"></div>
             </div>
