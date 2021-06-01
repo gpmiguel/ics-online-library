@@ -125,7 +125,7 @@ const SearchPageBody = () => {
 			  </div>
 
 			<div className="col-10" id="search-div">
-				<div className = "input-group col-md-10 search-page-search">
+				<div className = "input-group col-md-12 search-page-search">
 					<div className="dropdown">
 					  <a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
 					  <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">

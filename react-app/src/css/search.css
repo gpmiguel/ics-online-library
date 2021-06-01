@@ -47,11 +47,7 @@
     border-width: 1px;
     border-color: aqua;
     border-style: dashed;
-	width: 150%;
-}
-
-#search-div{
-    
+	width: 100%;
 }
 
 .dropdown-menu {
