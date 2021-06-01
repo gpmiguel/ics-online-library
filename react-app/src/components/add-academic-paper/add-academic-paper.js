@@ -121,8 +121,8 @@ class AddAcademicPaper extends Component{
                                 </div>
 
                                 <div className="col-3">
-                                    <label for="sourcecodeFormFile" className="form-label">Source Code</label>
-                                    <input className="form-control" type="file" id="sourcecodeFormFile"/>
+                                    <label for="sourcecodeFormInput" className="form-label">Source Code Link</label>
+                                    <input type="text" className="form-control" id="sourcecodeFormInput" data-name="sourcecode" required onChange={this.onValueChange}/>
                                 </div>
                             </div>
 
