@@ -17,8 +17,8 @@ const academicPaperSchema = new Schema({
     manuscript: {type: Object},
     abstract: {type: String},
     journal: {type: Object},
-    poster: {type: Object},
     sourcecode: {type: Object},
+    poster: {type: Object},
     displayimage: {type: Object},
 }, {
     timestamps: true
