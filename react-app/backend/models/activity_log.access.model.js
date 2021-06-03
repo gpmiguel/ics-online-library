@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const managementSchema = new Schema({
+const accessSchema = new Schema({
     _id = {type: String},
     userid = {type: String},
     activitytype: {type: String},
@@ -11,6 +11,9 @@ const managementSchema = new Schema({
 
 );
 
-const Management = mongoose.model('Management', managementSchema);
+//changed Management to Access, and managementSchema to accessSchema
+const Access = mongoose.model('Access', accessSchema);
 
-module.exports = Management;
+module.exports = Access;
+
+
