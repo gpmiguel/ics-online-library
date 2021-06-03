@@ -23,50 +23,107 @@ const SearchPageBody = () => {
 
     return (
         <div className="container">
-			<div className="row">
+			<div className="row search-row">
 			  <div className="col-2" id="sort-filter-bar">
 				<span className="side-search-title"> Sort By:  </span>
 				<ul className="left-bar-container">
 					<li><button className = "left-bar" name="title" onClick={(e) =>{
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
-						// for now sorts by first_name; on actual data, use a.{sort} b.{sort}
-						setData(JSONDATA.sort((a, b) => a.first_name.localeCompare(b.first_name)))
+						// for now sorts by title; on actual data, use a.{sort} b.{sort}
+						setData(JSONDATA.sort((a, b) => a.title.localeCompare(b.title)))
 					}} href="search.html">Title</button> </li>
 
 					<li><button className = "left-bar" name="author" onClick={(e) =>{
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
-						// for now sorts by last_name; on actual data, use a.{sort} b.{sort}
-						setData(JSONDATA.sort((a, b) => a.last_name.localeCompare(b.last_name)))
+						// for now sorts by author; on actual data, use a.{sort} b.{sort}
+						setData(JSONDATA.sort((a, b) => a.author.localeCompare(b.author)))
 					}} href="#">Author</button></li>
 					<li><button className = "left-bar" name="date" onClick={(e) =>{
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
-						// for now sorts by ip_address; on actual data, use a.{sort} b.{sort}
-						setData(JSONDATA.sort((a, b) => a.ip_address.localeCompare(b.ip_address)))
+						// for now sorts by date; on actual data, use a.{sort} b.{sort}
+						setData(JSONDATA.sort((a, b) => a.date.localeCompare(b.date)))
 					}} href="#">Date Published</button></li>
 				</ul>
 
-				<span className="side-search-title"> Filter By:  </span>
-				<ul className="left-bar-container">
+				<span className="side-search-title"> Filter By: </span>
+				<div className="dropdown">
+					<a className="btn btn-secondary dropdown-toggle filter filter-arrange" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="true"> Title </a>
+					<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
+						<li><a className="dropdown-item" href="#">A</a></li>
+						<li><a className="dropdown-item" href="#">B</a></li>
+						<li><a className="dropdown-item" href="#">C</a></li>
+						<li><a className="dropdown-item" href="#">D</a></li>
+						<li><a className="dropdown-item" href="#">E</a></li>
+						<li><a className="dropdown-item" href="#">F</a></li>
+						<li><a className="dropdown-item" href="#">G</a></li>
+						<li><a className="dropdown-item" href="#">H</a></li>
+						<li><a className="dropdown-item" href="#">I</a></li>
+						<li><a className="dropdown-item" href="#">J</a></li>
+						<li><a className="dropdown-item" href="#">K</a></li>
+						<li><a className="dropdown-item" href="#">L</a></li>
+						<li><a className="dropdown-item" href="#">M</a></li>
+						<li><a className="dropdown-item" href="#">N</a></li>
+						<li><a className="dropdown-item" href="#">O</a></li>
+						<li><a className="dropdown-item" href="#">P</a></li>
+						<li><a className="dropdown-item" href="#">Q</a></li>
+						<li><a className="dropdown-item" href="#">R</a></li>
+						<li><a className="dropdown-item" href="#">S</a></li>
+						<li><a className="dropdown-item" href="#">T</a></li>
+						<li><a className="dropdown-item" href="#">U</a></li>
+						<li><a className="dropdown-item" href="#">V</a></li>
+						<li><a className="dropdown-item" href="#">W</a></li>
+						<li><a className="dropdown-item" href="#">X</a></li>
+						<li><a className="dropdown-item" href="#">Y</a></li>
+						<li><a className="dropdown-item" href="#">Z</a></li>
+					</ul>
+					<a className="btn btn-secondary dropdown-toggle filter filter-arrange" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="true"> Year </a>
+					<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
+						<li><a className="dropdown-item" href="#">2021</a></li>
+						<li><a className="dropdown-item" href="#">2020</a></li>
+						<li><a className="dropdown-item" href="#">2019</a></li>
+						<li><a className="dropdown-item" href="#">2018</a></li>
+						<li><a className="dropdown-item" href="#">2017</a></li>
+						<li><a className="dropdown-item" href="#">2016</a></li>
+						<li><a className="dropdown-item" href="#">2015</a></li>
+						<li><a className="dropdown-item" href="#">2014</a></li>
+						<li><a className="dropdown-item" href="#">2013</a></li>
+						<li><a className="dropdown-item" href="#">2012</a></li>
+						<li><a className="dropdown-item" href="#">2011</a></li>
+						<li><a className="dropdown-item" href="#">2010</a></li>
+						<li><a className="dropdown-item" href="#">2009</a></li>
+						<li><a className="dropdown-item" href="#">2008</a></li>
+						<li><a className="dropdown-item" href="#">2007</a></li>
+						<li><a className="dropdown-item" href="#">2006</a></li>
+						<li><a className="dropdown-item" href="#">2005</a></li>
+						<li><a className="dropdown-item" href="#">2004</a></li>
+						<li><a className="dropdown-item" href="#">2003</a></li>
+						<li><a className="dropdown-item" href="#">2002</a></li>
+						<li><a className="dropdown-item" href="#">2001</a></li>
+						<li><a className="dropdown-item" href="#">2000</a></li>
+					</ul>
+				</div>
+
+				{/* former filter buttons */}
+				
+				{/* <ul className="left-bar-container">
 					<li><button className = "left-bar" name="title" onClick={(e) =>{
 						setFilter(e.target.name);
 					}} href="search.html">Title</button> </li>
-
 					<li><button className = "left-bar" name="author" onClick={(e) =>{
 						setFilter(e.target.name)
 					}} href="#">Author</button></li>
-
 					<li><button className = "left-bar" name="date" onClick={(e) =>{
 						setFilter(e.target.name)
 					}} href="#">Date Published</button></li>
+				</ul> */}
 
-				</ul>
 			  </div>
 
-			  <div className="col-10" id="search-div">
-				<div className = "input-group col-md-10 search-page-search">
+			<div className="col-10" id="search-div">
+				<div className = "input-group col-md-12 search-page-search">
 					<div className="dropdown">
 					  <a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
 					  <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -77,22 +134,22 @@ const SearchPageBody = () => {
 					  </ul>
 					</div>
 					<form ref={searchForm}>
-						<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
+						<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} onChange = {(event)=>{setTerm(event.target.value);}}/>
 					</form> 
-					<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
-					{data.filter((val)=>{
+					<button type="button" class="btn btn-primary btn-md col-md-2" > Search </button>
+				</div>
+				{data.filter((val)=>{
 					if(term==""){
 						return val;
 					}
-					/*only checks the first_name of the mock data as of now*/
-					else if(val.first_name.toLowerCase().includes(term.toLowerCase())){
+					/*checks title, author, and date*/
+					else if(val.title.toLowerCase().includes(term.toLowerCase()) || val.author.toLowerCase().includes(term.toLowerCase()) || val.date.includes(term)){
 						return val;
 					}
-					{/*displays the first name and last name of the mock data as of now*/}
+					{/*displays the title, author, and date*/}
 					}).map((val, key)=>{
-						return <div><p>{val.first_name} {val.last_name}</p></div>
+						return <div>	<p>{<strong>Book: </strong>}{val.title}{"  |  "}{<strong>Author: </strong>}{val.author}{"  |  "}{<strong>Year: </strong>}{val.date}</p></div>
 					})};
-				</div>
 			  </div>
 			</div>
 		</div>
