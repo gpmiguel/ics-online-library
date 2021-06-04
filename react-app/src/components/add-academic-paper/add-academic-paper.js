@@ -63,13 +63,13 @@ class AddAcademicPaper extends Component{
                     <Link to="/admin-dashboard"><button type="button" className ="btn btn-primary my-2">Back</button></Link>
                     
                     <div className ="row mx-5">
-                        <div className ="col-2">
+                        <div className ="col-lg-2">
                             <AdminSidebar/>
                         </div>
                     
                         {/* acad paper fields */}
                         
-                        <div className="col-10" >
+                        <div className="col-lg-10" >
                         <form onSubmit={this.onSave}>
                             <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Academic Paper</p>
                             

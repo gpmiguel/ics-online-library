@@ -138,12 +138,12 @@ class EditBody extends Component{
                     <Link to="/admin-dashboard"><button type="button" className ="btn btn-primary my-2 back-button">Back</button></Link>
                     
                     <div className ="row mx-5">
-                        <div className ="col-2">
+                        <div className ="col-lg-2">
                             <AdminSidebar/>
                         </div>
                     
                         {/* render fields */}
-                        <div className="col-10">
+                        <div className="col-lg-10">
                             {renderEdit()}
                             <div className ="">
                                 <button type="button" className ="btn btn-primary btn-block save-button">Save</button>

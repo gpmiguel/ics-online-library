@@ -2,6 +2,21 @@
 	color: pink;
 	width: 70%;
 	margin: 10px;
+	overflow: hidden;
+	white-space: nowrap;	
+	display: inline-block;
+}
+
+.side-btn{
+	overflow: hidden;
+	white-space: nowrap;	
+	display: inline-block;
+	font-size: 14px;
+	margin: 5px;
+}
+
+.rem-link{
+	text-decoration: none;
 }
 
 .head-text{

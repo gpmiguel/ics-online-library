@@ -40,10 +40,10 @@ const EditFacultyAndStaff = () =>{
                     <Link to="/admin-dashboard"><button type="button" className ="btn btn-primary my-2">Back</button></Link>
                     
                     <div className ="row mx-5">
-                        <div className ="col-2">
+                        <div className ="col-lg-2">
                             <AdminSidebar/>
                         </div>
-                        <div className="col-10">
+                        <div className="col-lg-10">
                             <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Edit Faculty and Staff</p>
                             
                             <div className="table-responsive">
