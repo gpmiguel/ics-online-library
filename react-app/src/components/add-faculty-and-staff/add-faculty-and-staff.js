@@ -72,7 +72,10 @@ class AddFacultyAndStaff extends Component{
                         
                     </div>
                 </div>
-                <Footer/>
+                <div style={{marginTop:"15%"}}>
+                    <Footer/>
+                </div>
+                
             </div>
         );
     }
