@@ -13,7 +13,10 @@ class AdminMainPage extends Component{
             <div>
                 <Nav />
                 <AdminMainPageBody />
-                <Footer />
+
+                <div style={{marginTop:"15%"}}>
+                    <Footer />
+                </div>
             </div>
         );
     }
