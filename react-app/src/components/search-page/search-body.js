@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../css/main.css';
-import JSONDATA from './MOCK_DATA.json';
+import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
 
 const SearchPageBody = () => {
@@ -51,7 +51,7 @@ const SearchPageBody = () => {
 				<span className="side-search-title"> Filter By: </span>
 				<div className="dropdown">
 					<a className="btn btn-secondary dropdown-toggle filter filter-arrange" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="true"> Title </a>
-					<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
+					<ul className="dropdown-menu dropdown-menu-2 scrollable-menu" aria-labelledby="dropdownMenuLink">
 						<li><a className="dropdown-item" href="#">A</a></li>
 						<li><a className="dropdown-item" href="#">B</a></li>
 						<li><a className="dropdown-item" href="#">C</a></li>
@@ -80,7 +80,7 @@ const SearchPageBody = () => {
 						<li><a className="dropdown-item" href="#">Z</a></li>
 					</ul>
 					<a className="btn btn-secondary dropdown-toggle filter filter-arrange" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="true"> Year </a>
-					<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
+					<ul className="dropdown-menu dropdown-menu-2 scrollable-menu" aria-labelledby="dropdownMenuLink">
 						<li><a className="dropdown-item" href="#">2021</a></li>
 						<li><a className="dropdown-item" href="#">2020</a></li>
 						<li><a className="dropdown-item" href="#">2019</a></li>
@@ -122,35 +122,50 @@ const SearchPageBody = () => {
 
 			  </div>
 
-			<div className="col-10" id="search-div">
-				<div className = "input-group col-md-12 search-page-search">
-					<div className="dropdown">
-					  <a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
-					  <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						<li><a className="dropdown-item" href="#">Keyword</a></li>
-						<li><a className="dropdown-item" href="#">Title</a></li>
-						<li><a className="dropdown-item" href="#">Author</a></li>
-						<li><a className="dropdown-item" href="#">Subject</a></li>
-					  </ul>
+			  <div className="col-10" id="search-div">
+					<div className="input-group col-md-12 search-page-search">
+						<div className="dropdown">
+							<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
+							<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
+								<li><a className="dropdown-item" href="#">Keyword</a></li>
+								<li><a className="dropdown-item" href="#">Title</a></li>
+								<li><a className="dropdown-item" href="#">Author</a></li>
+								<li><a className="dropdown-item" href="#">Subject</a></li>
+							</ul>
+						</div>
+						<form ref={searchForm}>
+							<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
+						</form>
+						<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
+						<div className="col-10">
+							{JSONDATA.filter((val) => {
+								if (term == "") {
+									return val;
+								}
+								/*only checks the first_name of the mock data as of now*/
+								else if (val.title.toLowerCase().includes(term.toLowerCase())) {
+									return val;
+								}
+								{/*displays the first name and last name of the mock data as of now*/ }
+							}).map((val, key) => {
+								return (
+									<div>
+										<br></br>
+										<p><div style={{ fontSize: 30, color: 'blue' }} >{val.title}</div>
+											<div>
+												<p>
+													Authors: {val.authors[0]}
+													<br></br>Date Published: {val.publishedDate.$date}
+													<br></br>Status: {val.status} | Subject: {val.categories}
+												</p>
+											</div>
+										</p>
+									</div>
+								)
+							})}
+						</div>
 					</div>
-					<form ref={searchForm}>
-						<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} onChange = {(event)=>{setTerm(event.target.value);}}/>
-					</form> 
-					<button type="button" class="btn btn-primary btn-md col-md-2" > Search </button>
 				</div>
-				{data.filter((val)=>{
-					if(term==""){
-						return val;
-					}
-					/*checks title, author, and date*/
-					else if(val.title.toLowerCase().includes(term.toLowerCase()) || val.author.toLowerCase().includes(term.toLowerCase()) || val.date.includes(term)){
-						return val;
-					}
-					{/*displays the title, author, and date*/}
-					}).map((val, key)=>{
-						return <div>	<p>{<strong>Book: </strong>}{val.title}{"  |  "}{<strong>Author: </strong>}{val.author}{"  |  "}{<strong>Year: </strong>}{val.date}</p></div>
-					})};
-			  </div>
 			</div>
 		</div>
     );

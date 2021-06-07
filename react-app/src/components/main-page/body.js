@@ -24,12 +24,12 @@ class Body extends Component {
 				height: '550px'}}>
 				<div className = "input-group col-md-10 main-search">
 					<div className="dropdown">
-						<h2 className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false" href="http://localhost:3000/"> Filter </h2>
+						<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
 						<ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<li><a className="dropdown-item" href="https://www.google.com/">Keyword</a></li>
-							<li><a className="dropdown-item" href="https://www.google.com/">Title</a></li>
-							<li><a className="dropdown-item" href="https://www.google.com/">Author</a></li>
-							<li><a className="dropdown-item" href="https://www.google.com/">Subject</a></li>
+							<li><a className="dropdown-item">Keyword</a></li>
+							<li><a className="dropdown-item">Title</a></li>
+							<li><a className="dropdown-item">Author</a></li>
+							<li><a className="dropdown-item">Subject</a></li>
 						</ul>
 					</div>
 					<input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onChange={this.handleChange}/>

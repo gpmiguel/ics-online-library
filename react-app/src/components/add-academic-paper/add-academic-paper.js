@@ -63,13 +63,13 @@ class AddAcademicPaper extends Component{
                     <Link to="/admin-dashboard"><button type="button" className ="btn btn-primary my-2">Back</button></Link>
                     
                     <div className ="row mx-5">
-                        <div className ="col-2">
+                        <div className ="col-lg-2">
                             <AdminSidebar/>
                         </div>
                     
                         {/* acad paper fields */}
                         
-                        <div className="col-10" >
+                        <div className="col-lg-10" >
                         <form onSubmit={this.onSave}>
                             <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Academic Paper</p>
                             
@@ -121,8 +121,8 @@ class AddAcademicPaper extends Component{
                                 </div>
 
                                 <div className="col-3">
-                                    <label for="sourcecodeFormInput" className="form-label">Source Code Link</label>
-                                    <input type="text" className="form-control" id="sourcecodeFormInput" data-name="sourcecode" required onChange={this.onValueChange}/>
+                                    <label for="sourcecodeFormFile" className="form-label">Source Code</label>
+                                    <input className="form-control" type="file" id="sourcecodeFormFile"/>
                                 </div>
                             </div>
 

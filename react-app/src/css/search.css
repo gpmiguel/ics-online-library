@@ -1,0 +1,54 @@
+.side-search-title {
+    font-family: Gotham;
+    font-weight: bolder;
+    font-size: 14pt;
+	color: #e7d00c;
+	float:  bottom;
+	margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.left-bar-container {
+    text-align: center;
+}
+
+.search-row {
+    padding-top: 5%;
+}
+
+.left-bar {
+    display: inline-block; /* Make the buttons appear below each other */
+    background:none;
+    border:none;
+    padding:5%;
+    margin:0;
+    margin-left:-30%;
+    cursor: pointer;
+    font-family: Gotham;
+    font-weight: 500;
+	color: #393e46;
+}
+
+.filter-arrange {
+    display: inline-block;
+    margin: 2%;
+    transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    top: 50%;
+}
+
+.search-page-search{
+    height: auto;
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+	width: 100%;
+}
+
+.dropdown-menu-2 {
+    height: 200px;
+    width: 100px;
+    overflow-y: scroll;
+  }

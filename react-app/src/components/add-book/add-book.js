@@ -104,12 +104,12 @@ const AddBook = () =>{
                     <Link to="/admin-dashboard"><button type="button" className ="btn btn-primary my-2">Back</button></Link>
                     
                     <div className ="row mx-5">
-                        <div className ="col-2">
+                        <div className ="col-lg-2">
                             <AdminSidebar/>
                         </div>
                     
                         {/* book fields */}
-                        <div className="col-10">
+                        <div className="col-lg-10">
                         <form onSubmit={saveBook}>
                                 <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Book</p>
                                 
@@ -118,7 +118,6 @@ const AddBook = () =>{
                                 {/* ask about why tagsinput */}
 {/*                                <label className="form-label mt-3">Author</label>
                                 <TagsInput/>
-
                                 <label className="form-label mt-3">Subject</label>
                                 <TagsInput/>*/}                                
                                 <label className="form-label mt-3">Author</label>
