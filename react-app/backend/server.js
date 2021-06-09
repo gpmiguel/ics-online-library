@@ -18,7 +18,7 @@ connection.once('open', ()=> {
     console.log("MongoDB database connection is established.");
 });
 
-app.use("/", require("./routes/resource_acad_paper"));
+app.use("/resource_acad_paper", require("./routes/resource_acad_paper"));
 
 app.listen(port, ()=> {
     console.log(`Server is running in port: ${port} 🔥`);

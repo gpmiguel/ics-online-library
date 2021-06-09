@@ -1,5 +1,6 @@
 import React, { Component, useState} from "react"; 
 import { Link, withRouter } from "react-router-dom";
+import axios from 'axios';
 import '../../css/main.css';
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
@@ -52,7 +53,35 @@ class AddAcademicPaper extends Component{
     /* method on save button */
     onSave(e){
         e.preventDefault(); 
+
+        const acad_paper = {
+            _id: this.state._id,
+            title: this.state.title,      
+            author: this.state.author,
+            subject: this.state.subject,
+            year: this.state.year,
+            pagecount: this.state.pagecount,
+            resourcetype: this.state.resourcetype,
+            degreetype: this.state.degreetype,
+            institution: this.state.institution,
+            adviser: this.state.adviser,
+            keyword: this.state.keyword,
+            manuscript: this.state.manuscript,
+            abstract: this.state.abstract,
+            journal: this.state.journal,
+            poster: this.state.poster,
+            sourcecode: this.state.sourcecode,
+            displayimage: this.state.displayimage,       
+        }
+
         console.log(this.state);
+
+        axios.post('http://localhost:3001/resource_acad_paper/add-academic-paper', acad_paper)
+            .then(res => console.log(res.data));
+  
+        alert('Academic Paper Added!')
+            
+        // window.location = '/add-academic-paper';
     }
 
     render(){
