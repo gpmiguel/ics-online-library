@@ -15,7 +15,8 @@ class Navigation extends Component {
     state = {
         current_user : {guest},
         resources : this.props.resources,
-        loggedin: false
+        loggedin: false,
+        isAdmin: false
     }
 
     responseGoogle=(res)=>{
@@ -23,7 +24,22 @@ class Navigation extends Component {
         // console.log(res.profileObj);
         this.setState({
             current_user: res.profileObj,
-            loggedin: true})
+            resources: this.state.resources,
+            loggedin: true,
+            isAdmin: this.state.isAdmin
+
+        })
+        console.log(this.state)
+
+        if (res.profileObj.email === this.props.admins){
+            this.setState({
+            current_user: res.profileObj,
+            resources: this.state.resources,
+            loggedin: true,
+            isAdmin: true
+            })
+        }
+
         console.log(this.state)
     }
 
@@ -51,7 +67,7 @@ class Navigation extends Component {
                 <div className="collapse navbar-collapse " id="navbarContent">
                     <div className="navbar-nav ml-auto">
                         <Link className = " nav-item nav-link active nav-buttons" to="/search-results">Search</Link> 
-                        <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>
+                        {this.state.isAdmin && <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>}
                         <GoogleLogin 
                             className = "nav-buttons"
                             clientId="1025177859568-efs0a0c5t8vrrur2a8bbe5t1vd6n5a4l.apps.googleusercontent.com"

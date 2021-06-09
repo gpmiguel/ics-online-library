@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../css/main.css';
+import axios from 'axios';
 import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
 
@@ -7,6 +8,12 @@ const SearchPageBody = () => {
     useEffect(() => {
         document.title = 'Search Page';
     });
+	
+
+	// const acad_paper_arr = axios
+	//   .get("http://localhost:3001/resource-acad-paper/")
+	//   .then(res => console.log("GET PAPER "))
+	//   .catch(err => console.error(err));
 
     {/*by using the 'setTerm' fxn, 'term' will be assigned the string in the search bar, obtained through 'searchForm'*/}
 	const [term, setTerm] = useState("");

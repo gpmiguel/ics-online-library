@@ -12,6 +12,8 @@ import TagsInput from '../tagsinput/tagsinput';
 
 const EditFacultyAndStaff = () =>{
 
+
+
     //toggles open or close of popup
     const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -32,6 +34,10 @@ const EditFacultyAndStaff = () =>{
     const closeEdit=()=>{ //closes the pop up
         setIsOpenModal(false);
     };
+
+    const editSave = () =>{
+        
+    }
 
         return(
             <div>

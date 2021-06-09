@@ -11,14 +11,16 @@ import Footer from '../main-page/footer';
 import AdminSidebar from '../adminsidebar/adminsidebar.js';
 import TagsInput from '../tagsinput/tagsinput';
 
+var temp = 999;
+
 class AddAcademicPaper extends Component{
- 
+
     /*constructor for this class */
     constructor(props){
         super(props);
 
         this.state = {
-            _id: '',
+            _id: temp,
             title: '',
             author:[],
             subject:[],
@@ -74,9 +76,15 @@ class AddAcademicPaper extends Component{
             displayimage: this.state.displayimage,       
         }
 
+        this.setState({
+            _id: String(parseInt(this.state._id) + 1), 
+        })  
+        
+        temp += 1;
+
         console.log(this.state);
 
-        axios.post('http://localhost:3001/resource_acad_paper/add-academic-paper', acad_paper)
+        axios.post('http://localhost:3001/resource-acad-paper/add-academic-paper', acad_paper)
             .then(res => console.log(res.data));
   
         alert('Academic Paper Added!')
