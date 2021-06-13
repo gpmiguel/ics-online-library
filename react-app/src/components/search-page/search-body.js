@@ -134,10 +134,8 @@ const SearchPageBody = () => {
 						<div className="dropdown">
 							<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
 							<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
-								<li><a className="dropdown-item" href="#">Keyword</a></li>
-								<li><a className="dropdown-item" href="#">Title</a></li>
-								<li><a className="dropdown-item" href="#">Author</a></li>
-								<li><a className="dropdown-item" href="#">Subject</a></li>
+								<li><a className="dropdown-item" href="#">Academic Paper</a></li>
+								<li><a className="dropdown-item" href="#">Book</a></li>
 							</ul>
 						</div>
 						<form ref={searchForm}>
