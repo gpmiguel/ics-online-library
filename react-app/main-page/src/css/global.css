@@ -1,19 +1,23 @@
 /*likely to be reused throughout the whole website*/
 
 body{
- 	margin:0;
-	background-color: #eeeeee;/*off white*/
+	margin:0;
+   background-color: #eeeeee;/*off white*/
 }
 
 ul{
-	list-style-type: none;
+   list-style-type: none;
 }
 
-footer{
-	font-family: Helvetica;
-	color: #e7d00c;
-	background-color: #393e46;
-}
+/* footer{
+   position:  relative;
+   left: 0;
+   bottom:  0;
+   width: 100%;
+   font-family: Helvetica;
+   color: #e7d00c;
+   background-color: #393e46;
+} */
 
 /*yellow button*/
 .btn-primary{ 
@@ -23,15 +27,29 @@ footer{
 	background-color: #e7d00c !important;
 	border-color: #e7d00c !important;
 }
-
-.filter{
+/*blue button*/
+.btn-blue{ 
 	font-family: Helvetica;
 	font-weight: bold;
+	color: #393e46 !important; /*!important overrides bootstrap style*/
+	background-color: #28cecb !important;
+	border-color: #28cecb !important;
+}
+
+.filter{
+   font-family: Helvetica;
+   font-weight: bold;
 }
 
 .main-search{
-	position:  absolute;
-	left:  17%;
-	top:  50%;
-	width: 65%;
+   position:  absolute;
+   left:  17%;
+   top:  50%;
+   width: 65%;
+}
+
+#border-check{
+	border-style: dashed;
+	border-width: 1px;
+	border-color: aqua;
 }

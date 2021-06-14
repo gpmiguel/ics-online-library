@@ -1,0 +1,51 @@
+.admin-btn{
+	color: pink;
+	width: 70%;
+	margin: 10px;
+	overflow: hidden;
+	white-space: nowrap;	
+	display: inline-block;
+}
+
+#admin-row{
+	padding-top: 5%;
+	padding-left: 10%;
+}
+
+.side-btn{
+	overflow: hidden;
+	white-space: nowrap;	
+	display: inline-block;
+	font-size: 14px;
+	margin: 5px;
+}
+
+.rem-link{
+	text-decoration: none;
+}
+
+.head-text{
+	font-family: Gotham;
+	font-weight: bold;
+	color: #e7d00c;
+}
+
+.subhead-text{
+	margin: 0 auto;
+	font-family: Helvetica;
+	font-weight: bold;
+	color: #00adb5;
+}
+
+.center{
+	text-align: center;
+}
+
+#edit-blue{
+	padding-bottom: 1%;
+}
+
+#edit-yellow{
+	padding-top: 1%;
+}
+
