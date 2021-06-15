@@ -84,7 +84,7 @@ class AddAcademicPaper extends Component{
 
         console.log(this.state);
 
-        axios.post('http://localhost:3001/resource-acad-paper/add-academic-paper', acad_paper)
+        axios.post('http://localhost:3001/resource_acad_paper/add-academic-paper', acad_paper)
             .then(res => console.log(res.data));
   
         alert('Academic Paper Added!')
@@ -120,25 +120,25 @@ class AddAcademicPaper extends Component{
                             <ReactTagInput tags={this.state.subject} onChange={(newTags) => this.setState({ subject: newTags })}/>
 
                             <label for="yearpublishedFormInput" className="form-label mt-3">Year Published</label>
-                            <input type="number" className="form-control" id="yearpublishedFormInput" data-name="year" required onChange={this.onValueChange}/>
+                            <input type="number" className="form-control" id="yearpublishedFormInput" data-name="year" /*required*/ onChange={this.onValueChange}/>
                             
                             <label for="pagecountFormInput" className="form-label mt-3">Page Count</label>
-                            <input type="number" className="form-control" id="pagecountFormInput" data-name="pagecount" required onChange={this.onValueChange}/>
+                            <input type="number" className="form-control" id="pagecountFormInput" data-name="pagecount" /*required*/ onChange={this.onValueChange}/>
                             
                             <label for="papertypeFormInput" className="form-label mt-3">Paper Type</label>
-                            <input type="text" className="form-control" id="papertypeFormInput" data-name="resourcetype" required onChange={this.onValueChange}/>
+                            <input type="text" className="form-control" id="papertypeFormInput" data-name="resourcetype" /*required*/ onChange={this.onValueChange}/>
 
                             <label for="degreetypeFormInput" className="form-label mt-3">Degree Type</label>
-                            <input type="text" className="form-control" id="degreetypeFormInput" data-name="degreetype" required onChange={this.onValueChange}/>
+                            <input type="text" className="form-control" id="degreetypeFormInput" data-name="degreetype" /*required*/ onChange={this.onValueChange}/>
 
                             <label for="institutionFormInput" className="form-label mt-3">Institution</label>
-                            <input type="text" className="form-control" id="institutionFormInput" data-name="institution" required onChange={this.onValueChange}/>
+                            <input type="text" className="form-control" id="institutionFormInput" data-name="institution" /*required*/ onChange={this.onValueChange}/>
                             
                             <label className="form-label mt-3">Adviser</label>
                             <ReactTagInput tags={this.state.adviser} onChange={(newTags) => this.setState({ adviser: newTags })}/>
 
                             <label for="academicPaperAbstract" className="form-label mt-3">Abstract</label>
-                            <textarea className="form-control" id="academicPaperAbstract" rows="6" data-name="abstract" required onChange={this.onValueChange}></textarea>
+                            <textarea className="form-control" id="academicPaperAbstract" rows="6" data-name="abstract" /*required*/ onChange={this.onValueChange}></textarea>
 
                             {/* file uploads */}
                             <div className="row mt-3">
