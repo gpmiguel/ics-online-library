@@ -84,18 +84,37 @@ const AddBook = () =>{
 
         //clear the form
         setBookData({
-        title: "",
-        author:"",
-        subject: "",
-        yearPublished: "",
-        pageCount:"",
-        publisher:"",
-        edition:"",
-        isbn:"",
-        introduction:"",
-        mainCopy:"",
-        resourceImage:"",
-    });
+            title: "",
+            author:"",
+            subject: "",
+            yearPublished: "",
+            pageCount:"",
+            publisher:"",
+            edition:"",
+            isbn:"",
+            introduction:"",
+            mainCopy:"",
+            resourceImage:"",
+        });
+
+        const book = {
+            title: bookData.title,
+            author: bookData.author,
+            subject: bookData.subject,
+            yearPublished: bookData.yearPublished,
+            pageCount: bookData.pageCount,
+            publisher: bookData.publisher,
+            edition: bookData.edition,
+            isbn: bookData.isbn,
+            introduction: bookData.introduction,
+            mainCopy: bookData.mainCopy,
+            resourceImage: bookData.resourceImage,
+        }
+
+        axios.post('http://localhost:3001/resource_book/add-book', book)
+            .then(res => console.log(res.data));
+
+        alert('Book Added!')
     }
 
         return(
