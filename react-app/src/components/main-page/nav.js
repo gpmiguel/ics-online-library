@@ -67,7 +67,8 @@ class Navigation extends Component {
                 <div className="collapse navbar-collapse " id="navbarContent">
                     <div className="navbar-nav ml-auto">
                         <Link className = " nav-item nav-link active nav-buttons" to="/search-results">Search</Link> 
-                        {this.state.isAdmin && <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>}
+                        <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>                        
+                        {/* {this.state.isAdmin && <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>} */}
                         <GoogleLogin 
                             className = "nav-buttons"
                             clientId="1025177859568-efs0a0c5t8vrrur2a8bbe5t1vd6n5a4l.apps.googleusercontent.com"
