@@ -38,6 +38,18 @@ class AddFacultyAndStaff extends Component{
     onSave(e){
         e.preventDefault(); 
         console.log(this.state);
+
+        const faculty_and_staff = {
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            email: this.state.email
+            // usertype: (to be added)
+        }
+
+        axios.post('http://localhost:3001/user/add-user', faculty_and_staff)    // todo: fix user "/" and "/add-user" routes first
+            .then(res => console.log(res.data));
+
+        alert('Faculty/Staff Added!')
     }
 
     render(){
