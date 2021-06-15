@@ -19,6 +19,8 @@ connection.once('open', ()=> {
 });
 
 app.use("/resource_acad_paper", require("./routes/resource_acad_paper"));
+app.use("/resource_book", require("./routes/resource_book"));
+app.use("/user", require("./routes/user"));
 
 app.listen(port, ()=> {
     console.log(`Server is running in port: ${port} 🔥`);
