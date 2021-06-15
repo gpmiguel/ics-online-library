@@ -23,6 +23,7 @@ class MainPage extends Component {
     this.setState({
       resource_array: res.data
     })
+
     })
 	
     // await axios.get("http://localhost:3001/resource-book/")

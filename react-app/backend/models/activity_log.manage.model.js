@@ -12,6 +12,7 @@ const managementSchema = new Schema({
 
 );
 
+//no collection
 const Management = mongoose.model('Management', managementSchema);
 
 module.exports = Management;

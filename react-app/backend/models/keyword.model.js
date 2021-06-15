@@ -11,6 +11,6 @@ const registrySchema = new Schema({
 
 );
 
-const Registry = mongoose.model('Registry', registrySchema);
+const Registry = mongoose.model('Registry', registrySchema, 'acad_paper_keywords');
 
 module.exports = Registry;

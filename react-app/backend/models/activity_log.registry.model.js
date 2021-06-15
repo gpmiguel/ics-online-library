@@ -12,6 +12,6 @@ const registrySchema = new Schema({
 );
 
 //changed Management to Registry, and management to registrySchema
-const Registry = mongoose.model('Registry', registrySchema);
+const Registry = mongoose.model('Registry', registrySchema, 'user_activity_logs');
 
 module.exports = Registry;

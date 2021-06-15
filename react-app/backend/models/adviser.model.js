@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 const adviserSchema = new Schema({
     _id = {type: mongoose.Types.ObjectId},
     advname: {type: String},
-    resourceid: [{type: String}]
+    resourceid: {type: [String]}
     
 });
 
-const Adviser = mongoose.model('Adviser', adviserSchema);
+const Adviser = mongoose.model('Adviser', adviserSchema, 'acad_paper_advisers');
 
 module.exports = Adviser;

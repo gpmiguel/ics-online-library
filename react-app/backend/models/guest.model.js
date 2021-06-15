@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const guestSchema =new Schema({
     _id: {type: String},
-    activityid: [{type: String}]
+    activityid: {type: [String]}
 })
 
-const Guest = mongoose.model("Guest", guestSchema);
+const Guest = mongoose.model("Guest", guestSchema, 'user_guests');
 
 module.exports = Guest;
