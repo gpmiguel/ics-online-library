@@ -1,8 +1,11 @@
-import React, { Component, useState } from "react"; 
+import React, { useEffect } from 'react';
+import { Component, useState } from "react"; 
 import { Link, withRouter } from "react-router-dom";
 import Modal from "react-bootstrap/Modal"; //Modal is the pop up screen
 import '../../css/main.css';
 import JSONDATA from './MOCK_DATA.json';
+import axios from 'axios';
+
 
 //COMPONENTS
 import Nav from '../main-page/nav';
@@ -12,15 +15,26 @@ import TagsInput from '../tagsinput/tagsinput';
 
 const EditFacultyAndStaff = () =>{
 
-
-
     //toggles open or close of popup
     const [isOpenModal, setIsOpenModal] = useState(false);
+
 
     //sets the  preview value of the name
     const [first_name_val, setfirst_name_val] = useState('');
     const [last_name_val, setlast_name_val] = useState('');
     const [email_val, setemail_val] = useState('');
+    const [data, setData] = useState(JSONDATA);
+
+    useEffect(() => {
+        axios.get('http://localhost:3001/user/')
+            .then(res => {
+                console.log("GET PAPER ");
+                console.log(res.data);
+                setData(res.data);
+                
+            })
+            .catch(err => console.error(err));
+    }, []);
 
     const openEdit=(idx)=>{//passes the id edit row clicked
         const e = JSONDATA.find(e => e.id === idx);
@@ -79,7 +93,7 @@ const EditFacultyAndStaff = () =>{
                                             </td>
                                             </tr>);
                                     })
-                                    };
+                                    }
                                   </tbody>
                                 </table>
                         </div>
