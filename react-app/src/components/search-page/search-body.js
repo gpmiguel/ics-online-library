@@ -3,30 +3,33 @@ import '../../css/main.css';
 import axios from 'axios';
 import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
+import AcadResource from '../academic-paper-resource/academic-paper-resource'
 
-const SearchPageBody = () => {
+const SearchPageBody = (props) => {
     useEffect(() => {
         document.title = 'Search Page';
+
     });
 	
-
-	// const acad_paper_arr = axios
-	//   .get("http://localhost:3001/resource-acad-paper/")
-	//   .then(res => console.log("GET PAPER "))
-	//   .catch(err => console.error(err));
 
     {/*by using the 'setTerm' fxn, 'term' will be assigned the string in the search bar, obtained through 'searchForm'*/}
 	const [term, setTerm] = useState("");
 	const searchForm = useRef(null);
 	const [filter, setFilter] = useState("");
 	const [sort, setSort] = useState("");
-	const [data, setData] = useState(JSONDATA);
+	const [data, setData] = useState(props);
 
 	{/*when the 'search button' is clicked, the string in the search bar (searchTerm) will be assigned to 'term'*/}
     const handleClickEvent = () => {
 		const form = searchForm.current;
 		setTerm(`${form['searchTerm'].value}`)
 	};
+
+
+	// TODO: fix resource
+	const viewResource = (title) =>{
+		return <AcadResource data = {title}/>
+	}
 
     return (
         <div className="container">
@@ -155,8 +158,9 @@ const SearchPageBody = () => {
 								}
 								{/*displays the first name and last name of the mock data as of now*/ }
 							}).map((val, key) => {
+								{/*TODO: by ID */}
 								return (
-									<div>
+									<div onClick={viewResource(val.title)}>
 										<br></br>
 										<p><div style={{ fontSize: 30, color: 'blue' }} >{val.title}</div>
 											<div>

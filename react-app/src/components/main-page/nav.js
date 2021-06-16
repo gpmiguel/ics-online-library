@@ -1,7 +1,9 @@
 import React, { Component } from "react"; 
 import { Link, withRouter } from "react-router-dom";
 import {Navbar} from "react-bootstrap"; //Modal is the pop up screen
-import GoogleLogin from 'react-google-login'
+import {GoogleLogin, GoogleLogout} from 'react-google-login';
+import axios from 'axios';
+
 import '../../css/main.css';
 
 import ICSLogo from '../../img/ics-logo.png';
@@ -11,7 +13,6 @@ const guest = {
 }
 
 class Navigation extends Component {
-
     state = {
         current_user : {guest},
         resources : this.props.resources,
@@ -19,9 +20,19 @@ class Navigation extends Component {
         isAdmin: false
     }
 
-    responseGoogle=(res)=>{
-        // console.log(res);
-        // console.log(res.profileObj);
+    responseGoogle=(res_google)=>{
+
+        axios
+          .get('/auth', {
+              params:{
+                  email: res_google.profileObj.email
+              }
+          })
+          .then(res =>{
+            console.log(res.data)
+          })
+          .catch(err => console.error(err));
+
         this.setState({
             current_user: res.profileObj,
             resources: this.state.resources,
@@ -68,7 +79,11 @@ class Navigation extends Component {
                     <div className="navbar-nav ml-auto">
                         <Link className = " nav-item nav-link active nav-buttons" to="/search-results">Search</Link> 
                         {this.state.isAdmin && <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>}
-                        <GoogleLogin 
+                        {
+                        this.state.loggedin ? 
+                          <GoogleLogout
+                                buttonText="Logout"
+                        /> : <GoogleLogin 
                             className = "nav-buttons"
                             clientId="1025177859568-efs0a0c5t8vrrur2a8bbe5t1vd6n5a4l.apps.googleusercontent.com"
                             buttonText="Login"
@@ -76,7 +91,9 @@ class Navigation extends Component {
                             onFailure={this.responseGoogle}
                             cookiePolicy={'single_host_origin'}
                             uxMode='popup'
-                        />        
+                        />
+
+                        }
                     </div>
                 </div>
 	    </nav>
