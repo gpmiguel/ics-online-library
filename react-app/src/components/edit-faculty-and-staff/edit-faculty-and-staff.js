@@ -26,7 +26,7 @@ const EditFacultyAndStaff = () =>{
     const [data, setData] = useState(JSONDATA);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/user/')
+        axios.get('http://localhost:3001/adviser/')
             .then(res => {
                 console.log("GET PAPER ");
                 console.log(res.data);

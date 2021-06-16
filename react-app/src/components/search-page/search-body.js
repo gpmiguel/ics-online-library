@@ -20,15 +20,23 @@ const SearchPageBody = () => {
 
     useEffect(() => {
         document.title = 'Search Page';
+        var temp;
 
+
+		axios.get('http://localhost:3001/resource_book/')
+				.then(res => {
+					temp = res.data;
+				})
+			.catch(err => console.error(err));
+//Object.assign(temp, res.data)	
 		axios.get('http://localhost:3001/resource_acad_paper/')
 				.then(res => {
-					console.log("GET PAPER ");
-					console.log(res.data);
-					setData(res.data);
+					setData(Object.assign(res.data, temp));
+					console.log(data);
 					
 				})
 			.catch(err => console.error(err));
+
     }, []);
 	
 
@@ -57,14 +65,9 @@ const SearchPageBody = () => {
 						// for now sorts by author; on actual data, use a.{sort} b.{sort}
 						setData(data.sort((a, b) =>{
  						if(typeof a.author[0] !== 'undefined' && typeof b.author[0] !== 'undefined'){
- 							console.log("A:");
- 							console.log(a.author[0]);
- 							console.log("B:");
- 							console.log(a.author[0]);
 							a.author[0].toString().localeCompare(b.author[0].toString())
 						}							
 						}))
-						console.log(data);
 					}} href="#">Author</button></li>
 					<li><button className = "left-bar" name="id" onClick={(e) =>{
 						setSort(e.target.name);
@@ -178,6 +181,9 @@ const SearchPageBody = () => {
 										<p><div style={{ fontSize: 30, color: 'blue' }} >{val.title}</div>
 											<div>
 												<p>
+													Authors: {val.author[0]}
+													<br></br>Date Published: {val.year}
+													<br></br>Status: {val.degreetype} | Subject: {val.resourcetype}
 
 												</p>
 											</div>
