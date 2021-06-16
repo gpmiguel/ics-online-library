@@ -5,11 +5,6 @@ import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
 
 const SearchPageBody = () => {
-    useEffect(() => {
-        document.title = 'Search Page';
-    });
-	
-
 	// const acad_paper_arr = axios
 	//   .get("http://localhost:3001/resource-acad-paper/")
 	//   .then(res => console.log("GET PAPER "))
@@ -21,6 +16,20 @@ const SearchPageBody = () => {
 	const [filter, setFilter] = useState("");
 	const [sort, setSort] = useState("");
 	const [data, setData] = useState(JSONDATA);
+
+    useEffect(() => {
+        document.title = 'Search Page';
+
+        axios.get('http://localhost:3000/resource-acad-paper/')
+ 			.then(res => {
+ 				console.log("GET PAPER ");
+ 				console.log(res);
+ 				setData(res);
+ 				
+ 			})
+			.catch(err => console.error(err));
+    });
+	
 
 	{/*when the 'search button' is clicked, the string in the search bar (searchTerm) will be assigned to 'term'*/}
     const handleClickEvent = () => {
