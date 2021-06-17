@@ -26,15 +26,23 @@ const EditFacultyAndStaff = () =>{
     const [data, setData] = useState(JSONDATA);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/adviser/')
+        axios.get('http://localhost:3001/user/')
             .then(res => {
-                console.log("GET PAPER ");
+                console.log("GET Adviser");
                 console.log(res.data);
                 setData(res.data);
                 
             })
             .catch(err => console.error(err));
     }, []);
+
+    // deleteUser(id){
+    //     axios.delete('http://localhost:3001/user/'+id)  //make the delete function in user routes
+    //         .then(res => console.log(res.data));
+
+    //     //make a new list of users without the deleted one
+    //     setData(data.filter(e => e._id !== id)); 
+    // }
 
     const openEdit=(idx)=>{//passes the id edit row clicked
         const e = JSONDATA.find(e => e.id === idx);
@@ -110,11 +118,11 @@ const EditFacultyAndStaff = () =>{
                 </Modal.Header>
                 <Modal.Body>
                     <label for="first_name_edit" className="form-label">First name</label>
-                    <input type="text" className="form-control" placeholder = {first_name_val} id="first_name_edit"/>
+                    <input type="text" className="form-control" require placeholder = {first_name_val} id="first_name_edit"/>
                     <label for="last_name_edit" className="form-label">Last name</label>
-                    <input type="text" className="form-control" placeholder = {last_name_val} id="last_name_edit"/>
+                    <input type="text" className="form-control" require placeholder = {last_name_val} id="last_name_edit"/>
                     <label for="email" className="form-label">Email</label>
-                    <input type="email" className="form-control" placeholder = {email_val} id="email_edit"/>
+                    <input type="email" className="form-control" require placeholder = {email_val} id="email_edit"/>
                 </Modal.Body>
                 <Modal.Footer>
                     <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={ () => {closeEdit();}}>Close</button>

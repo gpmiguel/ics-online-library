@@ -24,12 +24,17 @@ const AddBook = () =>{
         edition:"",
         isbn:[],
         introduction:"",
-        mainCopy:"",
-        resourceImage:"",
+        mainCopy: "",
+        resourceImage: "",
     });
 
     const onChange = (e) => {
         setBookData({...bookData, [e.target.name]:e.target.value});
+    }
+
+    const onFileChange = (e) => {
+        console.log(e.target.files[0]);
+        setBookData({...bookData, [e.target.name]:e.target.files[0]});
     }
 
     const saveBook = (e) => {
@@ -38,21 +43,6 @@ const AddBook = () =>{
 
         //currently prints the object only to the console
         console.log(bookData);
-
-        //clear the form
-        setBookData({
-            title: "",
-            author:"",
-            subject: "",
-            yearPublished: "",
-            pageCount:"",
-            publisher:"",
-            edition:"",
-            isbn:[],
-            introduction:"",
-            mainCopy:"",
-            resourceImage:"",
-        });
 
         const book = {
             title: bookData.title,
@@ -77,16 +67,17 @@ const AddBook = () =>{
         //clear the form
         setBookData({
             title: "",
-            author:"",
-            subject: "",
-            yearPublished: "",
-            pageCount:"",
+            author:[],
+            subject: [],
+            year: "",
+            pagecount:"",
+            resourcetype:"",
             publisher:"",
             edition:"",
             isbn:[],
             introduction:"",
-            mainCopy:"",
-            resourceImage:"",
+            mainCopy: "",
+            resourceImage: "",
         });
     }
 
@@ -116,10 +107,10 @@ const AddBook = () =>{
                                 <ReactTagInput tags={bookData.subject} required name="subject" onChange={(newTags) => setBookData({...bookData, subject: newTags })} />                              
 
                                 <label for="yearpublishedFormInput" className="form-label mt-3">Year Published</label>
-                                <input type="text" value={bookData.yearPublished} required name="yearPublished" onChange={onChange} className="form-control" id="yearpublishedFormInput"/>
+                                <input type="text" value={bookData.year} required name="year" onChange={onChange} className="form-control" id="yearpublishedFormInput"/>
                                 
                                 <label for="pagecountFormInput" className="form-label mt-3">Page Count</label>
-                                <input type="text" value={bookData.pageCount} required name="pageCount" onChange={onChange} className="form-control" id="pagecountFormInput"/>
+                                <input type="text" value={bookData.pagecount} required name="pagecount" onChange={onChange} className="form-control" id="pagecountFormInput"/>
 
                                 <label for="publisherFormInput" className="form-label mt-3">Publisher</label>
                                 <input type="text" value={bookData.publisher} required name="publisher" onChange={onChange} className="form-control" id="publisherFormInput"/>
@@ -137,14 +128,14 @@ const AddBook = () =>{
                                 <div className="row mt-3">
                                     <div className="col-3">
                                         <label for="maincopyFormFile" className="form-label">Main Copy</label>
-                                        <input value={bookData.mainCopy} required name="mainCopy" onChange={onChange} className="form-control" type="file" id="maincopy"/>
+                                        <input defaultValue={bookData.mainCopy} required name="mainCopy" onChange={onFileChange} className="form-control" type="file" id="maincopy"/>
                                     </div>
                                 </div>
 
                                 <div className="row mt-3 mb-5">
                                     <div className="col-3">
                                         <label for="resourceImageFormFile" className="form-label">Resource Display Image</label>
-                                        <input value={bookData.resourceImage} required name="resourceImage" onChange={onChange} className="form-control" type="file" id="resourceImageFormFile"/>
+                                        <input defaultValue={bookData.resourceImage} required name="resourceImage" onChange={onFileChange} className="form-control" type="file" id="resourceImageFormFile"/>
                                     </div>
                                 </div>
                                 {/*<h1>{JSON.stringify(bookData)}</h1>*/}
