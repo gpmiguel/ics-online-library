@@ -1,4 +1,5 @@
 import React, { Component } from "react"; 
+import { Link, withRouter } from "react-router-dom"; 
 import '../../css/main.css';
 
 class Footer extends Component {
@@ -14,15 +15,15 @@ class Footer extends Component {
                           </div>
 
                           <div className="col-xs-6 col-md-3">
-                              <h6>Announcements</h6>
-                              <ul className="footer-links">
-                                  <li><a href=" ">Announcement 1</a></li>
-                                  <li><a href=" ">Announcement 2</a></li>
-                                  <li><a href=" ">Announcement 3</a></li>
-                                  <li><a href=" ">Announcement 4</a></li>
-                                  <li><a href=" ">Announcement 5</a></li>
-                                  <li><a href=" ">Announcement 6</a></li>
-                              </ul>
+                            <h6>Announcements</h6>
+                            <ul className="footer-links">
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 1</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 2</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 3</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 4</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 5</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 6</a></li></Link>
+                            </ul>
                           </div>
 
                           <div className="col-xs-6 col-md-3">
