@@ -51,10 +51,13 @@ class Navigation extends Component {
                     <Link className = "navbar-brand" to= "/">
                         <img src={ICSLogo} alt="ICS Logo"/>
                         <a className="collapse navbar-collapse">
+                        {/*
                         <ul>
                         <li><h2>UPLB Institute of Computer Science</h2></li>
                         <li><h3>ONLINE LIBRARY</h3></li>
                         </ul>
+                        */}
+                        <h2> &nbsp; ICS StackUP Lib</h2>
                         </a>
                     </Link>
                 </div>
@@ -70,7 +73,7 @@ class Navigation extends Component {
                         <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>                        
                         {/* {this.state.isAdmin && <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>} */}
                         <GoogleLogin 
-                            className = "nav-buttons"
+                            className = "nav-buttons btn-primary"
                             clientId="1025177859568-efs0a0c5t8vrrur2a8bbe5t1vd6n5a4l.apps.googleusercontent.com"
                             buttonText="Login"
                             onSuccess={this.responseGoogle}

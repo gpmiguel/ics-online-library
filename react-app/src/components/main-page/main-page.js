@@ -5,7 +5,7 @@ import '../../css/main.css';
 //COMPONENTS
 import Nav from './nav';
 import Body from './body';
-import Footer from './footer';
+import Footer from './footer-main';
 
 const admintemp = "jdmacam@up.edu.ph"
 

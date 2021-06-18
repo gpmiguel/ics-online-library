@@ -1,13 +1,14 @@
 /*For navigation bar*/
 
 nav{
-	height: 90px;
-	background-color:#393e46; /*navy blue*/
+	height: 60px;
+	background-color:#393e46 !important; /*navy blue*/
+	position:  sticky;
 }
 
 nav img{
-	width: 70px;
-	height: 70px;
+	width: 45px;
+	height: 45px;
 	float: left;
 }
 
@@ -15,6 +16,7 @@ nav h2{
 	font-family: Gotham;
 	color: #00adb5;
 	float: top;
+	padding-top: 15px;
 	margin: 0;
     padding: 0;
     position: relative;
