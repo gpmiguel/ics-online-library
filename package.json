@@ -35,7 +35,9 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "allowShortCircuit": true,  
+    "allowTernary": true 
   },
   "browserslist": {
     "production": [
