@@ -18,11 +18,11 @@ connection.once('open', ()=> {
     console.log("MongoDB database connection is established.");
 });
 
-app.use("/", require("./backend/routes/route.js"));
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/frontend/public/index.html'));
 });
+
+app.use("/", require("./backend/routes/route.js"));
 
 const port = process.env.PORT || 3001;
 
