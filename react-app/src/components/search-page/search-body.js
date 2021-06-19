@@ -3,21 +3,38 @@ import '../../css/main.css';
 import axios from 'axios';
 import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
-import AcadResource from '../academic-paper-resource/academic-paper-resource'
 
-const SearchPageBody = (props) => {
-    useEffect(() => {
-        document.title = 'Search Page';
-
-    });
-	
+const SearchPageBody = () => {
 
     {/*by using the 'setTerm' fxn, 'term' will be assigned the string in the search bar, obtained through 'searchForm'*/}
 	const [term, setTerm] = useState("");
 	const searchForm = useRef(null);
 	const [filter, setFilter] = useState("");
 	const [sort, setSort] = useState("");
-	const [data, setData] = useState(props);
+	const [data, setData] = useState(JSONDATA);
+
+
+    useEffect(async () => {
+        document.title = 'Search Page';
+        var temp;
+
+
+		await axios.get('http://localhost:3001/boooks')
+				.then(res => {
+					temp = res.data;
+				})
+			.catch(err => console.error(err));
+//Object.assign(temp, res.data)	
+		await axios.get('http://localhost:3001/acad-papers')
+				.then(res => {
+					setData(Object.assign(res.data, temp));
+					console.log(data);
+					
+				})
+			.catch(err => console.error(err));
+
+    }, []);
+	
 
 	{/*when the 'search button' is clicked, the string in the search bar (searchTerm) will be assigned to 'term'*/}
     const handleClickEvent = () => {
@@ -25,10 +42,13 @@ const SearchPageBody = (props) => {
 		setTerm(`${form['searchTerm'].value}`)
 	};
 
-
-	// TODO: fix resource
-	const viewResource = (title) =>{
-		return <AcadResource data = {title}/>
+	const getAuthor = async (author_id) => {
+		await axios
+		  .get(`http://localhost:3001/author/${author_id}`)
+		  .then(res => {
+			  return res.data.author
+		  })
+		  .catch(err => console.error(err));
 	}
 
     return (
@@ -41,20 +61,24 @@ const SearchPageBody = (props) => {
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
 						// for now sorts by title; on actual data, use a.{sort} b.{sort}
-						setData(JSONDATA.sort((a, b) => a.title.localeCompare(b.title)))
+						setData(data.sort((a, b) => a.title.localeCompare(b.title)))
 					}} href="search.html">Title</button> </li>
 
 					<li><button className = "left-bar" name="author" onClick={(e) =>{
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
 						// for now sorts by author; on actual data, use a.{sort} b.{sort}
-						setData(JSONDATA.sort((a, b) => a.author.localeCompare(b.author)))
+						setData(data.sort((a, b) =>{
+ 						if(typeof a.author[0] !== 'undefined' && typeof b.author[0] !== 'undefined'){
+							a.author[0].toString().localeCompare(b.author[0].toString())
+						}							
+						}))
 					}} href="#">Author</button></li>
-					<li><button className = "left-bar" name="date" onClick={(e) =>{
+					<li><button className = "left-bar" name="id" onClick={(e) =>{
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
 						// for now sorts by date; on actual data, use a.{sort} b.{sort}
-						setData(JSONDATA.sort((a, b) => a.date.localeCompare(b.date)))
+						setData(data.sort((a, b) => a.userId - b.userId));
 					}} href="#">Date Published</button></li>
 				</ul>
 
@@ -137,10 +161,8 @@ const SearchPageBody = (props) => {
 						<div className="dropdown">
 							<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
 							<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
-								<li><a className="dropdown-item" href="#">Keyword</a></li>
-								<li><a className="dropdown-item" href="#">Title</a></li>
-								<li><a className="dropdown-item" href="#">Author</a></li>
-								<li><a className="dropdown-item" href="#">Subject</a></li>
+								<li><a className="dropdown-item" href="#">Academic Paper</a></li>
+								<li><a className="dropdown-item" href="#">Book</a></li>
 							</ul>
 						</div>
 						<form ref={searchForm}>
@@ -148,7 +170,7 @@ const SearchPageBody = (props) => {
 						</form>
 						<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
 						<div className="col-10">
-							{JSONDATA.filter((val) => {
+							{data.filter((val) => {
 								if (term == "") {
 									return val;
 								}
@@ -158,16 +180,16 @@ const SearchPageBody = (props) => {
 								}
 								{/*displays the first name and last name of the mock data as of now*/ }
 							}).map((val, key) => {
-								{/*TODO: by ID */}
 								return (
-									<div onClick={viewResource(val.title)}>
+									<div>
 										<br></br>
 										<p><div style={{ fontSize: 30, color: 'blue' }} >{val.title}</div>
 											<div>
 												<p>
-													Authors: {val.authors[0]}
-													<br></br>Date Published: {val.publishedDate.$date}
-													<br></br>Status: {val.status} | Subject: {val.categories}
+													Authors: {val.author}
+													<br></br>Date Published: {val.year}
+													<br></br>Status: {val.degreetype} | Subject: {val.resourcetype}
+
 												</p>
 											</div>
 										</p>

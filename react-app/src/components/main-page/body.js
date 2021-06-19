@@ -33,7 +33,7 @@ class Body extends Component {
 						</ul>
 					</div>
 					<input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onChange={this.handleChange}/>
-					<button type="button" className="btn btn-primary btn-md col-md-2" onClick={this.search(this.state.search_item)}>search</button>
+					<button type="button" className="btn btn-primary btn-md col-md-2" onClick={this.search(this.state.search_item)} to="/search-results">search</button>
 				</div>
 			</main>
         </div>

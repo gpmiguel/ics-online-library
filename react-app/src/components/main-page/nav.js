@@ -14,44 +14,67 @@ const guest = {
 
 class Navigation extends Component {
     state = {
-        current_user : {guest},
+        current_user : '',
         resources : this.props.resources,
         loggedin: false,
         isAdmin: false
     }
 
-    responseGoogle=(res_google)=>{
+    responseGoogle = async (res_google)=>{
 
-        axios
-          .get('/auth', {
-              params:{
-                  email: res_google.profileObj.email
-              }
-          })
+        await axios
+          .get(`http://localhost:3001/auth/${res_google.profileObj.email}`
+          )
           .then(res =>{
-            console.log(res.data)
+            (res == null) ?
+            this.newGuest : this.setState({
+                current_user: res.data.email,
+                resources: this.state.resources,
+                loggedin: true,
+                isAdmin: (res.data.usertype == "Admin")
+    
+            })
+            
+            console.log('LOG',this.state)
           })
           .catch(err => console.error(err));
 
+
+        console.log('LOG 2', this.state)
+    }
+
+    
+    logout = async () => {
         this.setState({
-            current_user: res.profileObj,
+            current_user: '',
             resources: this.state.resources,
-            loggedin: true,
-            isAdmin: this.state.isAdmin
+            loggedin: false,
+            isAdmin: false
 
         })
-        console.log(this.state)
 
-        if (res.profileObj.email === this.props.admins){
-            this.setState({
-            current_user: res.profileObj,
-            resources: this.state.resources,
-            loggedin: true,
-            isAdmin: true
-            })
+        console.log("EXIT");
+    }
+
+    newGuest = async () =>{
+        const guest = {
+            activityid: []
         }
 
-        console.log(this.state)
+
+        await axios.post('http://localhost:3001/add-guest', guest).then(res => {
+
+            console.log(res);
+
+            this.setState({
+                current_user: "Guest",
+                resources: this.state.resources,
+                loggedin: false,
+                isAdmin: false
+    
+            })
+        })
+        console.log('LOG 3', this.state)
     }
 
     render() {
@@ -82,7 +105,9 @@ class Navigation extends Component {
                         {
                         this.state.loggedin ? 
                           <GoogleLogout
-                                buttonText="Logout"
+                            buttonText="Logout" 
+                            onLogoutSuccess={this.logout}
+                
                         /> : <GoogleLogin 
                             className = "nav-buttons"
                             clientId="1025177859568-efs0a0c5t8vrrur2a8bbe5t1vd6n5a4l.apps.googleusercontent.com"
@@ -91,6 +116,7 @@ class Navigation extends Component {
                             onFailure={this.responseGoogle}
                             cookiePolicy={'single_host_origin'}
                             uxMode='popup'
+                            isSignedIn = {true}
                         />
 
                         }
