@@ -9,13 +9,11 @@ This system is in partial fulfillment of the requirements for CMSC 128: Introduc
 
 ### Prerequisites (Subject to Revisions)
 
-* [I'm a placeholder](https://www.google.com)
-* [I'm a placeholder](https://www.google.com)
-* [I'm a placeholder](https://www.google.com)
-* [I'm a placeholder](https://www.google.com)
-* [I'm a placeholder](https://www.google.com)
+* [Node.js](https://nodejs.org/en/download/)
+* [MongoDB, MongoDB Compass, and MongoDB Atlas](https://www.mongodb.com/try/download/community)
+* [Git](https://git-scm.com/downloads)
 
-### Installation (Subject to Revisions)
+### Installation and Usage (Subject to Revisions)
 
 1. Clone the repository into your machine. Enter the command below in your Command Line Interface (CLI).
 
@@ -27,6 +25,11 @@ git clone https://github.com/gpmiguel/ics-online-library.git
 
 ```
 npm install
+```
+
+3. Run the application by entering the command below in your CLI. The website should be deployed in your localhost
+```
+npm start
 ```
 
 ## Software Development Team
