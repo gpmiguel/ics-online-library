@@ -1,5 +1,6 @@
 const router =  require('express').Router();
 const mongoose = require('mongoose');
+const path = require('path');
 var ObjectId = require('mongodb').ObjectID;
 
 //MODELS
@@ -305,16 +306,8 @@ router.route('/keyword/:keyword_id').get((req, res)=>{
     .catch(err => res.status(400).json('Error: '+err));
 })
 
-
-
-
-
-
-
-
-
-
-
-
+router.route('*').get((req, res) => {
+  res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
+});
 
 module.exports = router;
