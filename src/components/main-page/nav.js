@@ -38,7 +38,7 @@ class Navigation extends Component {
             
             console.log('LOG',this.state)
           })
-          .catch(err => console.error(err));
+          .catch(err => console.log(err));
 
 
         console.log('LOG 2', this.state)
