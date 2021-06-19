@@ -21,10 +21,6 @@ connection.once('open', ()=> {
 
 app.use("/", require("./backend/routes/route"));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-})
-
 app.listen(port, ()=> {
     console.log(`Server is running in port: ${port} 🔥`);
 })
