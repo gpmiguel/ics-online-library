@@ -27,9 +27,7 @@ class Navigation extends Component {
           )
           .then(res =>{
             /*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
-            (res == null) ?
-            this.newGuest : 
-            this.setState({
+            (res == null) ? this.newGuest : this.setState({
                 current_user: res.data.email,
                 resources: this.state.resources,
                 loggedin: true,
