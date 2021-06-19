@@ -26,7 +26,7 @@ class Navigation extends Component {
           .get(`http://localhost:3001/auth/${res_google.profileObj.email}`
           )
           .then(res =>{
-            /*eslint no-unused-expressions: ["error", { "allowTernary": true }]*/
+            /*eslint no-unused-expressions: ["error", {"allowShortCircuit": true,  "allowTernary": true }]*/
             (res == null) ? this.newGuest : this.setState({
                 current_user: res.data.email,
                 resources: this.state.resources,
