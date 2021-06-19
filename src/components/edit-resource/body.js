@@ -1,6 +1,5 @@
 import React, { Component } from "react"; 
 import { Link, withRouter } from "react-router-dom";
-import { EditText, EditTextarea } from 'react-edit-text';  // for editable text area
 import '../../css/main.css';
 
 //COMPONENTS
@@ -22,8 +21,7 @@ class EditBody extends Component{
               
                 <label for="bookTitleFormInput" className="form-label">Title</label>
                 <input type="text" className="form-control" id="bookTitleFormInput" defaultValue={sampleText}/>
-                {/* <EditText name="textbox1" defaultValue={sampleText} className="form-control" id="bookTitleFormInput"/> */}
-
+            
                 <label className="form-label mt-3">Author</label>
                 <TagsInput/>
 
