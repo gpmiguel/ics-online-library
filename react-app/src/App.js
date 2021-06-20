@@ -24,7 +24,7 @@ function App() {
           <Route path="/admin-dashboard" exact component={() => <AdminMainPage />} />
           <Route path="/add-academic-paper" exact component={() => <AddAcademicPaper />} />
           <Route path="/add-book" exact component={() => <AddBook />} />
-          <Route path="/search-results" exact component={() => <SearchPage />} />
+          <Route path="/search-results/:searched" exact component={() => <SearchPage />} />
           <Route path="/edit-faculty-and-staff" exact component={() => <EditFacultyAndStaff />} />
           <Route path="/edit-resource" exact component={() => <EditResource />} />
           <Route path="/academic-paper" exact component={() => <AcademicPaperResource />} />

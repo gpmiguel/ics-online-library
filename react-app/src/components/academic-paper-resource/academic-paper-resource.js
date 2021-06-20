@@ -3,9 +3,14 @@ import '../../css/main.css';
 import bookpic from "../../img/photo_holder.png";
 
 import Nav from '../main-page/nav';
+import { Link, useLocation, withRouter } from "react-router-dom";
 import Footer from '../main-page/footer';
+import { useParams } from 'react-router-dom';
 
 export default function AcademicPaper() {
+
+    const {val} = useLocation().state;
+
     const book_details = {
         "date_published": "January 1, 2008",
         "publisher": "StarBooks",
@@ -20,32 +25,30 @@ export default function AcademicPaper() {
             <Nav />
             <div className="container-fluid">
                 <div className="col-md-8 offset-md-1" id="edit-yellow"> 
-                    <button type="button" className="btn btn-primary mr-3" id="edit-yellow">Back</button>
+                    <Link type="button" className="btn btn-primary mr-3" id="edit-yellow" to={`/search-results/ `}>Back</Link>
                 </div>
                 <div className="row mx-5">
                     <div className="col-1">
                     </div>
                     <div className="col-md-6">
-                        <h1 className="text-left text-warning mt-3 mb-1" style={{ fontSize: "36px" }}>Resource Title</h1>
-                        <label className="text-left text-primary mt-1 mb-1" style={{ fontSize: "25px" }}>Author 1,</label>
-                        <label className="text-left text-primary mt-1 mb-1" style={{ fontSize: "25px" }}>Author 2,</label>
-                        <label className="text-left text-primary mt-1 mb-1" style={{ fontSize: "25px" }}>Author 3</label>
+                        <h1 className="text-left text-warning mt-3 mb-1" style={{ fontSize: "36px" }}>{val.title}</h1>
+                        <label className="text-left text-primary mt-1 mb-1" style={{ fontSize: "25px" }}>{val.authors[0]},</label>
                         <p></p>
-                        <p>Date published: {book_details.date_published}</p>
-                        <p>Publisher: {book_details.publisher}</p>
-                        <p>Edition: {book_details.edition}</p>
-                        <p>Resource Type: {book_details.resource_type}</p>
-                        <p>Subject: {book_details.subject}</p>
-                        <p>Other info: {book_details.other_info}</p>
-                        <p>Abstract: {book_details.abstract}</p>
+                        <p>Date published: {val.publishedDate.$date}</p>
+                        <p>Status: {val.status}</p>
+                        {/* <p>Degree Type: {val.degreetype}</p> */}
+                        {/* <p>Resource Type: {val.resource_type}</p> */}
+                        {/* <p>Subject: {val.subject[0]}</p> */}
+                        <p>Other info: {val.pageCount} pages</p>
+                        <p>Abstract: {val.shortDescription}</p> 
                     </div>
                     <div className="col-md-4 justify-content-center">
-                        <img src={bookpic} height="500px" width="355x" alt="Book" />
+                        <img src={val.thumbnailUrl} height="500px" width="355x" alt="Book" />
                         <p></p>
                         <div className="text-center">
                             <button type="button" className="btn btn-primary btn-md mr-3">Manuscript</button>
                             <button type="button" className="btn btn-primary btn-md mr-3" >Poster</button>
-                            <button type="button" className="btn btn-primary btn-md">Source Code</button>
+                            <Link type="button" className="btn btn-primary btn-md" to={val.sourcecode}>Source Code</Link>
                         </div>
                     </div>
                 </div>

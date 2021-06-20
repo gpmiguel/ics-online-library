@@ -8,45 +8,116 @@ import '../../css/main.css';
 
 import ICSLogo from '../../img/ics-logo.png';
 
-const guest = {
-    name:"Anonymous Panda",
-}
+const activity_types = ["Mangement", "Registry", "Acess"]
 
 class Navigation extends Component {
     state = {
-        current_user : '',
+        current_user : {},
+        ids: "",
         resources : this.props.resources,
         loggedin: false,
-        isAdmin: false
+        isAdmin: false,
+        iconUrl: ""
     }
 
     responseGoogle = async (res_google)=>{
 
+        console.log(res_google.profileObj);
+
+        var log;
+        const upmail = res_google.profileObj.email.includes("@up.edu.ph")
+        console.log(upmail);
+
+
         await axios
-          .get(`http://localhost:3001/auth/${res_google.profileObj.email}`
-          )
-          .then(res =>{
-            (res == null) ?
-            this.newGuest : this.setState({
-                current_user: res.data.email,
+        .get(`http://localhost:3001/auth/${res_google.profileObj.email}`
+        )
+        .then(res =>{ 
+            upmail ?
+            this.setState({
+                current_user: res.data,
+                ids: res.data._id,
                 resources: this.state.resources,
                 loggedin: true,
-                isAdmin: (res.data.usertype == "Admin")
+                isAdmin: (res.data.usertype == "Admin"),
+                iconUrl: res_google.profileObj.imageUrl
     
             })
+            :
+            this.newGuest();
             
+            log = {
+                userid : this.state.ids,
+                activitytype : activity_types[1],
+                action: "Sign In"
+    
+            }
+
             console.log('LOG',this.state)
           })
-          .catch(err => console.error(err));
+          .catch(err => console.error(err))
+        
 
+        
+        
+        await axios.post('http://localhost:3001/add-activity-log', log).then(
+            res => {
+                console.log(res.data);
+                
+
+
+                console.log("UYSER", this.state.current_user.guest_id);
+                if(this.state.current_user.usertype == null){
+                    const {email, firstname, lastname, usertype, activityid} = this.state.current_user;
+                    axios.put(`http://localhost:3001/edit-guest/${this.state.current_user.guest_id}`, {$push: {activityid: res.data.log_id}});
+
+                }else{
+                    const {email, firstname, lastname, usertype, activityid} = this.state.current_user;
+                    axios.put(`http://localhost:3001/edit-user/${log.userid}`,{
+                        email: email, 
+                        firstname: firstname, 
+                        lastname: lastname, 
+                        usertype: usertype, 
+                        activityid: activityid.push(res.data.log_id)
+                    })
+                }
+                
+            }
+        )
 
         console.log('LOG 2', this.state)
     }
 
     
     logout = async () => {
+        const log = {
+            userid : this.state.current_user._id,
+            activitytype : activity_types[1],
+            action: "Sign Out"
+
+        }
+
+        await axios.post('http://localhost:3001/add-activity-log', log).then(
+            res => {
+                console.log(res.data);
+                const {email, firstname, lastname, usertype, activityid} = this.state.current_user;
+
+                (this.state.current_user.usertype == "Guest") ?
+
+                axios.put(`http://localhost:3001/edit-guest/${this.state.current_user._id}`, {activityid: activityid.push(res.data.log_id)})
+                :
+                axios.put(`http://localhost:3001/edit-user/${log.userid}`,{
+                    email: email, 
+                    firstname: firstname, 
+                    lastname: lastname, 
+                    usertype: usertype, 
+                    activityid: activityid.push(res.data.log_id)
+                })
+            }
+        )
+
         this.setState({
-            current_user: '',
+            current_user: {},
             resources: this.state.resources,
             loggedin: false,
             isAdmin: false
@@ -67,14 +138,15 @@ class Navigation extends Component {
             console.log(res);
 
             this.setState({
-                current_user: "Guest",
+                current_user: res.data,
+                ids: res.data.guest_id,
                 resources: this.state.resources,
                 loggedin: false,
                 isAdmin: false
     
             })
         })
-        console.log('LOG 3', this.state)
+        console.log('LOG GUEST', this.state)
     }
 
     render() {
@@ -100,12 +172,13 @@ class Navigation extends Component {
                 </button>
                 <div className="collapse navbar-collapse " id="navbarContent">
                     <div className="navbar-nav ml-auto">
-                        <Link className = " nav-item nav-link active nav-buttons" to="/search-results">Search</Link> 
+                        <Link className = " nav-item nav-link active nav-buttons" to="/search-results/ ">Search</Link> 
                         {this.state.isAdmin && <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>}
                         {
                         this.state.loggedin ? 
                           <GoogleLogout
-                            buttonText="Logout" 
+                            className = "nav-buttons"
+                            buttonText= {"Logout "} 
                             onLogoutSuccess={this.logout}
                 
                         /> : <GoogleLogin 
@@ -116,10 +189,10 @@ class Navigation extends Component {
                             onFailure={this.responseGoogle}
                             cookiePolicy={'single_host_origin'}
                             uxMode='popup'
-                            isSignedIn = {true}
+                            // isSignedIn = {true}
                         />
-
                         }
+                        {this.state.loggedin && <img src={this.state.iconUrl} className="rounded-circle img-fluid" alt="userIcon"/>}
                     </div>
                 </div>
 	    </nav>

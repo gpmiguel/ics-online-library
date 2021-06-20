@@ -2,6 +2,13 @@ const router =  require('express').Router();
 const mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectID;
 
+
+const bodyParser = require("body-parser");
+const jsonParse = bodyParser.json();
+const urlencodedParse = bodyParser.urlencoded({ extended: false })
+
+
+
 //MODELS
 let AcademicPaper =  require('../models/resource_acad_paper.model');
 let Book = require("../models/resource_book.model");
@@ -53,9 +60,9 @@ router.route('/add-academic-paper').post((req, res) => {
         .catch(err => res.status(400).json('Error: '+err)); 
 });
 
-router.route('/edit-acad-paper/:id').put((req, res) => {
-    AcademicPaper.findOneAndUpdate({_id: req.params.id}, {$set : {
-    title: req.params.title,
+router.route('/edit-acad-paper/:id').put(jsonParse, (req, res) => {
+    AcademicPaper.findOneAndUpdate({_id: req.params.id},{
+    title: req.body.title,
     author: req.body.author,
     subject: req.body.subject,
     year: req.body.year,
@@ -71,7 +78,7 @@ router.route('/edit-acad-paper/:id').put((req, res) => {
     poster: req.body.poster,
     sourcecode: req.body.sourcecode,
     displayimage: req.body.displayimage,
-    }}) .then(resource_acad_paper => {res.json('Academic Paper Updated!')})
+    }) .then(resource_acad_paper => {res.json('Academic Paper Updated!')})
     .catch(err => res.status(400).json('Error: '+err)); 
 })
 
@@ -172,14 +179,27 @@ router.route('/add-user').post((req, res) => {
         .catch(err => res.status(400).json('Error: '+err)); 
 });
 
-router.route('/edit-user/:id').put((req, res) => {
-    User.findOneAndUpdate({id: req.params.id}, {
-    lastname : req.body.lastname,
-    firstname : req.body.firstname,
-    email : req.body.email,
-    usertype : req.body.usertype,
-    activityid : req.body.activityid,
-    }) .then(user => res.json('User Updated!'))
+router.route('/edit-user/:id').put(jsonParse, (req, res) => {
+
+    console.log(req.body);
+
+    const data_id = req.body._id;
+
+    const data = {
+        lastname : req.body.lastname,
+        firstname : req.body.firstname,
+        email : req.body.email,
+        usertype : req.body.usertype,
+        activityid : req.body.activityid,
+        };
+
+    // console.log(change_id, data, data_id);
+
+    User.findOneAndUpdate({_id: req.params.id}, data) .then(user => res.json({
+        message: 'User Updated!',
+        data : data,
+        find: req.params.id
+    }))
     .catch(err => res.status(400).json('Error: '+err)); 
 })
 
@@ -221,9 +241,20 @@ router.route('/add-guest').post((req, res) => {
         _id, activityid});
 
     newGuest.save()
-        .then(guest_array => res.json('New Guest Added!'))
+        .then(guest_array => res.json({
+            // message: 'New Guest Added!',
+            guest_id: _id,
+            activityid: activityid
+    }))
         .catch(err => res.status(400).json('Error: '+err)); 
 });
+
+router.route('/edit-guest/:id').put(jsonParse, (req, res) => {
+    Guest.findOneAndUpdate({_id: req.params.id}, {activityid: req.body.activityid}).then(guest => {
+        res.json("Guest updated");
+    }).catch(err => res.status(400).json('Error: '+err)); 
+
+})
 
 //ADVISERS
 router.route('/advisers').get((req, res)=>{                         
@@ -271,7 +302,10 @@ router.route('/add-activity-log').post((req, res) => {
         _id, userid, activitytype, action});
 
     newActivityManage.save()                            
-        .then(activity_log_registry => res.json('New Activity Log Added!'))
+        .then(activity_log_registry => res.json({
+            message:'New Activity Log Added!',
+            log_id: _id
+        }))
         .catch(err => res.status(400).json('Error: '+err)); 
 });
 
@@ -287,7 +321,7 @@ router.route('/author/:author_id').get((req, res)=>{
 
 //SUBJECTS
 router.route('/subject/:subject_id').get((req, res)=>{
-    subject.findById(new ObjectId(req.params.subject_id))
+    subject.findById(ObjectId(req.params.subject_id))
     .then((subject)=> {
         res.json(subject);
         console.log(subject);

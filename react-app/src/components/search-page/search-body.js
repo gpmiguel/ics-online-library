@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import '../../css/main.css';
+import { Link, withRouter } from "react-router-dom";
 import axios from 'axios';
 import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
+import { useParams } from 'react-router-dom';
 
 const SearchPageBody = () => {
 
     {/*by using the 'setTerm' fxn, 'term' will be assigned the string in the search bar, obtained through 'searchForm'*/}
+	const {searched} = useParams();
 	const [term, setTerm] = useState("");
 	const searchForm = useRef(null);
 	const [filter, setFilter] = useState("");
@@ -19,20 +22,23 @@ const SearchPageBody = () => {
         var temp;
 
 
-		await axios.get('http://localhost:3001/boooks')
-				.then(res => {
-					temp = res.data;
-				})
-			.catch(err => console.error(err));
-//Object.assign(temp, res.data)	
-		await axios.get('http://localhost:3001/acad-papers')
-				.then(res => {
-					setData(Object.assign(res.data, temp));
-					console.log(data);
+// 		await axios.get('http://localhost:3001/books')
+// 				.then(res => {
+// 					temp = res.data;
+// 				})
+// 			.catch(err => console.error(err));
+// //Object.assign(temp, res.data)	
+// 		await axios.get('http://localhost:3001/acad-papers')
+// 				.then(res => {
+// 					setData(Object.assign(res.data, temp));
+// 					console.log(data);
 					
-				})
-			.catch(err => console.error(err));
-
+// 				})
+// 			.catch(err => console.error(err));
+			
+			
+			console.log(data);
+			setTerm(searched);
     }, []);
 	
 
@@ -159,14 +165,14 @@ const SearchPageBody = () => {
 			  <div className="col-10" id="search-div">
 					<div className="input-group col-md-12 search-page-search">
 						<div className="dropdown">
-							<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
+							<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Category </a>
 							<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
 								<li><a className="dropdown-item" href="#">Academic Paper</a></li>
 								<li><a className="dropdown-item" href="#">Book</a></li>
 							</ul>
 						</div>
 						<form ref={searchForm}>
-							<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
+							<input type="search" class="form-control rounded" placeholder={searched} aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
 						</form>
 						<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
 						<div className="col-10">
@@ -183,12 +189,18 @@ const SearchPageBody = () => {
 								return (
 									<div>
 										<br></br>
-										<p><div style={{ fontSize: 30, color: 'blue' }} >{val.title}</div>
+										<p><Link style={{ fontSize: 30, color: 'blue' }} to={{
+											pathname : `/academic-paper`,
+											state: {
+												val : val
+											}
+
+										}}>{val.title}</Link>
 											<div>
 												<p>
-													Authors: {val.author}
-													<br></br>Date Published: {val.year}
-													<br></br>Status: {val.degreetype} | Subject: {val.resourcetype}
+													Authors: {val.authors[0]}
+													<br></br>Date Published: {val.publishedDate.$date}
+													<br></br>Status: {val.status} | Subject: {val.categories[0]}
 
 												</p>
 											</div>
