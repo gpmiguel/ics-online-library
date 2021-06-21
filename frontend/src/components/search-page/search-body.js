@@ -19,13 +19,13 @@ const SearchPageBody = () => {
         var temp;
 
 
-		await axios.get('http://localhost:3001/boooks')
+		await axios.get('/books')
 				.then(res => {
 					temp = res.data;
 				})
 			.catch(err => console.error(err));
 //Object.assign(temp, res.data)	
-		await axios.get('http://localhost:3001/acad-papers')
+		await axios.get('/acad-papers')
 				.then(res => {
 					setData(Object.assign(res.data, temp));
 					console.log(data);

@@ -12,6 +12,8 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 const port = process.env.PORT || 3001;
 
+app.use("/", route);
+
 app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 mongoose.connect("mongodb+srv://c4ladmin:icsadmin@icslibrarysystem.5tt8e.mongodb.net/icslibrarysystem", 
@@ -26,8 +28,6 @@ connection.once('open', ()=> {
 app.get('/*', function(req,res) {
 	res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
-
-app.use("/", route);
 
 app.listen(port, ()=> {
     console.log(`Server is running in port: ${port} 🔥`);
