@@ -22,19 +22,18 @@ const SearchPageBody = () => {
         var temp;
 
 
-// 		await axios.get('http://localhost:3001/books')
-// 				.then(res => {
-// 					temp = res.data;
-// 				})
-// 			.catch(err => console.error(err));
-// //Object.assign(temp, res.data)	
-// 		await axios.get('http://localhost:3001/acad-papers')
-// 				.then(res => {
-// 					setData(Object.assign(res.data, temp));
-// 					console.log(data);
+		axios.get('http://localhost:3001/books')
+				.then(res => {
+					temp = res.data;
+				})
+			.catch(err => console.error(err));
+		axios.get('http://localhost:3001/acad-papers')
+				.then(res => {
+					setData(Object.assign(res.data, temp));
+					console.log(data);
 					
-// 				})
-// 			.catch(err => console.error(err));
+				})
+			.catch(err => console.error(err));
 			
 			
 			console.log(data);
@@ -43,10 +42,18 @@ const SearchPageBody = () => {
 	
 
 	{/*when the 'search button' is clicked, the string in the search bar (searchTerm) will be assigned to 'term'*/}
-    const handleClickEvent = () => {
+    const handleClickEvent = (e) => {
 		const form = searchForm.current;
 		setTerm(`${form['searchTerm'].value}`)
 	};
+
+	const handleKeyPressEvent = (e) => {
+    	if(e.charCode === 13){
+    		e.preventDefault();
+			const form = searchForm.current;
+			setTerm(`${form['searchTerm'].value}`);
+    	}		
+	}
 
 	const getAuthor = async (author_id) => {
 		await axios
@@ -171,7 +178,7 @@ const SearchPageBody = () => {
 								<li><a className="dropdown-item" href="#">Book</a></li>
 							</ul>
 						</div>
-						<form ref={searchForm}>
+						<form name="resultForm" ref={searchForm} onKeyPress={handleKeyPressEvent}>
 							<input type="search" class="form-control rounded" placeholder={searched} aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
 						</form>
 						<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
@@ -198,9 +205,9 @@ const SearchPageBody = () => {
 										}}>{val.title}</Link>
 											<div>
 												<p>
-													Authors: {val.authors[0]}
-													<br></br>Date Published: {val.publishedDate.$date}
-													<br></br>Status: {val.status} | Subject: {val.categories[0]}
+													Authors: {typeof val.authors === 'undefined' ? "None" : val.authors[0]}
+													<br></br>Date Published: {typeof val.publishedDate === 'undefined' ? "None" : val.publishedDate.$date}
+													<br></br>Status: {val.status} | Subject: {typeof val.categories === 'undefined' ? "None" : val.categories[0]}
 
 												</p>
 											</div>

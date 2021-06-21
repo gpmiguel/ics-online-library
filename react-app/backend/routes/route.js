@@ -203,8 +203,8 @@ router.route('/edit-user/:id').put(jsonParse, (req, res) => {
     .catch(err => res.status(400).json('Error: '+err)); 
 })
 
-router.route('/delete-user/:id').get((req, res)=>{
-    User.deleteOne({_id: req.params.id})
+router.route('/delete-user/:id').delete((req, res)=>{
+    User.findByIdAndDelete({id: _id})
     .then((user)=> {
         res.json(user);
         console.log(user);
