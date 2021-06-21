@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
+const route = require("./backend/routes/route.js")
 
 const path = require('path');
 const app = express();
@@ -22,7 +23,11 @@ connection.once('open', ()=> {
     console.log("MongoDB database connection is established.");
 });
 
-app.use("/", require("./backend/routes/route.js"));
+app.get('/*', function(req,res) {
+		res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
+
+app.use("/", route);
 
 app.listen(port, ()=> {
     console.log(`Server is running in port: ${port} 🔥`);
