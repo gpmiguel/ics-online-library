@@ -1,8 +1,8 @@
-import React, { Component } from "react"; 
+import React from "react"; 
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import axios from 'axios';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../../css/main.css';
 import {useState} from 'react';
 

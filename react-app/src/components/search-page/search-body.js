@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import '../../css/main.css';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
@@ -153,20 +153,6 @@ const SearchPageBody = () => {
 					</ul>
 				</div>
 
-				{/* former filter buttons */}
-				
-				{/* <ul className="left-bar-container">
-					<li><button className = "left-bar" name="title" onClick={(e) =>{
-						setFilter(e.target.name);
-					}} href="search.html">Title</button> </li>
-					<li><button className = "left-bar" name="author" onClick={(e) =>{
-						setFilter(e.target.name)
-					}} href="#">Author</button></li>
-					<li><button className = "left-bar" name="date" onClick={(e) =>{
-						setFilter(e.target.name)
-					}} href="#">Date Published</button></li>
-				</ul> */}
-
 			  </div>
 
 			  <div className="col-10" id="search-div">
@@ -184,7 +170,7 @@ const SearchPageBody = () => {
 						<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
 						<div className="col-10">
 							{data.filter((val) => {
-								if (term == "") {
+								if (term === "") {
 									return val;
 								}
 								/*only checks the first_name of the mock data as of now*/

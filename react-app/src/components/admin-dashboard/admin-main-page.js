@@ -1,5 +1,4 @@
 import React, { Component } from "react"; 
-import { Link, withRouter } from "react-router-dom"; 
 import '../../css/main.css';
 
 //COMPONENTS
@@ -14,7 +13,7 @@ class AdminMainPage extends Component{
                 <Nav />
                 <AdminMainPageBody />
 
-                <div style={{marginTop:"15%"}}>
+                <div style={{marginTop:"25%"}}>
                     <Footer />
                 </div>
             </div>

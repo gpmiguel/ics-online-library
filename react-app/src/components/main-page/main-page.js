@@ -5,7 +5,7 @@ import '../../css/main.css';
 //COMPONENTS
 import Nav from './nav';
 import Body from './body';
-import Footer from './footer';
+import FooterMain from './footer-main';
 
 
 class MainPage extends Component {
@@ -38,7 +38,7 @@ class MainPage extends Component {
      <div>
        <Nav resources={this.state.resource_array}/>
        <Body />
-       <Footer />
+       <FooterMain />
      </div>
     );
   }

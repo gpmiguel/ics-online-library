@@ -1,25 +1,14 @@
 import React from 'react'
 import '../../css/main.css';
-import bookpic from "../../img/photo_holder.png";
 
 import Nav from '../main-page/nav';
-import { Link, useLocation, withRouter } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Footer from '../main-page/footer';
-import { useParams } from 'react-router-dom';
 
 export default function AcademicPaper() {
 
     const {val} = useLocation().state;
 
-    const book_details = {
-        "date_published": "January 1, 2008",
-        "publisher": "StarBooks",
-        "edition": "1st Edition",
-        "resource_type": "Book",
-        "subject": "Machine Learning",
-        "other_info": "Lorem ipsum dolor sit amet",
-        "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum justo leo, ultrices quis tincidunt a, faucibus non justo. Etiam at sapien tincidunt, fringilla nunc eget, tincidunt lectus. Donec laoreet ante a accumsan lobortis. Pellentesque eros mi, vestibulum nec tellus non, accumsan auctor tellus. Donec eu quam dignissim orci pretium facilisis. Phasellus sem massa, elementum accumsan nisi non, rhoncus congue elit. Mauris at laoreet velit. Phasellus non efficitur nibh. Vestibulum ut massa eget lectus bibendum vulputate eget ullamcorper risus."
-    };
     return (
         <div>
             <Nav />
