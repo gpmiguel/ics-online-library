@@ -306,7 +306,7 @@ router.route('/keyword/:keyword_id').get((req, res)=>{
     .catch(err => res.status(400).json('Error: '+err));
 })
 
-router.route('*').get((req, res) => {
+router.route('/*').get((req, res) => {
   res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
 });
 
