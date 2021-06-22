@@ -182,7 +182,7 @@ const SearchPageBody = () => {
 								return (
 									<div>
 										<br></br>
-										<p><Link style={{ fontSize: 30, color: 'blue' }} to={{
+										<p><Link style={{ fontWeight: 'bold', fontFamily: 'Helvetica', fontSize: 30, color: '#00adb5' }}to={{
 											pathname : `/academic-paper`,
 											state: {
 												val : val
