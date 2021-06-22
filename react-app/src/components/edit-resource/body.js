@@ -1,6 +1,5 @@
 import React, { Component } from "react"; 
-import { Link, withRouter } from "react-router-dom";
-import { EditText, EditTextarea } from 'react-edit-text';  // for editable text area
+import { Link } from "react-router-dom";
 import '../../css/main.css';
 
 //COMPONENTS
@@ -16,7 +15,7 @@ class EditBody extends Component{
         let sampleText = "This is supposed to be data from the database"
 
         const renderEdit = () => {
-            if (x == 1) {
+            if (x === 1) {
                 return (
                 <div><p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Edit Book</p>
               
