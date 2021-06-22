@@ -24,6 +24,6 @@ const academicPaperSchema = new Schema({
     timestamps: true
 });
 
-const AcademicPaper = mongoose.model('resource_acad_paper', academicPaperSchema);
+const AcademicPaper = mongoose.model('resource_acad_paper', academicPaperSchema, 'resource_acad_papers');
 
 module.exports = AcademicPaper;

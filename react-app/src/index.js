@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './css/main.css';
 
 //COMPONENTS
 import App from './App';
-import MainPage from './components/main-page/main-page';
-import AdminMainPage from './components/admin-dashboard/admin-main-page';
-import AddAcademicPaper from './components/add-academic-paper/add-academic-paper';
 
 import reportWebVitals from './reportWebVitals';
 

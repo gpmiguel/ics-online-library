@@ -1,0 +1,7 @@
+/* imports other css files in one file for modularity*/
+
+@import "../src/css/global.css";
+@import "../src/css/nav.css";
+@import "../src/css/footer.css";
+@import "../src/css/search.css";
+@import "../src/css/admin-main.css"

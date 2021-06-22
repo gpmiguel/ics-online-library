@@ -1,7 +1,7 @@
 import React, { Component } from "react"; 
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../../css/main.css';
-import axios from 'axios';
+import axios from "axios";
 
 //COMPONENTS
 import Nav from '../main-page/nav';
@@ -47,7 +47,7 @@ class AddFacultyAndStaff extends Component{
             // usertype: (to be added)
         }
 
-        axios.post('http://localhost:3001/user/add-user', faculty_and_staff)    // todo: fix user "/" and "/add-user" routes first
+        axios.post('http://localhost:3001/user/add-user', faculty_and_staff) 
             .then(res => console.log(res.data));
 
         alert('Faculty/Staff Added!')

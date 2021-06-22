@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import '../../css/main.css';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
+import { useParams } from 'react-router-dom';
 
 const SearchPageBody = () => {
-	// const acad_paper_arr = axios
-	//   .get("http://localhost:3001/resource-acad-paper/")
-	//   .then(res => console.log("GET PAPER "))
-	//   .catch(err => console.error(err));
 
     {/*by using the 'setTerm' fxn, 'term' will be assigned the string in the search bar, obtained through 'searchForm'*/}
+	const {searched} = useParams();
 	const [term, setTerm] = useState("");
 	const searchForm = useRef(null);
 	const [filter, setFilter] = useState("");
@@ -18,33 +17,52 @@ const SearchPageBody = () => {
 	const [data, setData] = useState(JSONDATA);
 
 
-    useEffect(() => {
+    useEffect(async () => {
         document.title = 'Search Page';
         var temp;
 
 
-		axios.get('http://localhost:3001/resource_book/')
+		axios.get('http://localhost:3001/books')
 				.then(res => {
 					temp = res.data;
 				})
 			.catch(err => console.error(err));
-//Object.assign(temp, res.data)	
-		axios.get('http://localhost:3001/resource_acad_paper/')
+		axios.get('http://localhost:3001/acad-papers')
 				.then(res => {
 					setData(Object.assign(res.data, temp));
 					console.log(data);
 					
 				})
 			.catch(err => console.error(err));
-
+			
+			
+			console.log(data);
+			setTerm(searched);
     }, []);
 	
 
 	{/*when the 'search button' is clicked, the string in the search bar (searchTerm) will be assigned to 'term'*/}
-    const handleClickEvent = () => {
+    const handleClickEvent = (e) => {
 		const form = searchForm.current;
 		setTerm(`${form['searchTerm'].value}`)
 	};
+
+	const handleKeyPressEvent = (e) => {
+    	if(e.charCode === 13){
+    		e.preventDefault();
+			const form = searchForm.current;
+			setTerm(`${form['searchTerm'].value}`);
+    	}		
+	}
+
+	const getAuthor = async (author_id) => {
+		await axios
+		  .get(`http://localhost:3001/author/${author_id}`)
+		  .then(res => {
+			  return res.data.author
+		  })
+		  .catch(err => console.error(err));
+	}
 
     return (
         <div className="container">
@@ -135,38 +153,24 @@ const SearchPageBody = () => {
 					</ul>
 				</div>
 
-				{/* former filter buttons */}
-				
-				{/* <ul className="left-bar-container">
-					<li><button className = "left-bar" name="title" onClick={(e) =>{
-						setFilter(e.target.name);
-					}} href="search.html">Title</button> </li>
-					<li><button className = "left-bar" name="author" onClick={(e) =>{
-						setFilter(e.target.name)
-					}} href="#">Author</button></li>
-					<li><button className = "left-bar" name="date" onClick={(e) =>{
-						setFilter(e.target.name)
-					}} href="#">Date Published</button></li>
-				</ul> */}
-
 			  </div>
 
 			  <div className="col-10" id="search-div">
 					<div className="input-group col-md-12 search-page-search">
 						<div className="dropdown">
-							<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
+							<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Category </a>
 							<ul className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
 								<li><a className="dropdown-item" href="#">Academic Paper</a></li>
 								<li><a className="dropdown-item" href="#">Book</a></li>
 							</ul>
 						</div>
-						<form ref={searchForm}>
-							<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
+						<form name="resultForm" ref={searchForm} onKeyPress={handleKeyPressEvent}>
+							<input type="search" class="form-control rounded" placeholder={searched} aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
 						</form>
 						<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
 						<div className="col-10">
 							{data.filter((val) => {
-								if (term == "") {
+								if (term === "") {
 									return val;
 								}
 								/*only checks the first_name of the mock data as of now*/
@@ -178,12 +182,18 @@ const SearchPageBody = () => {
 								return (
 									<div>
 										<br></br>
-										<p><div style={{ fontSize: 30, color: 'blue' }} >{val.title}</div>
+										<p><Link style={{ fontWeight: 'bold', fontFamily: 'Helvetica', fontSize: 30, color: '#00adb5' }}to={{
+											pathname : `/academic-paper`,
+											state: {
+												val : val
+											}
+
+										}}>{val.title}</Link>
 											<div>
 												<p>
-													Authors: {val.author[0]}
-													<br></br>Date Published: {val.year}
-													<br></br>Status: {val.degreetype} | Subject: {val.resourcetype}
+													Authors: {typeof val.authors === 'undefined' ? "None" : val.authors[0]}
+													<br></br>Date Published: {typeof val.publishedDate === 'undefined' ? "None" : val.publishedDate.$date}
+													<br></br>Status: {val.status} | Subject: {typeof val.categories === 'undefined' ? "None" : val.categories[0]}
 
 												</p>
 											</div>

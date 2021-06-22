@@ -12,7 +12,7 @@ import BookResource from './components/book-resource/book-resource';
 import AddFacultyAndStaff from './components/add-faculty-and-staff/add-faculty-and-staff';
 import EditFacultyAndStaff from './components/edit-faculty-and-staff/edit-faculty-and-staff';
 import EditResource from './components/edit-resource/edit-resource';
-
+import AnnouncementPage from './components/announcement-page/announcement-page';
 
 
 function App() {
@@ -24,12 +24,13 @@ function App() {
           <Route path="/admin-dashboard" exact component={() => <AdminMainPage />} />
           <Route path="/add-academic-paper" exact component={() => <AddAcademicPaper />} />
           <Route path="/add-book" exact component={() => <AddBook />} />
-          <Route path="/search-results" exact component={() => <SearchPage />} />
+          <Route path="/search-results/:searched" exact component={() => <SearchPage />} />
           <Route path="/edit-faculty-and-staff" exact component={() => <EditFacultyAndStaff />} />
           <Route path="/edit-resource" exact component={() => <EditResource />} />
           <Route path="/academic-paper" exact component={() => <AcademicPaperResource />} />
           <Route path="/book" exact component={() => <BookResource />} />
           <Route path="/add-faculty-and-staff" exact component={() => <AddFacultyAndStaff />} />
+          <Route path="/announcement-page" exact component={() => <AnnouncementPage />} />
         </Switch>
       </BrowserRouter>
     </div>

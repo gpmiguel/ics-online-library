@@ -1,4 +1,5 @@
 import React, { Component } from "react"; 
+import { Link } from "react-router-dom"; 
 import '../../css/main.css';
 
 class Footer extends Component {
@@ -16,12 +17,12 @@ class Footer extends Component {
                           <div className="col-xs-6 col-md-3">
                               <h6>Announcements</h6>
                               <ul className="footer-links">
-                                  <li><a href=" ">Announcement 1</a></li>
-                                  <li><a href=" ">Announcement 2</a></li>
-                                  <li><a href=" ">Announcement 3</a></li>
-                                  <li><a href=" ">Announcement 4</a></li>
-                                  <li><a href=" ">Announcement 5</a></li>
-                                  <li><a href=" ">Announcement 6</a></li>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 1</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 2</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 3</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 4</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 5</a></li></Link>
+                                <Link to ="/announcement-page" className="rem-link"><li><a href=" ">Announcement 6</a></li></Link>
                               </ul>
                           </div>
 
@@ -39,8 +40,7 @@ class Footer extends Component {
                   <div className="container">
                       <div className="row">
                           <div className="col-md-8 col-sm-6 col-xs-12">
-                              <p className="copyright-text">Copyright &copy; CMSC 128 C4L
-                                  <a href="#"></a>.
+                              <p className="copyright-text">Copyright &copy; CMSC 128 C4L.
                               </p>
                           </div>
                       </div>

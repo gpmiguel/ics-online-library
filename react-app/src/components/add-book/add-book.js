@@ -1,8 +1,8 @@
-import React, { Component } from "react"; 
+import React from "react"; 
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import axios from 'axios';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../../css/main.css';
 import {useState} from 'react';
 
@@ -24,8 +24,8 @@ const AddBook = () =>{
         edition:"",
         isbn:[],
         introduction:"",
-        mainCopy: "",
-        resourceImage: "",
+        maincopy: "",
+        displayimage: "",
     });
 
     const onChange = (e) => {
@@ -55,11 +55,11 @@ const AddBook = () =>{
             edition:bookData.edition,
             isbn:bookData.isbn,
             introduction:bookData.introduction,
-            mainCopy:bookData.mainCopy,
-            resourceImage:bookData.resourceImage,    
+            maincopy:bookData.maincopy,
+            displayimage:bookData.displayimage,    
         }
 
-        axios.post('http://localhost:3001/resource_book/add-book', book)
+        axios.post('http://localhost:3001/add-book', book)
             .then(res => console.log(res.data));
 
         alert('Book Added!')
@@ -76,8 +76,8 @@ const AddBook = () =>{
             edition:"",
             isbn:[],
             introduction:"",
-            mainCopy: "",
-            resourceImage: "",
+            maincopy: {},
+            displayimage: {},
         });
     }
 
@@ -128,14 +128,14 @@ const AddBook = () =>{
                                 <div className="row mt-3">
                                     <div className="col-3">
                                         <label for="maincopyFormFile" className="form-label">Main Copy</label>
-                                        <input defaultValue={bookData.mainCopy} required name="mainCopy" onChange={onFileChange} className="form-control" type="file" id="maincopy"/>
+                                        <input defaultValue={bookData.maincopy} required name="maincopy" onChange={onFileChange} className="form-control" type="file" id="maincopy"/>
                                     </div>
                                 </div>
 
                                 <div className="row mt-3 mb-5">
                                     <div className="col-3">
                                         <label for="resourceImageFormFile" className="form-label">Resource Display Image</label>
-                                        <input defaultValue={bookData.resourceImage} required name="resourceImage" onChange={onFileChange} className="form-control" type="file" id="resourceImageFormFile"/>
+                                        <input defaultValue={bookData.displayimage} required name="displayimage" onChange={onFileChange} className="form-control" type="file" id="resourceImageFormFile"/>
                                     </div>
                                 </div>
                                 {/*<h1>{JSON.stringify(bookData)}</h1>*/}

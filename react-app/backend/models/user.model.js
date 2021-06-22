@@ -9,9 +9,11 @@ const userSchema =new Schema({
     firstname: {type: String},
     email: {type: String},
     usertype: {type: String},
-    activityid: [{type: String}]
+    activityid:{type: [String]}
+},{
+    timestamps: true
 })
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema,'user_regs');
 
 module.exports = User;

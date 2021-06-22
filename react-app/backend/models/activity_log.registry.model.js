@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const registrySchema = new Schema({
-    _id = {type: String},
-    userid = {type: String},
+    _id : {type: String},
+    userid : {type: String},
     activitytype: {type: String},
     action: {type: String},
 },{timestamps: true}
@@ -12,6 +12,6 @@ const registrySchema = new Schema({
 );
 
 //changed Management to Registry, and management to registrySchema
-const Registry = mongoose.model('Registry', registrySchema);
+const Registry = mongoose.model('Registry', registrySchema, 'user_activity_logs');
 
 module.exports = Registry;
