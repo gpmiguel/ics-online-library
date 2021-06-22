@@ -1,5 +1,5 @@
 import React, { Component } from "react"; 
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {Navbar} from "react-bootstrap"; //Modal is the pop up screen
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import axios from 'axios';
@@ -66,7 +66,7 @@ class Navigation extends Component {
                 
 
 
-                console.log("UYSER", this.state.current_user.guest_id);
+                console.log("USER", this.state.current_user.guest_id);
                 if(this.state.current_user.usertype == null){
                     const {email, firstname, lastname, usertype, activityid} = this.state.current_user;
                     axios.put(`http://localhost:3001/edit-guest/${this.state.current_user.guest_id}`, {$push: {activityid: res.data.log_id}});
@@ -102,7 +102,7 @@ class Navigation extends Component {
                 console.log(res.data);
                 const {email, firstname, lastname, usertype, activityid} = this.state.current_user;
 
-                (this.state.current_user.usertype == "Guest") ?
+                (this.state.current_user.usertype === "Guest") ?
 
                 axios.put(`http://localhost:3001/edit-guest/${this.state.current_user._id}`, {activityid: activityid.push(res.data.log_id)})
                 :
@@ -156,12 +156,9 @@ class Navigation extends Component {
                 <div >
                     <Link className = "navbar-brand" to= "/">
                         <img src={ICSLogo} alt="ICS Logo"/>
-                        <a className="collapse navbar-collapse">
-                        <ul>
-                        <li><h2>UPLB Institute of Computer Science</h2></li>
-                        <li><h3>ONLINE LIBRARY</h3></li>
-                        </ul>
-                        </a>
+                        <span className="collapse navbar-collapse">
+                            <h2> &nbsp; ICS StackUP LiB</h2>
+                        </span>
                     </Link>
                 </div>
                 <button className="navbar-toggler toggler-example navbar-dark" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent1" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">
@@ -177,12 +174,12 @@ class Navigation extends Component {
                         {
                         this.state.loggedin ? 
                           <GoogleLogout
-                            className = "nav-buttons"
+                            className = "nav-buttons btn-primary"
                             buttonText= {"Logout "} 
                             onLogoutSuccess={this.logout}
                 
                         /> : <GoogleLogin 
-                            className = "nav-buttons"
+                            className = "nav-buttons btn-primary"
                             clientId="1025177859568-efs0a0c5t8vrrur2a8bbe5t1vd6n5a4l.apps.googleusercontent.com"
                             buttonText="Login"
                             onSuccess={this.responseGoogle}

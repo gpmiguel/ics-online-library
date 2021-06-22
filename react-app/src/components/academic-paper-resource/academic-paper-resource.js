@@ -3,9 +3,9 @@ import '../../css/main.css';
 import bookpic from "../../img/photo_holder.png";
 
 import Nav from '../main-page/nav';
-import { Link, useLocation, withRouter } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Footer from '../main-page/footer';
-import { useParams } from 'react-router-dom';
+
 
 export default function AcademicPaper() {
 

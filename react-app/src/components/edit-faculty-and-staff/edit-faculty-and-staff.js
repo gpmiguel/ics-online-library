@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Component, useState } from "react"; 
-import { Link, withRouter } from "react-router-dom";
+import { useState } from "react"; 
+import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal"; //Modal is the pop up screen
 import '../../css/main.css';
 // import JSONDATA from './MOCK_DATA.json';

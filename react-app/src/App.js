@@ -12,6 +12,7 @@ import BookResource from './components/book-resource/book-resource';
 import AddFacultyAndStaff from './components/add-faculty-and-staff/add-faculty-and-staff';
 import EditFacultyAndStaff from './components/edit-faculty-and-staff/edit-faculty-and-staff';
 import EditResource from './components/edit-resource/edit-resource';
+import AnnouncementPage from './components/announcement-page/announcement-page';
 
 
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/academic-paper" exact component={() => <AcademicPaperResource />} />
           <Route path="/book" exact component={() => <BookResource />} />
           <Route path="/add-faculty-and-staff" exact component={() => <AddFacultyAndStaff />} />
+          <Route path="/announcement-page" exact component={() => <AnnouncementPage />} />
         </Switch>
       </BrowserRouter>
     </div>

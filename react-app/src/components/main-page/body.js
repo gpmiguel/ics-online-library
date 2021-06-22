@@ -1,6 +1,6 @@
 import React, { Component } from "react"; 
 import '../../css/main.css';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MainBG from '../../img/main-bg.png';
 
 class Body extends Component {
