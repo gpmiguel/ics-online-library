@@ -180,7 +180,7 @@ class Navigation extends Component {
                 
                         /> : <GoogleLogin 
                             className = "nav-buttons btn-primary"
-                            clientId="1025177859568-efs0a0c5t8vrrur2a8bbe5t1vd6n5a4l.apps.googleusercontent.com"
+                            clientId="216757647969-jhse00j4vl0s019v1urb2l5bvuul01ne.apps.googleusercontent.com"
                             buttonText="Login"
                             onSuccess={this.responseGoogle}
                             onFailure={this.responseGoogle}
