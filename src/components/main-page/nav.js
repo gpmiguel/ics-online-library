@@ -63,7 +63,7 @@ class Navigation extends Component {
         await axios.post('http://localhost:3001/add-activity-log', log).then(
             res => {
                 console.log(res.data);
-                
+		console.log(this.state);                
 
 
 		// console.log("USER", this.state.current_user.guest_id);
@@ -189,7 +189,7 @@ class Navigation extends Component {
                             // isSignedIn = {true}
                         />
                         }
-                        {this.state.loggedin && <img src={this.state.imageUrl} className="rounded-circle img-fluid" alt="userIcon"/>}
+                        {this.state.loggedin && <img src={this.state.iconUrl} className="rounded-circle img-fluid" alt="userIcon"/>}
                     </div>
                 </div>
 	    </nav>
