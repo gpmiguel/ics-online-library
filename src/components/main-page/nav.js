@@ -66,7 +66,7 @@ class Navigation extends Component {
                 
 
 
-                console.log("USER", this.state.current_user.guest_id);
+		// console.log("USER", this.state.current_user.guest_id);
                 if(this.state.current_user.usertype == null){
                     const {email, firstname, lastname, usertype, activityid} = this.state.current_user;
                     axios.put(`http://localhost:3001/edit-guest/${this.state.current_user.guest_id}`, {$push: {activityid: res.data.log_id}});
