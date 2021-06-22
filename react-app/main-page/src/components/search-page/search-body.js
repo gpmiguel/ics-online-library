@@ -151,8 +151,8 @@ const SearchPageBody = () => {
 								return (
 									<div>
 										<br></br>
-										<p><div style={{ fontSize: 30, color: 'blue' }} >{val.title}</div>
-											<div>
+										<p><div style={{ fontWeight: 'bold', fontFamily: 'Helvetica', fontSize: 30, color: '#00adb5' }} >{val.title}</div>
+											<div style={{ fontFamily: 'Helvetica', fontWeight: 'bold' }}>
 												<p>
 													Authors: {val.authors[0]}
 													<br></br>Date Published: {val.publishedDate.$date}
@@ -167,7 +167,7 @@ const SearchPageBody = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 };
 
