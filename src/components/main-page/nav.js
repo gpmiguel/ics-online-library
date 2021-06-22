@@ -25,7 +25,7 @@ class Navigation extends Component {
         console.log(res_google.profileObj);
 
         var log;
-        const upmail = res_google.profileObj.email.includes("@up.edu.ph")
+        const upmail = res_google.profileObj.email.includes("@up.edu.ph") ? true : false
         console.log(upmail);
 
 
