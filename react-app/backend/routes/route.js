@@ -1,13 +1,39 @@
 const router =  require('express').Router();
 const mongoose = require('mongoose');
+const crypto = require('crypto');
+const multer = require('multer');
+const {GridFsStorage} = require('multer-gridfs-storage');
+const { rejects } = require('assert');
+const path = require('path');
+const { resolve } = require('path');
 var ObjectId = require('mongodb').ObjectID;
 
 
 const bodyParser = require("body-parser");
 const jsonParse = bodyParser.json();
 const urlencodedParse = bodyParser.urlencoded({ extended: false })
+const mongoURI = "mongodb+srv://c4ladmin:icsadmin@icslibrarysystem.5tt8e.mongodb.net/icslibrarysystem";
 
+const storage = new GridFsStorage({
+    url: mongoURI,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+            return reject(err);
+        }
+        const filename = buf.toString('hex') + path.extname(file.originalname);
+        const fileInfo = {
+            filename: filename,
+            bucketName: 'uploads'
+        };
+        resolve(fileInfo);
+        });
+    });
+    }
+});
 
+const upload = multer({storage});
 
 //MODELS
 let AcademicPaper =  require('../models/resource_acad_paper.model');
@@ -22,6 +48,53 @@ let Author = require ('../models/author.model')
 let Keyword = require ('../models/keyword.model')
 let Subject = require ('../models/subject.model')
 
+
+
+//UPLOADS
+router.post('/manus', upload.single('manus'), (req, res) => {
+    if (req.file) {
+        
+        return res.json({
+            success: true,
+            file: req.file
+        });
+    }
+    res.send({ success: false, file:req.file });
+  });
+
+  router.post('/poster', upload.single('poster'), (req, res) => {
+    if (req.file) {
+        
+        return res.json({
+            success: true,
+            file: req.file
+        });
+    }
+    res.send({ success: false, file:req.file });
+  });
+
+  router.post('/display', upload.single('display'), (req, res) => {
+    if (req.file) {
+        
+        return res.json({
+            success: true,
+            file: req.file
+        });
+    }
+    res.send({ success: false, file:req.file });
+  });
+
+  router.post('/maincopy', upload.single('maincopy'), (req, res) => {
+    if (req.file) {
+        
+        return res.json({
+            success: true,
+            file: req.file
+        });
+    }
+    res.send({ success: false, file:req.file });
+  });
+
 //ACADEMIC PAPER
 router.route('/acad-papers').get((req, res)=>{
     AcademicPaper.find()
@@ -32,7 +105,7 @@ router.route('/acad-papers').get((req, res)=>{
         .catch(err => res.status(400).json('Error: '+err)); 
 });
 router.route('/add-academic-paper').post((req, res) => {
-    const _id =  String(mongoose.Types.ObjectId());
+    const _id =  String(new mongoose.Types.ObjectId());
     const title = req.body.title;
     const author = req.body.author;
     const subject = req.body.subject;
@@ -43,7 +116,7 @@ router.route('/add-academic-paper').post((req, res) => {
     const institution = req.body.institution;
     const adviser = req.body.adviser;
     const keyword = req.body.keyword;
-    const manuscript = req.body.manuscript;
+    const manuscript = req.file;
     const abstract = req.body.abstract;
     const journal = req.body.journal;
     const poster = req.body.poster;
@@ -56,8 +129,16 @@ router.route('/add-academic-paper').post((req, res) => {
         poster, sourcecode, displayimage});
 
     newAcademicPaper.save()
-        .then(resource_acad_paper => res.json('New Academic Paper Added!'))
-        .catch(err => res.status(400).json('Error: '+err)); 
+        .then((resource_acad_paper) => {
+            res.json({
+            message: 'New Academic Paper Added!',
+            data: resource_acad_paper });
+            
+            console.log(resource_acad_paper)
+
+
+            })
+        .catch(err => res.status(400).json('Error: '+err));
 });
 
 router.route('/edit-acad-paper/:id').put(jsonParse, (req, res) => {

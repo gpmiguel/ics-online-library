@@ -18,7 +18,9 @@ class AddFacultyAndStaff extends Component{
         this.state = {
             firstname: '',
             lastname: '',
-            email: ''
+            email: '',
+            usertype: '',
+            activityid: []
         }
 
         /*bind to avoid errors */
@@ -43,14 +45,16 @@ class AddFacultyAndStaff extends Component{
         const faculty_and_staff = {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
-            email: this.state.email
-            // usertype: (to be added)
+            email: this.state.email,
+            usertype: this.state.usertype,
+            activityid: this.state.activityid,
+
         }
 
-        axios.post('http://localhost:3001/user/add-user', faculty_and_staff) 
+        axios.post('http://localhost:3001/add-user', faculty_and_staff) 
             .then(res => console.log(res.data));
 
-        alert('Faculty/Staff Added!')
+        // alert('Faculty/Staff Added!')
     }
 
     render(){
@@ -78,6 +82,9 @@ class AddFacultyAndStaff extends Component{
 
                             <label for="emailFormInput" className="form-label mt-3">Email</label>
                             <input type="email" className="form-control mb-3" id="emailFormInput" data-name="email" required onChange={this.onValueChange}/>
+
+                            <label for="emailFormInput" className="form-label mt-3">User Type</label>
+                            <input type="usertype" className="form-control mb-3" id="emailFormInput" data-name="usertype" required onChange={this.onValueChange}/>
 
                             <button type="submit" className ="btn btn-primary mt-2">Add</button>
                             </form>

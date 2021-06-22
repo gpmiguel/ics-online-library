@@ -12,84 +12,93 @@ import Footer from '../main-page/footer';
 import AdminSidebar from '../adminsidebar/adminsidebar.js';
 import TagsInput from '../tagsinput/tagsinput';
 
-const AddBook = () =>{
-    const [bookData, setBookData] = useState({
-        title: "",
-        author:[],
-        subject: [],
-        year: "",
-        pagecount:"",
-        resourcetype:"",
-        publisher:"",
-        edition:"",
-        isbn:[],
-        introduction:"",
-        mainCopy:"",
-        resourceImage:"",
-    });
 
-    const onChange = (e) => {
-        setBookData({...bookData, [e.target.name]:e.target.value});
+
+class AddBook extends Component{
+
+    /*constructor for this class */
+    constructor(props){
+        super(props);
+
+        this.state = {
+            title: '',
+            author:[],
+            subject:[],
+            year: 0,
+            pagecount: 0,
+            publisher: '',
+            edition: '',
+            isbn:[],
+            introduction:'',
+            mainCopy: '',
+            resourceImage: '',
+        }
+
+        /*bind to avoid errors */
+        this.onValueChange = this.onValueChange.bind(this);
+        this.onSave = this.onSave.bind(this);
     }
 
-    const saveBook = (e) => {
-        // to make it not submit the data to a page by default
-        e.preventDefault();
+    /* method in accepting inputs in input fields*/
+    onValueChange(e){
+        this.setState({
+            [e.target.dataset.name]: e.target.value
+        })
+    }
 
-        //currently prints the object only to the console
-        console.log(bookData);
+    async onSave(e){
+        e.preventDefault(); 
 
-        //clear the form
-        setBookData({
-            title: "",
-            author:"",
-            subject: "",
-            yearPublished: "",
-            pageCount:"",
-            publisher:"",
-            edition:"",
-            isbn:[],
-            introduction:"",
-            mainCopy:"",
-            resourceImage:"",
+        
+        var display_data = new FormData()
+        var maincopy_data = new FormData()
+
+        const display_file = document.getElementById('resourceImageFormFile').files[0]
+        const maincopy_file = document.getElementById('maincopyFormFile').files[0]
+
+        display_data.append('display', display_file);
+        maincopy_data.append('maincopy', maincopy_file);
+
+        var files =[];
+
+        const {title, author, subject, year, pagecount, publisher, edition, isbn, introduction} = this.state
+
+        await axios.post('http://localhost:3001/display', display_data)
+        .then(res => {
+            files.push(res.data.file.filename)
+            console.log('display ADDED', res.data.file.filename)
+        });
+
+        await axios.post('http://localhost:3001/maincopy', maincopy_data)
+        .then(res => {
+            files.push(res.data.file.filename)
+            console.log('maincopy ADDED', res.data.file.filename)
         });
 
         const book = {
-            title: bookData.title,
-            author:bookData.author,
-            subject: bookData.subject,
-            year: bookData.yearPublished,
-            pagecount:bookData.pagecount,
-            resourcetype:bookData.resourcetype,
-            publisher:bookData.publisher,
-            edition:bookData.edition,
-            isbn:bookData.isbn,
-            introduction:bookData.introduction,
-            mainCopy:bookData.mainCopy,
-            resourceImage:bookData.resourceImage,    
+            title: title,
+            author:author,
+            subject:subject,
+            year: year,
+            pagecount: pagecount,
+            publisher: publisher,
+            edition: edition,
+            isbn:{
+                isbn10: isbn[0],
+                isbn13: isbn[1]
+            },
+            introduction:introduction,
+            maincopy: files[1],
+            displayimage: files[0],
         }
 
-        axios.post('http://localhost:3001/resource_book/add-book', book)
+        await axios.post('http://localhost:3001/add-book', book)
             .then(res => console.log(res.data));
 
-        alert('Book Added!')
 
-        //clear the form
-        setBookData({
-            title: "",
-            author:"",
-            subject: "",
-            yearPublished: "",
-            pageCount:"",
-            publisher:"",
-            edition:"",
-            isbn:[],
-            introduction:"",
-            mainCopy:"",
-            resourceImage:"",
-        });
     }
 
+    render(){
         return(
             <div>
                 <Nav/>
@@ -103,52 +112,57 @@ const AddBook = () =>{
                     
                         {/* book fields */}
                         <div className="col-lg-10">
-                        <form onSubmit={saveBook}>
+                        <form onSubmit={this.onSave} encType="multipart/form-data">
                                 <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Book</p>
                                 
                                 <label for="bookTitleFormInput" className="form-label">Title</label>
-                                <input type="text" value={bookData.title} required name="title" onChange={onChange} className="form-control" id="bookTitleFormInput"/>
+                                <input type="text" className="form-control" id="academicPaperTitleFormInput" data-name="title" required onChange={this.onValueChange}/>
                                 
                                 <label className="form-label mt-3">Author</label>
-                                <ReactTagInput tags={bookData.author} required name="author" onChange={(newTags) => setBookData({...bookData, author : newTags })} />
+                                <ReactTagInput tags={this.state.author} onChange={(newTags) => this.setState({ author: newTags })} />
                                
                                 <label className="form-label mt-3">Subject</label>
-                                <ReactTagInput tags={bookData.subject} required name="subject" onChange={(newTags) => setBookData({...bookData, subject: newTags })} />                              
+                                <ReactTagInput tags={this.state.subject} onChange={(newTags) => this.setState({ subject: newTags })} />                              
 
                                 <label for="yearpublishedFormInput" className="form-label mt-3">Year Published</label>
-                                <input type="text" value={bookData.yearPublished} required name="yearPublished" onChange={onChange} className="form-control" id="yearpublishedFormInput"/>
+                                <input type="number" className="form-control" id="yearpublishedFormInput" data-name="year" required onChange={this.onValueChange}/>
                                 
                                 <label for="pagecountFormInput" className="form-label mt-3">Page Count</label>
-                                <input type="text" value={bookData.pageCount} required name="pageCount" onChange={onChange} className="form-control" id="pagecountFormInput"/>
+                                <input type="number" className="form-control" id="pagecountFormInput" data-name="pagecount" required onChange={this.onValueChange}/>
 
                                 <label for="publisherFormInput" className="form-label mt-3">Publisher</label>
-                                <input type="text" value={bookData.publisher} required name="publisher" onChange={onChange} className="form-control" id="publisherFormInput"/>
+                                <input type="text" className="form-control" id="publisherFormInput" data-name="publisher" required onChange={this.onValueChange}/>
 
                                 <label for="editionFormInput" className="form-label mt-3">Edition</label>
-                                <input type="text" value={bookData.edition} required name="edition" onChange={onChange} className="form-control" id="editionFormInput"/>
 
-                                <label for="isbnFormInput" className="form-label mt-3">ISBN</label>
-                                <input type="text" value={bookData.isbn} required name="isbn" onChange={onChange} className="form-control" id="isbnFormInput"/>
+                                <input type="text" className="form-control" id="editionFormInput" data-name="edition" required onChange={this.onValueChange}/>
+
+                                <label for="isbnFormInput" className="form-label mt-3">ISBN10 and ISBN13</label>
+                                <ReactTagInput maxTags={2} tags={this.state.isbn} onChange={(newTags) => this.setState({ isbn: newTags })} />        
 
                                 <label for="introductionFormInput" className="form-label mt-3">Introduction</label>
-                                <textarea value={bookData.introduction} required name="introduction" onChange={onChange} className="form-control" id="introductionFormInput" rows="6"></textarea>                               
+                                <textarea className="form-control" id="introductionFormInput" rows="6" data-name="introduction" required onChange={this.onValueChange}></textarea>
 
+                            
                                 {/* file uploads */}
                                 <div className="row mt-3">
                                     <div className="col-3">
-                                        <label for="maincopyFormFile" className="form-label">Main Copy</label>
-                                        <input value={bookData.mainCopy} required name="mainCopy" onChange={onChange} className="form-control" type="file" id="maincopy"/>
+                                        <label for="maincopyFormFile" className="form-label" >Main Copy</label>
+                                        <input className="form-control" type="file" id="maincopyFormFile"
+                                    name="maincopy" 
+                                    />
+
                                     </div>
                                 </div>
 
                                 <div className="row mt-3 mb-5">
                                     <div className="col-3">
-                                        <label for="resourceImageFormFile" className="form-label">Resource Display Image</label>
-                                        <input value={bookData.resourceImage} required name="resourceImage" onChange={onChange} className="form-control" type="file" id="resourceImageFormFile"/>
+                                    <label for="resourceImageFormFile" className="form-label">Resource Display Image</label>
+                                    <input className="form-control" type="file" id="resourceImageFormFile" name='display'/>
                                     </div>
                                 </div>
                                 {/*<h1>{JSON.stringify(bookData)}</h1>*/}
-                                <input type="submit" value="Save" className ="btn btn-primary mb-5" />
+                                <button type="submit" className ="btn btn-primary mb-5">Save</button>
                         </form>
                         </div>
                     </div>
@@ -156,7 +170,7 @@ const AddBook = () =>{
                 <Footer/>
             </div>
         );
-    
+    }
 }
 
 export default AddBook;

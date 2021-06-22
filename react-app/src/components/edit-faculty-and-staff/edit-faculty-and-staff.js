@@ -3,7 +3,7 @@ import { Component, useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Modal from "react-bootstrap/Modal"; //Modal is the pop up screen
 import '../../css/main.css';
-import JSONDATA from './MOCK_DATA.json';
+// import JSONDATA from './MOCK_DATA.json';
 import axios from 'axios';
 
 
@@ -23,32 +23,35 @@ const EditFacultyAndStaff = () =>{
     const [first_name_val, setfirst_name_val] = useState('');
     const [last_name_val, setlast_name_val] = useState('');
     const [email_val, setemail_val] = useState('');
-    const [data, setData] = useState(JSONDATA);
+    const [data, setData] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/user/')
+    useEffect(async () => {
+        await axios.get('http://localhost:3001/users')
             .then(res => {
                 console.log("GET Adviser");
                 console.log(res.data);
-                setData(res.data);
+                setData(res.data.filter(e => (e.usertype === "Faculty" || e.usertype === "Staff" || e.usertype === "Admin") ));
                 
             })
             .catch(err => console.error(err));
+
     }, []);
 
-    // deleteUser(id){
-    //     axios.delete('http://localhost:3001/user/'+id)  //make the delete function in user routes
-    //         .then(res => console.log(res.data));
+    const deleteUser = async (id)=> {
+        await axios.get(`http://localhost:3001/delete-user/${id}`)
+          .then(res =>{
+              console.log(res)
+          })
+          .catch(err => console.error(err));
 
-    //     //make a new list of users without the deleted one
-    //     setData(data.filter(e => e._id !== id)); 
-    // }
+          setData(data.filter(e => e._id !== id)); 
+    }
 
     const openEdit=(idx)=>{//passes the id edit row clicked
-        const e = JSONDATA.find(e => e.id === idx);
+        const e = data.find(e => e._id === idx);
         //gets the value of the json data from the id 
-        setfirst_name_val(e.first_name);
-        setlast_name_val(e.last_name);
+        setfirst_name_val(e.firstname);
+        setlast_name_val(e.lastname);
         setemail_val(e.email);
         setIsOpenModal(true);
     };
@@ -89,15 +92,15 @@ const EditFacultyAndStaff = () =>{
                                   </thead>
                                   <tbody>
                                    {/*Generate rows by what is written on the json file*/}
-                                    {JSONDATA.map((val, key)=>{
+                                    {data.map((val, key)=>{
                                         return( 
-                                            <tr key={val.id}>
-                                            <td>1</td>
-                                            <td>{val.last_name}</td>
-                                            <td>{val.first_name}</td>
+                                            <tr key={val._id}>
+                                            <td>{key + 1}</td>
+                                            <td>{val.lastname}</td>
+                                            <td>{val.firstname}</td>
                                             <td>{val.email}</td>
-                                            <td><button className="btn btn-primary btn-sm" onClick={ () => {openEdit(val.id);}}>Edit</button>
-                                            <button className="btn btn-secondary btn-sm">Del</button>
+                                            <td><button className="btn btn-primary btn-sm" onClick={ () => {openEdit(val._id);}}>Edit</button>
+                                            <button className="btn btn-secondary btn-sm" onClick={ () => {deleteUser(val._id);}}>Del</button>
                                             </td>
                                             </tr>);
                                     })

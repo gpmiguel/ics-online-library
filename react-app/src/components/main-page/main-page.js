@@ -29,15 +29,29 @@ class MainPage extends Component {
 	  .then(res => this.setState({
       resource_array: this.state.resource_array.concat(res.data)  
     }))
+
+    const guest = {
+      activityid: []
+    }
     
+    await axios.post('http://localhost:3001/add-guest', guest).then(res => {
+
+            this.setState({
+                resource_array: this.state.resource_array,
+                user: res.data
+    
+            })
+        })
+        console.log('LOG GUEST', this.state)
+
     console.log("MAIN PAGE DATA",this.state);
   }
 
   render() {
     return (
      <div>
-       <Nav resources={this.state.resource_array}/>
-       <Body />
+       <Nav resources={this.state.resource_array} user={this.state.user}/>
+       <Body user={this.state.user}/>
        <Footer />
      </div>
     );

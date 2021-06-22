@@ -14,7 +14,7 @@ const SearchPageBody = () => {
 	const searchForm = useRef(null);
 	const [filter, setFilter] = useState("");
 	const [sort, setSort] = useState("");
-	const [data, setData] = useState(JSONDATA);
+	const [data, setData] = useState([]);
 
 
     useEffect(async () => {
@@ -22,32 +22,41 @@ const SearchPageBody = () => {
         var temp;
 
 
-// 		await axios.get('http://localhost:3001/books')
-// 				.then(res => {
-// 					temp = res.data;
-// 				})
-// 			.catch(err => console.error(err));
-// //Object.assign(temp, res.data)	
-// 		await axios.get('http://localhost:3001/acad-papers')
-// 				.then(res => {
-// 					setData(Object.assign(res.data, temp));
-// 					console.log(data);
+		await axios.get('http://localhost:3001/books')
+				.then(res => {
+					temp = res.data;
+				})
+			.catch(err => console.error(err));
+		await axios.get('http://localhost:3001/acad-papers')
+				.then(res => {
+					Array.prototype.push.apply(temp, res.data);
+					console.log(data);
 					
-// 				})
-// 			.catch(err => console.error(err));
+				})
+			.catch(err => console.error(err));
 			
 			
-			console.log(data);
+			console.log("DATRA", temp);
+			setData(temp);
 			setTerm(searched);
     }, []);
 	
 
 	{/*when the 'search button' is clicked, the string in the search bar (searchTerm) will be assigned to 'term'*/}
-    const handleClickEvent = () => {
+    const handleClickEvent = (e) => {
 		const form = searchForm.current;
 		setTerm(`${form['searchTerm'].value}`)
 	};
 
+	const handleKeyPressEvent = (e) => {
+    	if(e.charCode === 13){
+    		e.preventDefault();
+			const form = searchForm.current;
+			setTerm(`${form['searchTerm'].value}`);
+    	}		
+	}
+
+	
 	const getAuthor = async (author_id) => {
 		await axios
 		  .get(`http://localhost:3001/author/${author_id}`)
@@ -171,7 +180,7 @@ const SearchPageBody = () => {
 								<li><a className="dropdown-item" href="#">Book</a></li>
 							</ul>
 						</div>
-						<form ref={searchForm}>
+						<form name="resultForm" ref={searchForm} onKeyPress={handleKeyPressEvent}>
 							<input type="search" class="form-control rounded" placeholder={searched} aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
 						</form>
 						<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
@@ -190,7 +199,7 @@ const SearchPageBody = () => {
 									<div>
 										<br></br>
 										<p><Link style={{ fontSize: 30, color: 'blue' }} to={{
-											pathname : `/academic-paper`,
+											pathname : val.resourcetype === "Book" ? `/book` : `/academic-paper`,
 											state: {
 												val : val
 											}
@@ -198,9 +207,10 @@ const SearchPageBody = () => {
 										}}>{val.title}</Link>
 											<div>
 												<p>
-													Authors: {val.authors[0]}
-													<br></br>Date Published: {val.publishedDate.$date}
-													<br></br>Status: {val.status} | Subject: {val.categories[0]}
+													Authors: {typeof val.author === 'undefined' ? "None" : val.author.map(author => `${author}, `)}
+													<br></br>Year Published: {typeof val.year === 'undefined' ? "None" : val.year}
+													<br></br>Resource Type: {val.resourcetype} 
+													<br></br>Subject: {typeof val.subject === 'undefined' ? "None" : val.subject.map(subs => `${subs}, `)}
 
 												</p>
 											</div>

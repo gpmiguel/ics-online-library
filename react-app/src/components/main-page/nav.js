@@ -12,7 +12,7 @@ const activity_types = ["Mangement", "Registry", "Acess"]
 
 class Navigation extends Component {
     state = {
-        current_user : {},
+        current_user : this.props.user,
         ids: "",
         resources : this.props.resources,
         loggedin: false,
@@ -141,7 +141,7 @@ class Navigation extends Component {
                 current_user: res.data,
                 ids: res.data.guest_id,
                 resources: this.state.resources,
-                loggedin: false,
+                loggedin: true,
                 isAdmin: false
     
             })

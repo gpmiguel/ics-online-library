@@ -11,7 +11,7 @@ import Footer from '../main-page/footer';
 import AdminSidebar from '../adminsidebar/adminsidebar.js';
 import TagsInput from '../tagsinput/tagsinput';
 
-var temp = 999;
+
 
 class AddAcademicPaper extends Component{
 
@@ -20,7 +20,6 @@ class AddAcademicPaper extends Component{
         super(props);
 
         this.state = {
-            _id: temp,
             title: '',
             author:[],
             subject:[],
@@ -31,12 +30,12 @@ class AddAcademicPaper extends Component{
             institution: '',
             adviser:[],
             keyword:'',
-            manuscript: '',
+            
             abstract: '',
             journal: '',
-            poster: '',
+            
             sourcecode: '',
-            displayimage: '',
+        
         }
 
         /*bind to avoid errors */
@@ -53,11 +52,44 @@ class AddAcademicPaper extends Component{
     }
 
     /* method on save button */
-    onSave(e){
+    async onSave(e){
         e.preventDefault(); 
 
+        var manus_data = new FormData()
+        var poster_data = new FormData()
+        var display_data = new FormData()
+
+
+        const manus_file = document.getElementById('manuscriptFormFile').files[0]
+        const poster_file = document.getElementById('posterFormFile').files[0]
+        const display_file = document.getElementById('resourceImageFormFile').files[0]
+
+        manus_data.append('manus', manus_file);
+        poster_data.append('poster', poster_file);
+        display_data.append('display', display_file);
+
+        var files = [];
+
+        await axios.post('http://localhost:3001/manus', manus_data)
+        .then(res => {
+            files.push(res.data.file.filename)
+            console.log('manus ADDED', res.data.file.filename)
+        });
+
+        await axios.post('http://localhost:3001/poster', poster_data)
+        .then(res => {
+            files.push(res.data.file.filename)
+            console.log('poster ADDED', res.data.file.filename)
+        });
+
+        await axios.post('http://localhost:3001/display', display_data)
+        .then(res => {
+            files.push(res.data.file.filename)
+            console.log('display ADDED', res.data.file.filename)
+        });
+
+
         const acad_paper = {
-            _id: this.state._id,
             title: this.state.title,      
             author: this.state.author,
             subject: this.state.subject,
@@ -68,28 +100,21 @@ class AddAcademicPaper extends Component{
             institution: this.state.institution,
             adviser: this.state.adviser,
             keyword: this.state.keyword,
-            manuscript: this.state.manuscript,
+            manuscript: files[0],
             abstract: this.state.abstract,
             journal: this.state.journal,
-            poster: this.state.poster,
+            poster: files[1],
             sourcecode: this.state.sourcecode,
-            displayimage: this.state.displayimage,       
+            displayimage: files[2],       
         }
 
-        this.setState({
-            _id: String(parseInt(this.state._id) + 1), 
-        })  
-        
-        temp += 1;
+    
+        console.log(acad_paper);
 
-        console.log(this.state);
-
-        axios.post('http://localhost:3001/resource-acad-paper/add-academic-paper', acad_paper)
+    
+        axios.post('http://localhost:3001/add-academic-paper', acad_paper)
             .then(res => console.log(res.data));
-  
-        alert('Academic Paper Added!')
-            
-        // window.location = '/add-academic-paper';
+
     }
 
     render(){
@@ -107,7 +132,7 @@ class AddAcademicPaper extends Component{
                         {/* acad paper fields */}
                         
                         <div className="col-lg-10" >
-                        <form onSubmit={this.onSave}>
+                        <form onSubmit={this.onSave} encType="multipart/form-data" >
                             <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Academic Paper</p>
                             
                             <label for="academicPaperTitleFormInput" className="form-label">Title</label>
@@ -140,34 +165,37 @@ class AddAcademicPaper extends Component{
                             <label for="academicPaperAbstract" className="form-label mt-3">Abstract</label>
                             <textarea className="form-control" id="academicPaperAbstract" rows="6" data-name="abstract" required onChange={this.onValueChange}></textarea>
 
+                            <label for="sourceCodeFormInput" className="form-label mt-3">Source Code Link</label>
+                            <input type="text" className="form-control" id="sourcecodeFormFile" data-name="sourceCode" required onChange={this.onValueChange}/>
+
+
                             {/* file uploads */}
                             <div className="row mt-3">
-                                <div className="col-3">
-                                    <label for="pdfFormFile" className="form-label">PDF</label>
+                                {/* <div className="col-3">
+                                    <label for="pdfFormFile" name="pdf" className="form-label">PDF</label>
                                     <input className="form-control" type="file" id="pdfFormFile"/>
+                                </div> */}
+
+                                <div className="col-3">
+                                    <label for="manuscriptFormFile" className="form-label" >Manuscript</label>
+                                    <input className="form-control" type="file" id="manuscriptFormFile"
+                                    name="manus" 
+                                    />
                                 </div>
 
                                 <div className="col-3">
-                                    <label for="manuscriptFormFile" className="form-label">Manuscript</label>
-                                    <input className="form-control" type="file" id="manuscriptFormFile"/>
+                                    <label for="posterFormFile" className="form-label" >Poster</label>
+                                    <input className="form-control" type="file" id="posterFormFile" name="poster"/>
                                 </div>
 
                                 <div className="col-3">
-                                    <label for="posterFormFile" className="form-label">Poster</label>
-                                    <input className="form-control" type="file" id="posterFormFile"/>
-                                </div>
-
-                                <div className="col-3">
-                                    <label for="sourcecodeFormFile" className="form-label">Source Code</label>
-                                    <input className="form-control" type="file" id="sourcecodeFormFile"/>
+                                    <label for="resourceImageFormFile" className="form-label">Resource Display Image</label>
+                                    <input className="form-control" type="file" id="resourceImageFormFile" name='display'/>
                                 </div>
                             </div>
 
                             <div className="row mt-3 mb-5">
-                                <div className="col-3">
-                                    <label for="resourceImageFormFile" className="form-label">Resource Display Image</label>
-                                    <input className="form-control" type="file" id="resourceImageFormFile"/>
-                                </div>
+                               
                             </div>
 
                             <button type="submit" className ="btn btn-primary mb-5">Save</button>
