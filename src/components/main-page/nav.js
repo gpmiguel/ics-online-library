@@ -189,7 +189,7 @@ class Navigation extends Component {
                             // isSignedIn = {true}
                         />
                         }
-                        {this.state.loggedin && <img src={this.state.iconUrl} className="rounded-circle img-fluid" alt="userIcon"/>}
+                        {this.state.loggedin && <img src={this.state.imageUrl} className="rounded-circle img-fluid" alt="userIcon"/>}
                     </div>
                 </div>
 	    </nav>
