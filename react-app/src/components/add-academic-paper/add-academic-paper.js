@@ -29,11 +29,9 @@ class AddAcademicPaper extends Component{
             degreetype: '',
             institution: '',
             adviser:[],
-            keyword:'',
-            
+            keyword:[],
             abstract: '',
             journal: '',
-            
             sourcecode: '',
         
         }
@@ -111,10 +109,59 @@ class AddAcademicPaper extends Component{
     
         console.log(acad_paper);
 
+        acad_paper.adviser.map(async (value) => {
+
+            const data = {adviser: value}
+
+            await axios.get(`http://localhost:3001/adviser/${value}`) ? 
+
+            await axios.post('http://localhost:3001/add-adviser',data)
+            .then(res => console.log("ADVISER ADDED")) :
+
+            console.log("ALREADY EXISTING - NO NEW SAVE")
+        })
+
+        acad_paper.author.map(async (value) => {
+
+            const data = {author: value}
+
+            await axios.get(`http://localhost:3001/author/${value.toUpperCase()}`) ? 
+
+            await axios.post('http://localhost:3001/add-author', data)
+            .then(res => console.log("AUTHOR ADDED")) :
+
+            console.log("ALREADY EXISTING - NO NEW SAVE")
+        })
+
+        acad_paper.subject.map(async (value) => {
+
+            const data = {subject: value}
+
+            await axios.get(`http://localhost:3001/subject/${value.toUpperCase()}`) ? 
+
+            await axios.post('http://localhost:3001/add-subject', data)
+            .then(res => console.log("SUBJECT ADDED")):
+
+            console.log("ALREADY EXISTING - NO NEW SAVE")
+        })
+
+        acad_paper.keyword.map(async (value) => {
+
+            const data = {keyword: value}
+
+            await axios.get(`http://localhost:3001/keyword/${value.toUpperCase()}`) ? 
+
+            await axios.post('http://localhost:3001/add-keyword', data)
+            .then(res => console.log("KEYWORD ADDED")):
+
+            console.log("ALREADY EXISTING - NO NEW SAVE")
+        })
     
-        axios.post('http://localhost:3001/add-academic-paper', acad_paper)
+        await axios.post('http://localhost:3001/add-academic-paper', acad_paper)
             .then(res => console.log(res.data));
 
+        alert("SAVED");
+        document.getElementById("form").reset();
     }
 
     render(){
@@ -132,7 +179,7 @@ class AddAcademicPaper extends Component{
                         {/* acad paper fields */}
                         
                         <div className="col-lg-10" >
-                        <form onSubmit={this.onSave} encType="multipart/form-data" >
+                        <form onSubmit={this.onSave} encType="multipart/form-data"  id="form">
                             <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Academic Paper</p>
                             
                             <label for="academicPaperTitleFormInput" className="form-label">Title</label>
@@ -162,6 +209,9 @@ class AddAcademicPaper extends Component{
                             <label className="form-label mt-3">Adviser</label>
                             <ReactTagInput tags={this.state.adviser} onChange={(newTags) => this.setState({ adviser: newTags })}/>
 
+                            <label className="form-label mt-3">Keywords</label>
+                            <ReactTagInput tags={this.state.keyword} onChange={(newTags) => this.setState({ keyword: newTags })}/>
+
                             <label for="academicPaperAbstract" className="form-label mt-3">Abstract</label>
                             <textarea className="form-control" id="academicPaperAbstract" rows="6" data-name="abstract" required onChange={this.onValueChange}></textarea>
 
@@ -171,10 +221,6 @@ class AddAcademicPaper extends Component{
 
                             {/* file uploads */}
                             <div className="row mt-3">
-                                {/* <div className="col-3">
-                                    <label for="pdfFormFile" name="pdf" className="form-label">PDF</label>
-                                    <input className="form-control" type="file" id="pdfFormFile"/>
-                                </div> */}
 
                                 <div className="col-3">
                                     <label for="manuscriptFormFile" className="form-label" >Manuscript</label>

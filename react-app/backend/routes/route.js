@@ -84,6 +84,7 @@ router.post('/manus', upload.single('manus'), (req, res) => {
     res.send({ success: false, file:req.file });
   });
 
+
   router.post('/maincopy', upload.single('maincopy'), (req, res) => {
     if (req.file) {
         
@@ -116,7 +117,7 @@ router.route('/add-academic-paper').post((req, res) => {
     const institution = req.body.institution;
     const adviser = req.body.adviser;
     const keyword = req.body.keyword;
-    const manuscript = req.file;
+    const manuscript = req.body.manuscript;
     const abstract = req.body.abstract;
     const journal = req.body.journal;
     const poster = req.body.poster;
@@ -190,17 +191,18 @@ router.route('/add-book').post((req, res) => {
     const subject = req.body.subject;
     const year = req.body.year;
     const pagecount = req.body.pagecount;
-    const resourcetype = req.body.resourcetype;
+    const resourcetype = "Book";
     const isbn = req.body.isbn;
     const publisher = req.body.publisher;
     const edition = req.body.edition;
     const maincopy = req.body.maincopy;
+    const keyword = req.body.keyword;
     const introduction = req.body.introduction;
     const displayimage = req.body.displayimage;
 
     const newBook = new Book({
         _id, title, author, subject, year, pagecount, resourcetype, isbn,
-        publisher, edition, maincopy, introduction, displayimage});
+        publisher, edition, maincopy, introduction, displayimage, keyword});
 
     newBook.save()
         .then(book_array => res.json('New Book Added!'))
@@ -214,7 +216,7 @@ router.route('/edit-book/:id').put((req, res) => {
         subject : req.body.subject,
         year : req.body.year,
         pagecount : req.body.pagecount,
-        resourcetype : req.body.resourcetype,
+        resourcetype : "Book",
         isbn : req.body.isbn,
         publisher : req.body.publisher,
         edition : req.body.edition,
@@ -271,12 +273,11 @@ router.route('/edit-user/:id').put(jsonParse, (req, res) => {
         firstname : req.body.firstname,
         email : req.body.email,
         usertype : req.body.usertype,
-        activityid : req.body.activityid,
         };
 
     // console.log(change_id, data, data_id);
 
-    User.findOneAndUpdate({_id: req.params.id}, data) .then(user => res.json({
+    User.findOneAndUpdate({_id: req.params.id}, {$set: data}) .then(user => res.json({
         message: 'User Updated!',
         data : data,
         find: req.params.id
@@ -348,14 +349,19 @@ router.route('/advisers').get((req, res)=>{
 
 });
 
+router.route('/adviser/:adviser').get((req, res)=>{
+    Adviser.findOne({adviser: req.params.adviser}).exec()
+})
+
 router.route('/add-adviser').post((req, res) => {           
     const _id =  String(mongoose.Types.ObjectId());
-    const advname = req.body.advname;
-    const resourceid = req.body.resourceid;
+    const adviser = req.body.adviser;
 
 
     const newAdviser = new Adviser({                       
-        _id, advname, resourceid});
+        _id, adviser});
+    
+
 
     newAdviser.save()                                       
         .then(adviser => res.json('New Adviser Added!'))
@@ -392,17 +398,38 @@ router.route('/add-activity-log').post((req, res) => {
 
 //AUTHORS
 router.route('/author/:author_id').get((req, res)=>{
-    Author.findById(mongoose.Types.ObjectId(req.params.author_id))
+    Author.findById(req.params.author_id)
     .then((author)=> {
         res.json(author);
-        console.log(ObjectId(req.params.author_id));
+        console.log(req.params.author_id);
     })
     .catch(err => res.status(400).json('Error: '+err));
 })
 
+router.route('/author/:author').get((req, res)=>{
+    Author.findOne({author: req.params.author}).exec()
+})
+
+router.route('/add-author').post((req, res)=>{
+    const _id =  String(mongoose.Types.ObjectId());
+    const author = req.body.author.toUpperCase();
+
+    const newAuthor = new Author({
+        _id, author
+    })
+
+    newAuthor.save().then(author_data => {
+        res.json({
+            message:'New Author Added!',
+            author: author
+        })
+    }).catch(err => res.status(400).json('Error: '+err));
+    
+})
+
 //SUBJECTS
 router.route('/subject/:subject_id').get((req, res)=>{
-    subject.findById(ObjectId(req.params.subject_id))
+    Subject.findById(req.params.subject_id)
     .then((subject)=> {
         res.json(subject);
         console.log(subject);
@@ -410,9 +437,30 @@ router.route('/subject/:subject_id').get((req, res)=>{
     .catch(err => res.status(400).json('Error: '+err));
 })
 
+router.route('/subject/:subject').get((req, res)=>{
+    Subject.findOne({subject: req.params.subject}).exec()
+})
+
+router.route('/add-subject').post((req, res)=>{
+    const _id =  String(mongoose.Types.ObjectId());
+    const subject = req.body.subject.toUpperCase();
+
+    const newSubject = new Subject({
+        _id, subject
+    })
+
+    newSubject.save().then(subject_data => {
+        res.json({
+            message:'New Author Added!',
+            subject: subject
+        })
+    }).catch(err => res.status(400).json('Error: '+err));
+    
+})
+
 //KEYWORDS
 router.route('/keyword/:keyword_id').get((req, res)=>{
-    keyword.findById(new ObjectId(req.params.keyword_id))
+    Keyword.findById(req.params.keyword_id)
     .then((keyword)=> {
         res.json(keyword);
         console.log(keyword);
@@ -420,6 +468,26 @@ router.route('/keyword/:keyword_id').get((req, res)=>{
     .catch(err => res.status(400).json('Error: '+err));
 })
 
+router.route('/keyword/:keyword').get((req, res)=>{
+    Keyword.findOne({keyword: req.params.keyword}).exec()
+})
+
+router.route('/add-keyword').post((req, res)=>{
+    const _id =  String(mongoose.Types.ObjectId());
+    const keyword = req.body.keyword.toUpperCase();
+
+    const newKeyword = new Keyword({
+        _id, keyword
+    })
+
+    newKeyword.save().then(keyword_data => {
+        res.json({
+            message:'New Keyword Added!',
+            keyword: keyword
+        })
+    }).catch(err => res.status(400).json('Error: '+err));
+    
+})
 
 
 

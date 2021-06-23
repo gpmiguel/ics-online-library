@@ -14,12 +14,12 @@ const academicPaperSchema = new Schema({
     institution: {type: String},
     adviser: {type: [String]},
     keyword: {type: [String]},
-    manuscript: {type: Object},
+    manuscript: {type: String},
     abstract: {type: String},
-    journal: {type: Object},
-    sourcecode: {type: Object},
-    poster: {type: Object},
-    displayimage: {type: Object},
+    journal: {type: String},
+    sourcecode: {type: String},
+    poster: {type: String},
+    displayimage: {type: String},
 }, {
     timestamps: true
 });

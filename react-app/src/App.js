@@ -27,9 +27,9 @@ function App() {
           <Route path="/add-book" exact component={() => <AddBook />} />
           <Route path="/search-results/:searched" exact component={() => <SearchPage />} />
           <Route path="/edit-faculty-and-staff" exact component={() => <EditFacultyAndStaff />} />
-          <Route path="/edit-resource" exact component={() => <EditResource />} />
-          <Route path="/academic-paper" exact component={() => <AcademicPaperResource />} />
-          <Route path="/book" exact component={() => <BookResource />} />
+          <Route path="/edit-resource/:val" exact component={() => <EditResource />} />
+          <Route path="/academic-paper/:id" exact component={() => <AcademicPaperResource />} />
+          <Route path="/book/:id" exact component={() => <BookResource />} />
           <Route path="/add-faculty-and-staff" exact component={() => <AddFacultyAndStaff />} />
           <Route path="/announcement-page" exact component={() => <AnnouncementPage />} />
         </Switch>

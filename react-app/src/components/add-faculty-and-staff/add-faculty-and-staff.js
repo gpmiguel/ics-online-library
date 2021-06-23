@@ -84,7 +84,7 @@ class AddFacultyAndStaff extends Component{
                             <input type="email" className="form-control mb-3" id="emailFormInput" data-name="email" required onChange={this.onValueChange}/>
 
                             <label for="emailFormInput" className="form-label mt-3">User Type</label>
-                            <input type="usertype" className="form-control mb-3" id="emailFormInput" data-name="usertype" required onChange={this.onValueChange}/>
+                            <input type="usertype" placeholder="Faculty or Staff" className="form-control mb-3" id="emailFormInput" data-name="usertype" required onChange={this.onValueChange}/>
 
                             <button type="submit" className ="btn btn-primary mt-2">Add</button>
                             </form>

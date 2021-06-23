@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import '../../css/main.css';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import JSONDATA from './MOCK_DATA2.json';
 import {useState, useRef} from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -18,9 +17,9 @@ const SearchPageBody = () => {
 
 
     useEffect(async () => {
-        document.title = 'Search Page';
+        // document.title = 'Search Page';
         var temp;
-
+		setTerm(searched);
 
 		await axios.get('http://localhost:3001/books')
 				.then(res => {
@@ -56,16 +55,6 @@ const SearchPageBody = () => {
     	}		
 	}
 
-	
-	const getAuthor = async (author_id) => {
-		await axios
-		  .get(`http://localhost:3001/author/${author_id}`)
-		  .then(res => {
-			  return res.data.author
-		  })
-		  .catch(err => console.error(err));
-	}
-
     return (
         <div className="container">
 			<div className="row search-row">
@@ -79,24 +68,28 @@ const SearchPageBody = () => {
 						setData(data.sort((a, b) => a.title.localeCompare(b.title)))
 					}} href="search.html">Title</button> </li>
 
+
 					<li><button className = "left-bar" name="author" onClick={(e) =>{
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
 						// for now sorts by author; on actual data, use a.{sort} b.{sort}
 						setData(data.sort((a, b) =>{
  						if(typeof a.author[0] !== 'undefined' && typeof b.author[0] !== 'undefined'){
-							a.author[0].toString().localeCompare(b.author[0].toString())
+							a.author[0].localeCompare(b.author[0])
 						}							
 						}))
 					}} href="#">Author</button></li>
-					<li><button className = "left-bar" name="id" onClick={(e) =>{
+
+
+					<li><button className = "left-bar" name="year" onClick={(e) =>{
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
 						// for now sorts by date; on actual data, use a.{sort} b.{sort}
-						setData(data.sort((a, b) => a.userId - b.userId));
-					}} href="#">Date Published</button></li>
+						setData(data.sort((a, b) => a.year - b.year));
+					}} href="#">Year</button></li>
 				</ul>
-
+				
+				{/* NON FUNCTIONAL */}
 				<span className="side-search-title"> Filter By: </span>
 				<div className="dropdown">
 					<a className="btn btn-secondary dropdown-toggle filter filter-arrange" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="true"> Title </a>
@@ -167,7 +160,7 @@ const SearchPageBody = () => {
 							</ul>
 						</div>
 						<form name="resultForm" ref={searchForm} onKeyPress={handleKeyPressEvent}>
-							<input type="search" class="form-control rounded" placeholder={searched} aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
+							<input type="search" class="form-control rounded" placeholder={term} aria-label="Search" aria-describedby="search-addon" name={'searchTerm'} />
 						</form>
 						<button type="button" class="btn btn-primary btn-md col-md-2" onClick={handleClickEvent}>search</button>
 						<div className="col-10">
@@ -181,11 +174,11 @@ const SearchPageBody = () => {
 								}
 								{/*displays the first name and last name of the mock data as of now*/ }
 							}).map((val, key) => {
-								return (
+								return ( 
 									<div>
 										<br></br>
 										<p><Link style={{ fontSize: 30, color: 'blue' }} to={{
-											pathname : val.resourcetype === "Book" ? `/book` : `/academic-paper`,
+											pathname : val.resourcetype === "Book" ? `/book/${val._id}` : `/academic-paper/${val._id}`,
 											state: {
 												val : val
 											}
@@ -193,10 +186,10 @@ const SearchPageBody = () => {
 										}}>{val.title}</Link>
 											<div>
 												<p>
-													Authors: {typeof val.author === 'undefined' ? "None" : val.author.map(author => `${author}, `)}
+													Authors: {typeof val.author === 'undefined' ? "None" : val.author.map(author => `${author} `)}
 													<br></br>Year Published: {typeof val.year === 'undefined' ? "None" : val.year}
 													<br></br>Resource Type: {val.resourcetype} 
-													<br></br>Subject: {typeof val.subject === 'undefined' ? "None" : val.subject.map(subs => `${subs}, `)}
+													<br></br>Subject: {typeof val.subject === 'undefined' ? "None" : val.subject.map(subs => `${subs} `)}
 
 												</p>
 											</div>

@@ -1,20 +1,26 @@
-import React from 'react'
-import '../../css/main.css';
+import React, { useEffect, useState } from 'react';import '../../css/main.css';
 import bookpic from "../../img/photo_holder.png";
 import { Link, useLocation, withRouter } from "react-router-dom";
 import Nav from '../main-page/nav';
 import Footer from '../main-page/footer';
+import EditBody from '../edit-resource/body'
 
 export default function BookResource() {
 
 
     const {val} = useLocation().state;
-
+    const [image, setImage] = useState(val.displayimage)
+    const [pdf, setPdf] = useState(val.maincopy)
+    const [isEdit, setEdit] = useState(false)
     
     return (
         <div>
             <Nav />
-            <div className="container-fluid">
+
+            {
+                isEdit ? <EditBody data = {val}/> :   
+                <div>
+                <div className="container-fluid">
                 <div className="col-md-8 offset-md-1" id="edit-yellow"> 
                     <Link type="button" className="btn btn-primary mr-3" id="edit-yellow" to={`/search-results/ `}>Back</Link>
                 </div>
@@ -30,8 +36,8 @@ export default function BookResource() {
                         <p>Edition: {val.edition}</p>
                         <p>Resource Type: {val.resource_type}</p>
                         <p>Subject: {val.subject}</p>
-                        <p>Other info: {val.pagecount} pages</p>
-                        <p>Introduction: {val.abstract}</p>
+                        <p>Page Count: {val.pagecount} pages</p>
+                        <p>Synopsis: {val.introduction}</p>
                     </div>
                     <div className="col-md-4 justify-content-center">
                         <img src={val.displayimage ? val.displayimage : bookpic} height="500px" width="355x" alt="Book" />
@@ -43,8 +49,16 @@ export default function BookResource() {
                 </div>
             </div>
             <div className="col-md-2 offset-md-10" id="edit-blue">
-                <button type="button" className="btn btn-blue btn-md col-md-14">Edit Resource</button>
+                <button type="button" className="btn btn-blue btn-md col-md-14" onClick={() => setEdit(true)}>Edit Resource</button>
             </div>
+                </div>
+
+                
+
+            }
+
+            
+            
             <Footer />
         </div>
     )

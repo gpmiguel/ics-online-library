@@ -14,11 +14,12 @@ const bookSchema = new Schema({
         isbn10: {type: String},
         isbn13: {type: String},
     },
+    keyword: {type: [String]} ,
     publisher: {type: String},
     edition: {type: String},
-    maincopy: {type: Object},
+    maincopy: {type: String},
     introduction: {type: String},
-    displayimage: {type: Object}
+    displayimage: {type: String}
 },{
     timestamps: true
 });

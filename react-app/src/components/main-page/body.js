@@ -10,11 +10,11 @@ class Body extends Component {
 	}
 
 	search = (data) => {
-		console.log("SEARCH FOR", data);
+		// console.log("SEARCH FOR", data);
 	}
 
-	handleChange = (data)=>{
-		this.setState({search_item: this.state.search_item + data.nativeEvent.data})
+	handleChange = (e)=>{
+		this.setState({ [e.target.name]: e.target.value })
 	}
 
     render() {
@@ -24,18 +24,12 @@ class Body extends Component {
 				backgroundImage: `url(${MainBG})`,
 				height: '550px'}}>
 				<div className = "input-group col-md-10 main-search">
-					{/* <div className="dropdown">
-						<a className="btn btn-secondary dropdown-toggle filter" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> Filter </a>
-						<ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<li><a className="dropdown-item">Keyword</a></li>
-							<li><a className="dropdown-item">Title</a></li>
-							<li><a className="dropdown-item">Author</a></li>
-							<li><a className="dropdown-item">Subject</a></li>
-						</ul>
-					</div> */}
-					<input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onChange={this.handleChange} onKeyDown={(e) => {
+
+					<input type="search" className="form-control rounded" placeholder="Search" aria-label="Search"  name = "search_item" aria-describedby="search-addon" onChange={e => this.handleChange(e)} onKeyDown={(e) => {
 						if(e.key === 'Enter'){
 							this.search(this.state.search_item)
+							console.log("enter")
+							window.location.href =`/search-results/${this.state.search_item}` ;
 						}
 						}}
 						to={`/search-results/${this.state.search_item}`}

@@ -23,14 +23,16 @@ const EditFacultyAndStaff = () =>{
     const [first_name_val, setfirst_name_val] = useState('');
     const [last_name_val, setlast_name_val] = useState('');
     const [email_val, setemail_val] = useState('');
+    const [usertype_val, setusertype_val] = useState('');
     const [data, setData] = useState([]);
+    const [id, setId] = useState('');
 
     useEffect(async () => {
         await axios.get('http://localhost:3001/users')
             .then(res => {
-                console.log("GET Adviser");
+                console.log("GET User");
                 console.log(res.data);
-                setData(res.data.filter(e => (e.usertype === "Faculty" || e.usertype === "Staff" || e.usertype === "Admin") ));
+                setData(res.data.filter(e => (e.usertype === "Faculty" || e.usertype === "Staff") ));
                 
             })
             .catch(err => console.error(err));
@@ -49,10 +51,12 @@ const EditFacultyAndStaff = () =>{
 
     const openEdit=(idx)=>{//passes the id edit row clicked
         const e = data.find(e => e._id === idx);
+        setId(e._id)
         //gets the value of the json data from the id 
         setfirst_name_val(e.firstname);
         setlast_name_val(e.lastname);
         setemail_val(e.email);
+        setusertype_val(e.usertype);
         setIsOpenModal(true);
     };
 
@@ -60,8 +64,23 @@ const EditFacultyAndStaff = () =>{
         setIsOpenModal(false);
     };
 
-    const editSave = () =>{
-        
+    const editSave = async (idx) =>{
+        const fname =  document.getElementById("first_name_edit").value
+        const lname =  document.getElementById("last_name_edit").value
+        const email =  document.getElementById("email_edit").value
+        const usertype =  document.getElementById("usertype_edit").value
+
+        const editUser = {
+            lastname : lname,
+            firstname : fname,
+            email : email,
+            usertype : usertype,
+
+        }
+
+        await axios.put(`http://localhost:3001/edit-user/${idx}`, editUser)
+
+        setIsOpenModal(false);
     }
 
         return(
@@ -120,16 +139,18 @@ const EditFacultyAndStaff = () =>{
                     </button>
                 </Modal.Header>
                 <Modal.Body>
-                    <label for="first_name_edit" className="form-label">First name</label>
+                    <label for="first_name_edit" className="form-label" >First name</label>
                     <input type="text" className="form-control" require placeholder = {first_name_val} id="first_name_edit"/>
                     <label for="last_name_edit" className="form-label">Last name</label>
                     <input type="text" className="form-control" require placeholder = {last_name_val} id="last_name_edit"/>
                     <label for="email" className="form-label">Email</label>
                     <input type="email" className="form-control" require placeholder = {email_val} id="email_edit"/>
+                    <label for="email" className="form-label">Type</label>
+                    <input type="text" className="form-control" require placeholder = {usertype_val} id="usertype_edit"/>
                 </Modal.Body>
                 <Modal.Footer>
                     <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={ () => {closeEdit();}}>Close</button>
-                    <button type="button" className="btn btn-primary">Save changes</button>
+                    <button type="button" className="btn btn-primary" onClick={ () => {editSave(id);}}>Save changes</button>
                 </Modal.Footer>
             </Modal>
             <Footer/>

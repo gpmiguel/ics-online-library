@@ -29,6 +29,7 @@ class AddBook extends Component{
             edition: '',
             isbn:[],
             introduction:'',
+            keyword: [],
             mainCopy: '',
             resourceImage: '',
         }
@@ -60,7 +61,7 @@ class AddBook extends Component{
 
         var files =[];
 
-        const {title, author, subject, year, pagecount, publisher, edition, isbn, introduction} = this.state
+        const {title, author, subject, year, pagecount, publisher, edition, isbn, introduction, keyword} = this.state
 
         await axios.post('http://localhost:3001/display', display_data)
         .then(res => {
@@ -89,12 +90,52 @@ class AddBook extends Component{
             introduction:introduction,
             maincopy: files[1],
             displayimage: files[0],
+            keyword: keyword
         }
+
+        book.author.map(async (value) => {
+
+            const data = {author: value}
+
+            await axios.get(`http://localhost:3001/author/${value.toUpperCase()}`) ? 
+
+            await axios.post('http://localhost:3001/add-author', data)
+            .then(res => console.log("AUTHOR ADDED")) :
+
+            {exist: true}
+        })
+
+        book.subject.map(async (value) => {
+
+            const data = {subject: value}
+
+            await axios.get(`http://localhost:3001/subject/${value.toUpperCase()}`) ? 
+
+            await axios.post('http://localhost:3001/add-subject', data)
+            .then(res => console.log("SUBJECT ADDED")):
+
+            {exist: true}
+        })
+
+        book.keyword.map(async (value) => {
+
+            const data = {keyword: value}
+
+            await axios.get(`http://localhost:3001/keyword/${value.toUpperCase()}`) ? 
+
+            await axios.post('http://localhost:3001/add-keyword', data)
+            .then(res => console.log("KEYWORD ADDED")):
+
+            {exist: true}
+        })
 
         await axios.post('http://localhost:3001/add-book', book)
             .then(res => console.log(res.data));
 
-
+        
+        alert("SAVED");
+        document.getElementById("form").reset();
+        
     }
 
     render(){
@@ -111,7 +152,7 @@ class AddBook extends Component{
                     
                         {/* book fields */}
                         <div className="col-lg-10">
-                        <form onSubmit={this.onSave} encType="multipart/form-data">
+                        <form onSubmit={this.onSave} encType="multipart/form-data" id= "form">
                                 <p className="text-center yellow-title-header mt-3 mb-1 head-text" style={{fontSize: "48px"}}>Add Book</p>
                                 
                                 <label for="bookTitleFormInput" className="form-label">Title</label>
@@ -121,7 +162,10 @@ class AddBook extends Component{
                                 <ReactTagInput tags={this.state.author} onChange={(newTags) => this.setState({ author: newTags })} />
                                
                                 <label className="form-label mt-3">Subject</label>
-                                <ReactTagInput tags={this.state.subject} onChange={(newTags) => this.setState({ subject: newTags })} />                              
+                                <ReactTagInput tags={this.state.subject} onChange={(newTags) => this.setState({ subject: newTags })} />
+
+                                <label className="form-label mt-3">Keywords</label>
+                                <ReactTagInput tags={this.state.keyword} onChange={(newTags) => this.setState({ keyword: newTags })} />                                
 
                                 <label for="yearpublishedFormInput" className="form-label mt-3">Year Published</label>
                                 <input type="number" className="form-control" id="yearpublishedFormInput" data-name="year" required onChange={this.onValueChange}/>
@@ -139,7 +183,7 @@ class AddBook extends Component{
                                 <label for="isbnFormInput" className="form-label mt-3">ISBN10 and ISBN13</label>
                                 <ReactTagInput maxTags={2} tags={this.state.isbn} onChange={(newTags) => this.setState({ isbn: newTags })} />        
 
-                                <label for="introductionFormInput" className="form-label mt-3">Introduction</label>
+                                <label for="introductionFormInput" className="form-label mt-3">Synopsis</label>
                                 <textarea className="form-control" id="introductionFormInput" rows="6" data-name="introduction" required onChange={this.onValueChange}></textarea>
 
                             

@@ -4,9 +4,7 @@ const Schema = mongoose.Schema;
 
 const keywordSchema = new Schema({
     _id : {type: String},
-    userid : {type: String},
-    activitytype: {type: String},
-    action: {type: String},
+    keyword : {type: String},
 },{timestamps: true}
 
 );
