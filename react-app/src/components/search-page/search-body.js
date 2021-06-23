@@ -73,11 +73,10 @@ const SearchPageBody = () => {
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
 						// for now sorts by author; on actual data, use a.{sort} b.{sort}
-						setData(data.sort((a, b) =>{
- 						if(typeof a.author[0] !== 'undefined' && typeof b.author[0] !== 'undefined'){
-							a.author[0].localeCompare(b.author[0])
-						}							
-						}))
+						setData(data.sort((a, b) =>
+ 						 a.author[0].localeCompare(b.author[0])				
+
+						))
 					}} href="#">Author</button></li>
 
 
@@ -85,7 +84,7 @@ const SearchPageBody = () => {
 						setSort(e.target.name);
 						// localeCompare ensures that sorting ignores case, unintended symbols, etc.
 						// for now sorts by date; on actual data, use a.{sort} b.{sort}
-						setData(data.sort((a, b) => a.year - b.year));
+						setData(data.sort((a, b) => (a.year > b.year) ? 1 : -1));
 					}} href="#">Year</button></li>
 				</ul>
 				
@@ -178,7 +177,7 @@ const SearchPageBody = () => {
 									<div>
 										<br></br>
 										<p><Link style={{ fontSize: 30, color: 'blue' }} to={{
-											pathname : val.resourcetype === "Book" ? `/book/${val._id}` : `/academic-paper/${val._id}`,
+											pathname : val.resourcetype === "Book" ? `/book/${val}` : `/academic-paper/${val}`,
 											state: {
 												val : val
 											}

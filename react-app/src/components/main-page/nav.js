@@ -16,7 +16,7 @@ class Navigation extends Component {
         ids: "",
         resources : this.props.resources,
         loggedin: false,
-        isAdmin: false,
+        userType: '',
         iconUrl: ""
     }
 
@@ -26,25 +26,28 @@ class Navigation extends Component {
 
         var log;
         const upmail = res_google.profileObj.email.includes("@up.edu.ph")
-        console.log(upmail);
+        console.log('UPMAIL', upmail);
 
+        if(upmail === false){
+            this.newGuest()
+            return 
+        }
 
         await axios
         .get(`http://localhost:3001/auth/${res_google.profileObj.email}`
         )
         .then(res =>{ 
-            upmail ?
+            console.log("RES", res)
             this.setState({
                 current_user: res.data,
                 ids: res.data._id,
                 resources: this.state.resources,
                 loggedin: true,
-                isAdmin: (res.data.usertype == "Admin"),
+                usertype: res.data.usertype,
                 iconUrl: res_google.profileObj.imageUrl
     
             })
-            :
-            this.newGuest();
+
             
             log = {
                 userid : this.state.ids,
@@ -170,7 +173,7 @@ class Navigation extends Component {
                 <div className="collapse navbar-collapse " id="navbarContent">
                     <div className="navbar-nav ml-auto">
                         <Link className = " nav-item nav-link active nav-buttons" to="/search-results/ ">Search</Link> 
-                        {this.state.isAdmin && <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>}
+                        {this.state.usertype === "Admin" && <Link className = " nav-item nav-link active nav-buttons " to="/admin-dashboard">Admin</Link>}
                         {
                         this.state.loggedin ? 
                           <GoogleLogout
@@ -189,7 +192,7 @@ class Navigation extends Component {
                             // isSignedIn = {true}
                         />
                         }
-                        {this.state.loggedin && <img src={this.state.iconUrl} className="rounded-circle img-fluid" alt="userIcon"/>}
+                        {/* {this.state.loggedin && <img src={this.state.iconUrl} className="rounded-circle img-fluid" alt="userIcon"/>} */}
                     </div>
                 </div>
 	    </nav>

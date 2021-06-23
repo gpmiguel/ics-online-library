@@ -295,7 +295,6 @@ router.route('/delete-user/:id').get((req, res)=>{
 })
 
 
-//TODO: change email to ID
 router.route('/auth/:email').get((req, res)=>{
     User.findOne({email: req.params.email})
     .then((user)=> {

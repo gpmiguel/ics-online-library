@@ -69,7 +69,7 @@ export default function AcademicPaper() {
                         <img src={val.displayimage ? image : bookpic} height="500px" width="355x" alt={val.displayimage} />
                         <p></p>
                         <div className="text-center">
-                            <a type="button" className="btn btn-primary btn-md mr-3" href={`pdf/${pdf}`} target='_blank'>Manuscript</a>
+                            <a type="button" className="btn btn-primary btn-md mr-3" href={pdf} target='_blank'>Manuscript</a>
                             <a type="button" className="btn btn-primary btn-md" href={val.sourcecode} target='_blank'>Source Code</a>
                         </div>
                     </div>

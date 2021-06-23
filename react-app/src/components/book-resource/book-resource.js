@@ -4,6 +4,8 @@ import { Link, useLocation, withRouter } from "react-router-dom";
 import Nav from '../main-page/nav';
 import Footer from '../main-page/footer';
 import EditBody from '../edit-resource/body'
+import axios from 'axios';
+
 
 export default function BookResource() {
 
@@ -12,6 +14,25 @@ export default function BookResource() {
     const [image, setImage] = useState(val.displayimage)
     const [pdf, setPdf] = useState(val.maincopy)
     const [isEdit, setEdit] = useState(false)
+
+    useEffect( async () => {
+        await axios.get(`http://localhost:3001/image/${image}`).then(
+             image => {
+                console.log(image.config.url)
+                setImage(image.config.url)
+                
+             }
+         )
+
+        await axios.get(`http://localhost:3001/pdf/${pdf}`).then(
+            pdf => {
+               console.log(pdf.config.url)
+               setPdf(pdf.config.url)
+               alert("File can be accessed")
+               
+            }
+        )
+    }, [])
     
     return (
         <div>
@@ -29,21 +50,23 @@ export default function BookResource() {
                     </div>
                     <div className="col-md-6">
                         <h1 className="text-left text-warning mt-3 mb-1" style={{ fontSize: "36px" }}>{val.title}</h1>
-                        <label className="text-left text-primary mt-1 mb-1" style={{ fontSize: "25px" }}>{val.author},</label>
+                        <label className="text-left text-primary mt-1 mb-1" style={{ fontSize: "25px" }}>{val.author.map(aut => `${aut} `)},</label>
                         <p></p>
-                        <p>Year published: {val.year}</p>
-                        <p>Publisher: {val.publisher}</p>
-                        <p>Edition: {val.edition}</p>
-                        <p>Resource Type: {val.resource_type}</p>
-                        <p>Subject: {val.subject}</p>
-                        <p>Page Count: {val.pagecount} pages</p>
-                        <p>Synopsis: {val.introduction}</p>
+                        <p><b>Year published:</b> {val.year}</p>
+                        <p><b>Publisher:</b> {val.publisher}</p>
+                        <p><b>Edition:</b> {val.edition}</p>
+                        <p><b>Resource Type:</b> {val.resourcetype}</p>
+                        <p><b>ISBN10:</b> {val.isbn.isbn10}</p>
+                        <p><b>ISBN13:</b> {val.isbn.isbn13}</p>
+                        <p><b>Subject:</b> {val.subject.map(subs => `${subs} |`)}</p>
+                        <p><b>Page Count:</b> {val.pagecount} pages</p>
+                        <p><b>Synopsis:</b> {val.introduction}</p>
                     </div>
                     <div className="col-md-4 justify-content-center">
-                        <img src={val.displayimage ? val.displayimage : bookpic} height="500px" width="355x" alt="Book" />
+                        <img src={val.displayimage ? image : bookpic} height="500px" width="355x" alt={val.displayimage}/>
                         <p></p>
                         <div className="text-center" >
-                            <button type="button" className="btn btn-primary btn-md mr-3">Main Copy</button>
+                            <a type="button" className="btn btn-primary btn-md mr-3" href={pdf} target='_blank'>Main Copy</a>
                         </div>
                     </div>
                 </div>
